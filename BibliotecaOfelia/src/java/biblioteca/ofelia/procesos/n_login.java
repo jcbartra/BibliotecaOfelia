@@ -43,6 +43,7 @@ public class n_login {
     {
         try
         {
+           val=0; 
            int i=0;
            int e=0;
            conn=tran.getConnection();
