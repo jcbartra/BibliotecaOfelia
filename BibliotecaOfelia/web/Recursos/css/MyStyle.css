@@ -1,0 +1,97 @@
+@font-face {
+    font-family: Exo2-ExtraBold;
+    src: url(../fonts/Exo2-ExtraBold.otf);
+}
+input,label,span{
+    transition: .8s;
+}
+
+html,body{
+    height:100%;
+    width:100%;
+    margin: 0px;
+    padding: 0px;
+    font-size: 15px;
+}
+
+h2{
+    height:50px;
+    width:100%;
+    position: relative;
+    font-family: Exo2-ExtraBold;
+    font-size: 50px;
+    color: #ffffff;
+    text-shadow: -2px -2px 1px #000, 2px 2px 1px #000, -2px 2px 1px #000, 2px -2px 1px #000;
+}
+h4{
+    position: relative;
+    height:10px;
+    width:100%;
+    margin-top: 10px;
+    font-family: Exo2-ExtraBold;
+    color: #ffffff;
+    text-shadow: -2px -2px 1px #000, 2px 2px 1px #000, -2px 2px 1px #000, 2px -2px 1px #000;
+}
+.bbl{
+    color: #ffffff;
+}
+
+.fondo-walpaper{
+    background: url(../img/Qu%C3%A9%20significa%20para%20vos%20una%20biblioteca.jpg) no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    width: 100% ;
+    text-align: center;
+    z-index: 3;
+}
+
+.formulario{
+
+    background: #f5f5f5;
+    margin-top: 70px;
+    border-radius: 10px;
+    border-bottom: 4px #b51b1b solid;
+    border-top: 4px #19913e solid;
+    height: 100%;
+    padding: 30px;
+    -webkit-box-shadow: 22px 22px 30px -11px rgba(0,0,0,1);
+    -moz-box-shadow: 22px 22px 30px -11px rgba(0,0,0,1);
+    box-shadow: 22px 22px 30px -11px rgba(0,0,0,1);
+}
+.icon{
+    height: 150px;
+    width: 170px;
+    padding: 12px;
+    margin-top: -100px;
+    border-radius: 200%;
+
+
+}
+.entrar{
+    background: #d9534f;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    border: 2px #cb403b solid;
+    color: #FFF;
+    font-weight: bold;
+
+}
+.entrar:hover{
+    background: #c74743;
+    height: 50px;
+    width: 100px;
+    border-radius: 10px;
+    border: 2px #cb403b solid;
+    color: #FFF;
+    font-weight: bold;
+
+}
+.alerta-error{
+    color:#a94442 ;
+    font-weight: bold;
+    border-radius: 10px;
+}
