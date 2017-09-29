@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : 23/04/2017, 12:00:20 AM
-    Author     : Alexander_BV pack
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="alerta" scope="request" class="java.lang.String"/>
 <!DOCTYPE html>

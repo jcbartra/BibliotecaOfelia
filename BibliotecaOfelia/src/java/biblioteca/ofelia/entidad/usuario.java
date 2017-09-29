@@ -17,6 +17,8 @@ public class usuario {
     String usuario;
     String clave;
     String estado;
+    String rol;
+    String foto;
 
     public usuario() {
     }
@@ -68,6 +70,24 @@ public class usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    
     
     
     

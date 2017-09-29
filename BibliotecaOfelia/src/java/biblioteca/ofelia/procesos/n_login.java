@@ -97,5 +97,54 @@ public class n_login {
              }
         
     }
+    public void Buscar_datos__usuario()
+    {
+        try
+        {
+           val=0; 
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select persona, usuario, rol, foto from login where usuario=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+us.getUsuario());
+           ResultSet rs=ps.executeQuery();
+           if(rs.next())
+            {
+                us.setIdpersona(rs.getString("persona"));
+                us.setUsuario(rs.getString("usuario"));
+                us.setRol(rs.getString("rol"));
+                us.setFoto(rs.getString("foto"));
+                
+                val=1;
+            }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        
+    }
     
 }

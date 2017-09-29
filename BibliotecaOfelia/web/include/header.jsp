@@ -1,8 +1,13 @@
-<%-- 
-    Document   : header
-    Created on : 04/06/2017, 08:10:26 AM
-    Author     : Jeison E. Sanchez C
---%>
+<%
+String nombre=(String)session.getAttribute("nombre");
+String rol=(String)session.getAttribute("rol");
+String usuario=(String)session.getAttribute("usuario");
+String foto=(String)session.getAttribute("foto");
+
+//out.println(session.getAttribute("nombre")+" "+session.getAttribute("rol")+" "+session.getAttribute("usuario")+" "+session.getAttribute("foto"));
+
+
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="usuarioSesion" scope="session" class="java.lang.String"/>
@@ -28,16 +33,16 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="Recursos/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <span class="hidden-xs"><%= usuarioSesion%></span>
+                        <img src="<%=foto%>" class="user-image" alt="User Image">
+                        <span class="hidden-xs"><%=nombre%></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="Recursos/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                             <img src="<%=foto%>" class="img-circle" alt="User Image"><br/><%=nombre%>
 
                             <p>
-                                <%= usuarioSesion%> - ADMIN
+                                <%=rol%>
                                 <small>OFELIA VELASQUEZ</small>
                             </p>
                         </li>

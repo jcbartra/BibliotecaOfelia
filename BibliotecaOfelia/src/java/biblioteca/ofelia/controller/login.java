@@ -61,7 +61,7 @@ public class login extends HttpServlet {
                 out.println("El usuario es correcto pero no la contraseña");
             }else if(nl.val==2)
             {
-                response.sendRedirect("Inicio.jsp");
+                response.sendRedirect("session_usuario.jsp?usuario="+usuario);
                 out.println("El usuario y la contraseña son correctos");
             }else
             {

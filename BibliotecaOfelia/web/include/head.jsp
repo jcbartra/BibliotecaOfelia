@@ -1,3 +1,5 @@
+<%@ page import="biblioteca.ofelia.procesos.*,biblioteca.ofelia.entidad.*"%>
+<%@ page import= "java.util.ArrayList"%> 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
