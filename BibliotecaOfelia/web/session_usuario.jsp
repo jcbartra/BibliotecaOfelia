@@ -19,7 +19,6 @@ if(nl.val==1)
     session.setAttribute("usuario", us.getUsuario());
     session.setAttribute("foto", us.getFoto());
     response.sendRedirect("Inicio.jsp");
-    out.println("Prueba de reposición");
 }
 
 %>

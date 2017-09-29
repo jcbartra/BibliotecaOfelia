@@ -5,8 +5,7 @@
  */
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.*;
-import static biblioteca.ofelia.procesos.n_login.val;
+import biblioteca.ofelia.entidad.categoria;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
@@ -49,12 +48,14 @@ public class n_categoria {
            int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select nro nroini, nro+99 nrofin, nombre, descripcion, color, icono from categoria where estado='1' order by idcategoria";
+           qry="select idcategoria as id, nro nroini, nro+99 nrofin, nombre, descripcion, color, icono from categoria where estado='1' order by idcategoria";
+            System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
                    {
                        categoria ct=new categoria();
+                       ct.setIdcategoria(rs.getString("id"));
                        ct.setNroini(rs.getString("nroini"));
                        ct.setNrofin(rs.getString("nrofin"));
                        ct.setNombre(rs.getString("nombre"));
@@ -87,7 +88,7 @@ public class n_categoria {
              }
         return consulta;
     }
-    
+        
     
     
 }

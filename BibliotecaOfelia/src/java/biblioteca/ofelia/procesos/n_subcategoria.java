@@ -5,22 +5,21 @@
  */
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.usuario;
+import biblioteca.ofelia.entidad.subcategoria;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
-
-public class n_login {
+public class n_subcategoria {
     
     DBConn tran=null;
     Connection conn=null;
     String qry,qry2;//almacena la transacción
     public static int val;//definir si la transacción tuvo éxito
     
-    usuario us=new usuario();
-    
-    public n_login(){
-           tran=new DBConn();
+    subcategoria sc=new subcategoria();
+
+    public n_subcategoria() {
+        tran=new DBConn();
     }
     
     private String MError= new String();
@@ -31,16 +30,17 @@ public class n_login {
    return MError;
     }
 
-    public usuario getUs() {
-        return us;
+    public subcategoria getSc() {
+        return sc;
     }
 
-    public void setUs(usuario us) {
-        this.us = us;
+    public void setSc(subcategoria sc) {
+        this.sc = sc;
     }
     
-    public void Buscar_usuario()
-    {
+        
+    public ArrayList Subcategorias_Generales(){
+        ArrayList consulta=new ArrayList();
         try
         {
            val=0; 
@@ -48,83 +48,22 @@ public class n_login {
            int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select usuario from usuario where usuario=? and estado='1'";
-           PreparedStatement ps1= conn.prepareStatement(qry);
-           ps1.setString(++i,""+us.getUsuario());
-           ResultSet rs1=ps1.executeQuery();
-           if(rs1.next())
-                   {
-                       val=1;
-                       qry2="select rol,persona from login where usuario=? and clave=? ";
-                       PreparedStatement ps2= conn.prepareStatement(qry2);
-                       ps2.setString(++e,""+us.getUsuario());
-                       ps2.setString(++e,""+us.getClave());
-                       ResultSet rs2=ps2.executeQuery();
-                       if(rs2.next())
-                       {
-                           us.setIdrol(rs2.getString("rol"));
-                           us.setIdpersona(rs2.getString("persona"));
-                           val=2;
-                       }
-                       rs2.close();
-                       ps2.close();
-                   }
-           rs1.close();
-           ps1.close();
-           conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
-        }
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-        
-    }
-    public void Buscar_datos__usuario()
-    {
-        try
-        {
-           val=0; 
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select persona, usuario, rol, foto from login where usuario=?";
+           qry="select id,categoria, nro, nombre from vista_subcategoria";
+            //System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+us.getUsuario());
            ResultSet rs=ps.executeQuery();
-           if(rs.next())
-            {
-                us.setIdpersona(rs.getString("persona"));
-                us.setUsuario(rs.getString("usuario"));
-                us.setRol(rs.getString("rol"));
-                us.setFoto(rs.getString("foto"));
-                
-                val=1;
-            }
+           while(rs.next())
+                   {
+                       subcategoria sct=new subcategoria();
+                       sct.setIdsubcategoria(rs.getString("id"));
+                       sct.setIdcategoria(rs.getString("categoria"));
+                       sct.setNro(rs.getString("nro"));
+                       sct.setNombre(rs.getString("nombre"));
+                       consulta.add(sct);
+                   }
            rs.close();
            ps.close();
            conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
         }
          catch(SQLException e){
                      try{
@@ -144,7 +83,59 @@ public class n_login {
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
-        
+        return consulta;
     }
+    
+    public ArrayList Subcategorias_Especifica(String id){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0;
+           int i=0;
+           int e=0;
+           String cat="";
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+            System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
+           qry="select id,categoria, nro, nombre from vista_subcategoria where subid=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+id);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {System.out.println(rs.getString("nombre"));
+                        subcategoria sct=new subcategoria();
+                        sct.setIdsubcategoria(rs.getString("id"));
+                        sct.setIdcategoria(rs.getString("categoria"));
+                        sct.setNro(rs.getString("nro"));
+                        sct.setNombre(rs.getString("nombre"));
+                        consulta.add(sct);
+                       
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
+    
     
 }
