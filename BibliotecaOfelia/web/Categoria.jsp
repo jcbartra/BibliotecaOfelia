@@ -12,8 +12,16 @@
         subcategoria sc=new subcategoria();
         n_subcategoria nsc=new n_subcategoria();
         nsc.setSc(sc);
+        
+        color cl=new color();
+        n_atributos na=new n_atributos();
+        na.setCl(cl);
     %>
-
+<style>
+    .ions {
+        font-size: 30px;
+    }
+</style>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
 
@@ -192,16 +200,51 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="CategoriaSuperior" class="col-sm-2 control-label">*Categoria Superior: </label>
+                                <label for="Color" class="col-sm-2 control-label">*Color: </label>
                                 <div class="col-sm-5">
-                                    <select name="idcategoria" class="form-control" title="Categoria Superior">
+                                    <select name="colores" id="colores" class="form-control" onchange="cambiar_color()" title="Color">
                                         <option value="0">Selecione su Color</option>
-                                        <option value="red">RED</option>
-                                        <option value="blue">BLUE</option>
-                                        <option value="green">GREEN</option>
+                                        <%
+                                            ArrayList lc=na.Listar_Colores();
+                                            for(int l=0; l<lc.size(); l++){
+                                            color clr=(color) lc.get(l); 
+                                            
+                                        %>
+                                        <option value="<%=clr.getColor()%>"><%=clr.getColor()%></option>
+                                        <%}%>
                                     </select>
+                                    
+                                    </div>
+                                <div class="col-sm-2">
+                                    <div class="btn small-box bg- btn-xs" id="colorBox" data-toggle="modal">&nbsp;<br/>&nbsp;</div>
                                 </div>
                             </div>
+                                    
+                                    
+                                    
+                                    
+                            <div class="form-group">
+                                <label for="Icono" class="col-sm-2 control-label">*Icono: </label>
+                                <div class="col-sm-5">
+                                    <select name="iconos" id="iconos" class="form-control" onchange="cambiar_icono()" title="Icono">
+                                        <option value="0">Selecione su Icono</option>
+                                        <%
+                                          ArrayList li=na.Listar_Iconos();
+                                          
+                                            for(int o=0; o<li.size(); o++){
+                                            icono ico=(icono) li.get(o);
+                                            %>
+                                        <option value="<%=ico.getIcono()%>"><%=ico.getIcono()%></option>
+                                        <%}%>
+                                    </select>
+                                    </div>
+                                <div class="col-sm-2">
+                                    <span class="" id="iconoBox" with="20px"></span>
+                                </div>
+                            </div>        
+                                    
+                                    
+                                    
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
@@ -506,6 +549,24 @@
                 });
                 
             });
+        </script>
+        <script>
+            function cambiar_color()
+            {
+                var color = document.getElementById("colores").value;
+                color=color.toLowerCase();
+                var cadena="btn small-box bg-"+color+" btn-xs";
+                //alert(cadena);
+                document.getElementById("colorBox").className = cadena;
+            };
+            function cambiar_icono()
+            {
+                var icono = document.getElementById("iconos").value;
+                icono=icono.toLowerCase();
+                var cadena="ions "+icono;
+                //alert(cadena);
+                document.getElementById("iconoBox").className = cadena;
+            };
         </script>
         <%@include file="include/recursos.jsp" %>
     </body>
