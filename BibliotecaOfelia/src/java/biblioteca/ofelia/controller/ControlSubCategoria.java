@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import biblioteca.ofelia.entidad.categoria;
-import biblioteca.ofelia.procesos.n_categoria;
+import biblioteca.ofelia.entidad.subcategoria;
+import biblioteca.ofelia.procesos.n_subcategoria;
 import biblioteca.ofelia.util.*;
 
-@WebServlet(name = "ControlCategoria", urlPatterns = {"/ControlCategoria"})
-public class ControlCategoria extends HttpServlet {
+@WebServlet(name = "ControlSubCategoria", urlPatterns = {"/ControlSubCategoria"})
+public class ControlSubCategoria extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,28 +34,24 @@ public class ControlCategoria extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            String idcategoria=(String)request.getParameter("idcategoria");
             String nro=(String)request.getParameter("nro");
             String nombre=(String)request.getParameter("nombre");
-            String descripcion=(String)request.getParameter("descripcion");
-            String colores=(String)request.getParameter("colores");
-            String iconos=(String)request.getParameter("iconos");
             String op=(String)request.getParameter("op");
             
-            categoria c= new categoria();
-            n_categoria nc =new n_categoria();
+            subcategoria sc= new subcategoria();
+            n_subcategoria nsc =new n_subcategoria();
             
-            if(op.equals("add_Categoria")){
+            if(op.equals("add_SubCategoria")){
                 
-                c.setNroini(nro);
-                c.setNombre(nombre.toUpperCase());
-                c.setDescripcion(descripcion.toUpperCase());
-                c.setColor(colores.toLowerCase());
-                c.setIcono(iconos.toLowerCase());
+                sc.setIdcategoria(idcategoria);
+                sc.setNro(nro);
+                sc.setNombre(nombre.toUpperCase());
                 
-                nc.setC(c);
-                nc.IngresarCategoria();
+                nsc.setSc(sc);
+                nsc.IngresarSubCategoria();
                 
-                if(nc.val==1)
+                if(nsc.val==1)
                 {
                     response.sendRedirect("Categoria.jsp?mensaje=1");
                 }else{

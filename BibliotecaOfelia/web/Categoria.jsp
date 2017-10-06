@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
     <%@include file="include/head.jsp" %>
+    <%@include file="include/mensaje.jsp" %>
     <%
         categoria c=new categoria();
         n_categoria nc=new n_categoria();
@@ -54,6 +55,8 @@
                             </button>
                             <a href="ListarCategoria" class="btn btn-primary">
                                 <i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <label class="<%=style%>"><%=mensaje%></label>
 
                             <br><br>
                         </div>
@@ -203,7 +206,7 @@
                                 <label for="Color" class="col-sm-2 control-label">*Color: </label>
                                 <div class="col-sm-5">
                                     <select name="colores" id="colores" class="form-control" onchange="cambiar_color()" title="Color">
-                                        <option value="0">Selecione su Color</option>
+                                        <option value="">Selecione su Color</option>
                                         <%
                                             ArrayList lc=na.Listar_Colores();
                                             for(int l=0; l<lc.size(); l++){
@@ -220,14 +223,11 @@
                                 </div>
                             </div>
                                     
-                                    
-                                    
-                                    
                             <div class="form-group">
                                 <label for="Icono" class="col-sm-2 control-label">*Icono: </label>
                                 <div class="col-sm-5">
                                     <select name="iconos" id="iconos" class="form-control" onchange="cambiar_icono()" title="Icono">
-                                        <option value="0">Selecione su Icono</option>
+                                        <option value="">Selecione su Icono</option>
                                         <%
                                           ArrayList li=na.Listar_Iconos();
                                           

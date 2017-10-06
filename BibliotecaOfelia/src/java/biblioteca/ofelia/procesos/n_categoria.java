@@ -89,6 +89,49 @@ public class n_categoria {
         return consulta;
     }
         
-    
+public void IngresarCategoria()
+   {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into categoria (nro,nombre,descripcion,color,icono,estado) "
+                   + "values (?,?,?,?,?,?)";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+c.getNroini());
+           ps.setString(++i,""+c.getNombre());
+           ps.setString(++i,""+c.getDescripcion());
+           ps.setString(++i,""+c.getColor());
+           ps.setString(++i,""+c.getIcono());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+   }    
     
 }
