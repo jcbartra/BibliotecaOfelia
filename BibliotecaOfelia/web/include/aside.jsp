@@ -1,3 +1,5 @@
+<%@ page import="biblioteca.ofelia.procesos.*,biblioteca.ofelia.entidad.*"%>
+<%@ page import= "java.util.ArrayList"%> 
 <aside  class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -16,10 +18,54 @@
         <ul class="sidebar-menu">
             <li class="header">MENÚ - PRINCIPAL</li>
             <li>
-                <a href="inicio.html">
+                <a href="Inicio.jsp">
                     <i class="glyphicon glyphicon-home"></i> <span>Página Principal</span>
                 </a>
             </li>
+            <%
+                submenu sm=new submenu();
+                n_submenu nsm=new n_submenu();
+                
+                menu m=new menu();
+                n_menu nm=new n_menu();
+                m.setRoles(idrol);
+                nm.setM(m);
+                ArrayList lm=nm.ListarMenu();
+
+                for(int i=0; i<lm.size(); i++){
+                menu mn=(menu) lm.get(i);
+                
+            %>
+            <li class="treeview">
+                <a href="<%=mn.getLink()%>">
+                    <i class="<%=mn.getIcono()%>"></i>
+                    <span><%=mn.getNombre()%></span>
+                    <%if(mn.getEstado().equals("1")){%>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    <%}%>
+                </a>
+                <%if(mn.getEstado().equals("1")){
+                    
+                    sm.setRoles(idrol);
+                    sm.setIdmenu(mn.getIdmenu());
+                    nsm.setSm(sm);
+                    
+                    ArrayList lsm=nsm.ListarSubMenu();
+                    for(int e=0; e<lsm.size(); e++){
+                    submenu smn=(submenu) lsm.get(e);
+                    
+                    
+                %>
+                <ul class="treeview-menu">
+                    <li><a href="<%=smn.getLink()%>"><i class="<%=smn.getIcono()%>"></i> <%=smn.getNombre()%></a></li>
+                </ul>
+                
+                <%  }
+                  }%>
+            </li>
+            <!-- 
             <li class="treeview">
                 <a href="#">
                     <i class="glyphicon glyphicon-edit"></i>
@@ -94,6 +140,9 @@
                     <li><a href="ListarTipo_doc"><i class="fa fa-circle-o"></i> Documento</a></li>
                 </ul>
             </li>
+            -->
+        <%}%>    
+            
         </ul>
     </section>
     <!-- /.sidebar -->

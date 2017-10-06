@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.usuario;
@@ -14,8 +9,8 @@ public class n_login {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry,qry2;//almacena la transacción
-    public static int val;//definir si la transacción tuvo éxito
+    String qry,qry2;
+    public static int val;
     
     usuario us=new usuario();
     
@@ -105,7 +100,7 @@ public class n_login {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select persona, usuario, rol, foto from login where usuario=?";
+           qry="select persona, usuario, idrol, rol, foto from login where usuario=?";
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+us.getUsuario());
            ResultSet rs=ps.executeQuery();
@@ -113,6 +108,7 @@ public class n_login {
             {
                 us.setIdpersona(rs.getString("persona"));
                 us.setUsuario(rs.getString("usuario"));
+                us.setIdrol(rs.getString("idrol"));
                 us.setRol(rs.getString("rol"));
                 us.setFoto(rs.getString("foto"));
                 

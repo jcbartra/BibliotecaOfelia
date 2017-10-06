@@ -16,6 +16,7 @@ if(nl.val==1)
 {
     session.setAttribute("nombre", us.getIdpersona());
     session.setAttribute("rol", us.getRol());
+    session.setAttribute("idrol", us.getIdrol());
     session.setAttribute("usuario", us.getUsuario());
     session.setAttribute("foto", us.getFoto());
     response.sendRedirect("Inicio.jsp");

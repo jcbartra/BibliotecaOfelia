@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.subcategoria;
@@ -13,8 +8,8 @@ public class n_subcategoria {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry,qry2;//almacena la transacción
-    public static int val;//definir si la transacción tuvo éxito
+    String qry,qry2;
+    public static int val;
     
     subcategoria sc=new subcategoria();
 
@@ -96,13 +91,13 @@ public class n_subcategoria {
            String cat="";
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-            System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
+            //System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
            qry="select id,categoria, nro, nombre from vista_subcategoria where subid=?";
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+id);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
-                   {System.out.println(rs.getString("nombre"));
+                   {
                         subcategoria sct=new subcategoria();
                         sct.setIdsubcategoria(rs.getString("id"));
                         sct.setIdcategoria(rs.getString("categoria"));

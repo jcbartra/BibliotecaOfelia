@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.categoria;
@@ -14,8 +9,8 @@ public class n_categoria {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry;//almacena la transacción
-    public static int val;//definir si la transacción tuvo éxito
+    String qry;
+    public static int val;
     
     categoria c=new categoria();
 
@@ -49,7 +44,7 @@ public class n_categoria {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            qry="select idcategoria as id, nro nroini, nro+99 nrofin, nombre, descripcion, color, icono from categoria where estado='1' order by idcategoria";
-            System.out.println(qry);
+            //System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())

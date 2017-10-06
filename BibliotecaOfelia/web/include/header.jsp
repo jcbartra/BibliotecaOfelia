@@ -1,6 +1,7 @@
 <%
 String nombre=(String)session.getAttribute("nombre");
 String rol=(String)session.getAttribute("rol");
+String idrol=(String)session.getAttribute("idrol");
 String usuario=(String)session.getAttribute("usuario");
 String foto=(String)session.getAttribute("foto");
 
