@@ -711,6 +711,5 @@
             <%}%>
         </script>
         <%@include file="include/recursos.jsp" %>
-        <script src="Recursos/js/validar.js" type="text/javascript"></script>
     </body>
 </html>

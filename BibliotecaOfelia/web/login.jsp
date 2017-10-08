@@ -1,4 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    session.invalidate(); 
+%>
 <jsp:useBean id="alerta" scope="request" class="java.lang.String"/>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,8 +14,9 @@
         <script src="Recursos/js/jquery-2.2.3.min.js"></script>
         <script src="Recursos/js/typed.js"></script>
         <script src="Recursos/js/bootstrap.min.js"></script>
+        <script src="Recursos/js/custom.js" type="text/javascript"></script>
     </head>
-    <body class="fondo-walpaper">
+    <body class="fondo-walpaper" onload="nb();">
         <div class="container">
             <div class="row">
                 <h2><span class="bbl" id="typed">Colegio</span> </h2>

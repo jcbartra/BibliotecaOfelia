@@ -1,12 +1,28 @@
 <%
+menu mn=new menu();
+n_menu nmn=new n_menu();
 String nombre=(String)session.getAttribute("nombre");
 String rol=(String)session.getAttribute("rol");
 String idrol=(String)session.getAttribute("idrol");
 String usuario=(String)session.getAttribute("usuario");
 String foto=(String)session.getAttribute("foto");
 
-//out.println(session.getAttribute("nombre")+" "+session.getAttribute("rol")+" "+session.getAttribute("usuario")+" "+session.getAttribute("foto"));
+if(usuario==null){
+    response.sendRedirect("login.jsp");
+}
 
+String url=request.getServletPath().replace("/","");
+url=url.replace("#","");
+
+mn.setRoles(idrol);
+mn.setLink(url);
+nmn.setM(mn);
+nmn.VefificarLink();
+if(nmn.val==1){
+    System.out.println("Acceso Correcto");
+}else{
+    response.sendRedirect("login.jsp");
+}
 
 %>
 
@@ -19,7 +35,7 @@ String foto=(String)session.getAttribute("foto");
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>BI</b>BL</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>BIBLIOTECA </b> OFELIA</span>
+        <span class="logo-lg"><b>BIBLIOTECA </b> OFELIA</span> 
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

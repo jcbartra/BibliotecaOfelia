@@ -43,11 +43,11 @@ public class n_menu {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            qry="select idmenu,nombre,link,icono,estado from menu "
-                   + "where roles like '*%' or roles like ? and estado!='0' "
+                   + "where estado!='0' and roles like ? "
                    + "order by idmenu";
-            System.out.println("select nombre,link,icono,estado from menu "
-                   + "where roles like '*%' or roles like '%"+m.getRoles()+"%' and estado!='0' "
-                   + "order by idmenu");
+           /* System.out.println("select idmenu,nombre,link,icono,estado from menu "
+                   + "where estado!='0' and roles like '%"+m.getRoles()+"%' "
+                   + "order by idmenu");*/
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,"%"+m.getRoles()+"%");
            ResultSet rs=ps.executeQuery();
@@ -84,6 +84,51 @@ public class n_menu {
                     catch(SQLException e){setMError(e.getMessage());}
              }
         return consulta;
+    }
+    
+    public void VefificarLink(){
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select link from link where roles like ? and link=?";
+           System.out.println("select link from link where roles like '%"+m.getRoles()+"%' and link='"+m.getLink()+"'");
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,"%"+m.getRoles()+"%");
+           ps.setString(++i,""+m.getLink());
+           ResultSet rs=ps.executeQuery();
+           if(rs.next())
+                   {
+                       val=1;
+                   }
+           else if(m.getLink().equals("Inicio.jsp")){val=1;}
+           else{val=2;}
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                         //System.out.println(e.getMessage());
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
     }
     
 }
