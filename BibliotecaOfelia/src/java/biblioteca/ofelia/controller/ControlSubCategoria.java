@@ -37,6 +37,7 @@ public class ControlSubCategoria extends HttpServlet {
             String idcategoria=(String)request.getParameter("idcategoria");
             String nro=(String)request.getParameter("nro");
             String nombre=(String)request.getParameter("nombre");
+            String idsubcategoria=(String)request.getParameter("idsubcategoria");
             String op=(String)request.getParameter("op");
             
             subcategoria sc= new subcategoria();
@@ -59,6 +60,19 @@ public class ControlSubCategoria extends HttpServlet {
                 }
                 
                 
+            }
+            
+            
+            if(op.equals("delete_SubCategoria")){
+                sc.setIdsubcategoria(idsubcategoria);
+                nsc.setSc(sc);
+                nsc.BorrarSubCategoria();
+                if(nsc.val==1)
+                {
+                    response.sendRedirect("Categoria.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Categoria.jsp?mensaje=4");
+                }
             }
             
             

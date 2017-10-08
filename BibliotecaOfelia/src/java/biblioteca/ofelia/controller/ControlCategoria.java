@@ -39,6 +39,7 @@ public class ControlCategoria extends HttpServlet {
             String descripcion=(String)request.getParameter("descripcion");
             String colores=(String)request.getParameter("colores");
             String iconos=(String)request.getParameter("iconos");
+            String idcategoria=(String)request.getParameter("idcategoria");
             String op=(String)request.getParameter("op");
             
             categoria c= new categoria();
@@ -60,6 +61,40 @@ public class ControlCategoria extends HttpServlet {
                     response.sendRedirect("Categoria.jsp?mensaje=1");
                 }else{
                     response.sendRedirect("Categoria.jsp?mensaje=2");
+                }
+                
+                
+            }
+            
+            if(op.equals("delete_Categoria")){
+                c.setIdcategoria(idcategoria);
+                nc.setC(c);
+                nc.BorrarCategoria();
+                if(nc.val==1)
+                {
+                    response.sendRedirect("Categoria.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Categoria.jsp?mensaje=4");
+                }
+            }
+            
+            if(op.equals("update_Categoria")){
+                
+                c.setNroini(nro);
+                c.setNombre(nombre.toUpperCase());
+                c.setDescripcion(descripcion.toUpperCase());
+                c.setColor(colores.toLowerCase());
+                c.setIcono(iconos.toLowerCase());
+                c.setIdcategoria(idcategoria);
+                
+                nc.setC(c);
+                nc.ActualizarCategoria();
+                
+                if(nc.val==1)
+                {
+                    response.sendRedirect("Categoria.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Categoria.jsp?mensaje=6");
                 }
                 
                 

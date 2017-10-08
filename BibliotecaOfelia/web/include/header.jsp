@@ -15,7 +15,7 @@ String foto=(String)session.getAttribute("foto");
 
 <header class="main-header">
     <!-- Logo -->
-    <a href="inicio.html" class="logo">
+    <a href="Inicio.jsp" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>BI</b>BL</span>
         <!-- logo for regular state and mobile devices -->

@@ -174,4 +174,44 @@ public class n_subcategoria {
              }
    }    
     
+    public void BorrarSubCategoria()
+    {
+       val=0;
+       try{
+           
+           int i=0,e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="delete subcategoria where idsubcategoria=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+sc.getIdsubcategoria());
+           ps.executeQuery();
+           
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+    
 }

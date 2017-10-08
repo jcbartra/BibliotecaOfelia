@@ -9,7 +9,7 @@ public class n_categoria {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry;
+    String qry,qry2;
     public static int val;
     
     categoria c=new categoria();
@@ -34,7 +34,8 @@ public class n_categoria {
         this.c = c;
     }
     
-    public ArrayList Categorias_Generales(){
+    public ArrayList Categorias_Generales()
+    {
         ArrayList consulta=new ArrayList();
         try
         {
@@ -83,9 +84,9 @@ public class n_categoria {
              }
         return consulta;
     }
-        
-public void IngresarCategoria()
-   {
+    
+    public void IngresarCategoria()
+    {
        val=0;
        try{
            
@@ -127,6 +128,97 @@ public void IngresarCategoria()
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
-   }    
+    }  
+
+    public void BorrarCategoria()
+    {
+       val=0;
+       try{
+           
+           int i=0,e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="delete subcategoria where idcategoria=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+c.getIdcategoria());
+           ps.executeQuery();
+           ps.close();
+           
+           qry2="delete categoria where idcategoria=?";
+           
+           PreparedStatement ps2= conn.prepareStatement(qry2);
+           ps2.setString(++e,""+c.getIdcategoria());
+           ps2.executeQuery();
+           
+           val=1;   
+           ps2.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+    
+    public void ActualizarCategoria()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="update categoria set nro=?,nombre=?,descripcion=?,color=?,icono=? where idcategoria=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+c.getNroini());
+           ps.setString(++i,""+c.getNombre());
+           ps.setString(++i,""+c.getDescripcion());
+           ps.setString(++i,""+c.getColor());
+           ps.setString(++i,""+c.getIcono());
+           ps.setString(++i,""+c.getIdcategoria());
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
     
 }

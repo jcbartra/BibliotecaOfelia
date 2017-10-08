@@ -1,11 +1,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%//jsp:useBean id="ListarCategorias" scope="request" type="java.util.List<VistaCategorias>"/%>
 
 <!DOCTYPE html>
 <html>
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
     <%
+        String idcategoria="";
+        int cont = 0;
+        int cont1 = 0;
+        int cont3 = 0;
+        
         categoria c=new categoria();
         n_categoria nc=new n_categoria();
         nc.setC(c);
@@ -17,6 +21,26 @@
         color cl=new color();
         n_atributos na=new n_atributos();
         na.setCl(cl);
+        
+        icono ic=new icono();
+        na.setIc(ic);
+        
+        //colores
+        String[] color=new String[100];
+        int contc;
+        ArrayList lc=na.Listar_Colores();
+        for(contc=0; contc<lc.size(); contc++){
+        color clrs=(color) lc.get(contc); 
+        color[contc]=clrs.getColor();
+        }
+        //iconos
+        String[] icono=new String[100];
+        int conti;
+        ArrayList li=na.Listar_Iconos();
+        for(conti=0; conti<li.size(); conti++){
+        icono icon=(icono) li.get(conti);
+        icono[conti]=icon.getIcono();
+        }
     %>
 <style>
     .ions {
@@ -45,22 +69,16 @@
                 </section>
                 <section class="content">
                     <div class="row">
-
+                      <div class="col-md-12">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Categoria
-                            </button>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addSubCategoria">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Sub Categoria
-                            </button>
-                            <a href="ListarCategoria" class="btn btn-primary">
-                                <i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
-                            &nbsp;&nbsp;&nbsp;
-                            <label class="<%=style%>"><%=mensaje%></label>
-
-                            <br><br>
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Categoria </button>
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#addSubCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Sub Categoria </button>
+                          <a href="Categoria.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
+                          <label class="<%=style%>"><%=mensaje%></label>
+                          <br>
+                          <br>
                         </div>
-
+                      </div>
                     </div>
 
                     <section class="content">
@@ -93,7 +111,7 @@
 
                                                             <tbody>
                                                                 <%
-                                                                    int cont = 0;
+                                                                    
                                                                     ArrayList rc= nc.Categorias_Generales();
                                                                     for(int i=0; i<rc.size(); i++){
                                                                        categoria ct=(categoria) rc.get(i); 
@@ -109,9 +127,9 @@
                                                                 </td>
                                                                     <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cont%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=ct.getIdcategoria()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                                 <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
-
+                                                                <!--Modal Eliminar-->
                                                                 <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -144,7 +162,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <!--fin de Modal Eliminar-->
                                                             </center>
                                                             </td>
                                                             </tr>
@@ -208,12 +226,10 @@
                                     <select name="colores" id="colores" class="form-control" onchange="cambiar_color()" title="Color">
                                         <option value="">Selecione su Color</option>
                                         <%
-                                            ArrayList lc=na.Listar_Colores();
-                                            for(int l=0; l<lc.size(); l++){
-                                            color clr=(color) lc.get(l); 
+                                            for(int l=0; l<contc; l++){
                                             
                                         %>
-                                        <option value="<%=clr.getColor()%>"><%=clr.getColor()%></option>
+                                        <option value="<%=color[l]%>"><%=color[l]%></option>
                                         <%}%>
                                     </select>
                                     
@@ -229,12 +245,9 @@
                                     <select name="iconos" id="iconos" class="form-control" onchange="cambiar_icono()" title="Icono">
                                         <option value="">Selecione su Icono</option>
                                         <%
-                                          ArrayList li=na.Listar_Iconos();
-                                          
-                                            for(int o=0; o<li.size(); o++){
-                                            icono ico=(icono) li.get(o);
+                                          for(int o=0; o<conti; o++){
                                             %>
-                                        <option value="<%=ico.getIcono()%>"><%=ico.getIcono()%></option>
+                                        <option value="<%=icono[o]%>"><%=icono[o]%></option>
                                         <%}%>
                                     </select>
                                     </div>
@@ -307,7 +320,7 @@
         </div>
         <!-- ver Sub Cateroria-->
         <%
-            int cont1 = 0;
+            
             String nroc,cat;
             for(int e=0; e<rc.size(); e++){
                 categoria ct=(categoria) rc.get(e); 
@@ -356,6 +369,7 @@
                                                                     for(int j=0; j<rsc.size(); j++){
                                                                        subcategoria sct=(subcategoria) rsc.get(j); 
                                                                        cont2++;
+                                                                       
                                                                                
                                                                 %>
                                                                 <tr role="row" class="odd" align="center">
@@ -365,16 +379,16 @@
                                                                     <td><%= sct.getIdcategoria()%></td>
                                                                     <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cont%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar2<%=cont2%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar2<%=cont2%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 
-                                                                <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
+                                                                <div class="modal fade modal-banco-first" id="eliminar2<%=cont2%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación</h4>
+                                                                                <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación Sub Categoría</h4>
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <div class="row">
@@ -389,9 +403,9 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <form  action="ControlCategoria" method="post">
-                                                                                    <input type="hidden" name="op" value="delete_Categoria">
-                                                                                    <input type="hidden" name="idcategoria" value="<%=sct.getIdsubcategoria()%>">
+                                                                                <form  action="ControlSubCategoria" method="post">
+                                                                                    <input type="hidden" name="op" value="delete_SubCategoria">
+                                                                                    <input type="hidden" name="idsubcategoria" value="<%= sct.getIdsubcategoria()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
                                                                                 </form>
@@ -455,13 +469,15 @@
         </script>
         <%}%>
         
-                              
-        <%/*
-            int contador2 = 0;
-            for (VistaCategorias a : ListarCategorias) {
-                contador2++;
-        %/>
-        <div class="modal fade" id="editar<%=contador2%/>" tabindex="-1" role="dialog">
+        <!-- Actualizar Categoría-->
+        <%
+            for(int d=0; d<rc.size(); d++){
+                categoria ct=(categoria) rc.get(d); 
+                idcategoria=ct.getIdcategoria();
+                cont3++;
+                
+        %>
+        <div class="modal fade" id="editar<%=idcategoria%>" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 
@@ -469,22 +485,21 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Categoria</h4>
                     </div>
-
                     <div class="modal-body">
 
                         <form action="ControlCategoria" method="post" class="form-horizontal">
                             <input type="hidden" name="op" value="update_Categoria">
-                            <input type="hidden" name="idcategoria" value="<%= a.getIdcategoria_v()%/>">
+                            <input type="hidden" name="idcategoria" value="<%=idcategoria%>">
 
                             <div class="form-group">
                                 <label for="numeroCategoria" class="col-sm-2 control-label">*Número: </label>
                                 <div class="col-sm-3">
-                                    <input name="nro" type="text" autocomplete="off" class="form-control" value="<%= a.getNro_v()%/>">
+                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Categoria" value="<%=ct.getNroini()%>">
                                 </div>
 
                                 <label for="nombreCategoria" class="col-sm-2 control-label">*Nombre: </label>
                                 <div class="col-sm-5">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" value="<%= a.getNombre_v()%/>">
+                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Categoria" value="<%=ct.getNombre()%>">
                                 </div>
                             </div>
 
@@ -492,22 +507,46 @@
 
                                 <label for="descripcionCategoria" class="col-sm-2 control-label">*Descripcion: </label>
                                 <div class="col-sm-9">
-                                    <input name="descripcion" type="text" autocomplete="off" class="form-control" value="<%= a.getDescripcion_v()%/>">
+                                    <textarea name="descripcion" type="text" autocomplete="off" class="form-control" placeholder="Descripcion de la Categoria" title="Descripcion de la Categoria"><%=ct.getDescripcion()%></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="CategoriaSuperior" class="col-sm-2 control-label">*Categoria Superior: </label>
-                                <div class="col-sm-8">
-                                    <select name="idcategoria_sup" class="form-control" value="<%//=a.getCat_sup_v()%/>">
-                                        <% for(int i=0; i<rc.size(); i++){
-                                           categoria ct=(categoria) rc.get(i);
-                                        %/>
-                                        <option value="<%=ct.getIdcategoria()%/>"><%=ct.getNombre()%/>
-                                        </option>
-                                        <%}%/>
+                                <label for="Color" class="col-sm-2 control-label">*Color: </label>
+                                <div class="col-sm-5">
+                                    <select name="colores" id="colores<%=cont3%>" class="form-control" onchange="cambiar_color<%=cont3%>()" title="Color">
+                                        <option value="">Selecione su Color</option>
+                                        <%
+                                            for(int s=0; s<contc; s++){
+                                        %>
+                                        <option value="<%=color[s]%>" <%if(ct.getColor().toUpperCase().equals(color[s])){%> selected <%}%>><%=color[s]%></option>
+                                        <%}%>
                                     </select>
+                                    
+                                    </div>
+                                <div class="col-sm-2">
+                                    <span class="btn small-box bg-<%=ct.getColor()%> btn-xs" id="colorBox<%=cont3%>" data-toggle="modal">&nbsp;<br/>&nbsp;</span>
                                 </div>
                             </div>
+                                    
+                            <div class="form-group">
+                                <label for="Icono" class="col-sm-2 control-label">*Icono: </label>
+                                <div class="col-sm-5">
+                                    <select name="iconos" id="iconos<%=cont3%>" class="form-control" onchange="cambiar_icono<%=cont3%>()" title="Icono">
+                                        <option value="">Selecione su Icono</option>
+                                        <%
+                                          for(int b=0; b<conti; b++){
+                                            %>
+                                        <option value="<%=icono[b]%>" <%if(ct.getIcono().toUpperCase().equals(icono[b])){%> selected <%}%>><%=icono[b]%></option>
+                                        <%}%>
+                                    </select>
+                                    </div>
+                                <div class="col-sm-2">
+                                    <span class="ions <%=ct.getIcono()%>" id="iconoBox<%=cont3%>" with="20px"></span>
+                                </div>
+                            </div>        
+                                    
+                                    
+                                    
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
@@ -517,7 +556,8 @@
                 </div>
             </div>
         </div>
-        <% }*/%>
+        <%}%>
+
         
         <script>
             $(function () {
@@ -567,6 +607,27 @@
                 //alert(cadena);
                 document.getElementById("iconoBox").className = cadena;
             };
+            <%for(int q=1;q<=cont3;q++){%>
+            function cambiar_color<%=q%>()
+            {
+                var color;
+                color = document.getElementById("colores<%=q%>").value;
+                color=color.toLowerCase();
+                var cadena="btn small-box bg-"+color+" btn-xs";
+                //alert(cadena);
+                document.getElementById("colorBox<%=q%>").className = cadena;
+            };
+            <%}%>
+            <%for(int p=1;p<=cont3;p++){%>
+            function cambiar_icono<%=p%>()
+            {
+                var icono = document.getElementById("iconos<%=p%>").value;
+                icono=icono.toLowerCase();
+                var cadena="ions "+icono;
+                //alert(cadena);
+                document.getElementById("iconoBox<%=p%>").className= cadena;
+            };
+            <%}%>
         </script>
         <%@include file="include/recursos.jsp" %>
     </body>
