@@ -132,7 +132,7 @@ public class n_subcategoria {
     }
     
     public void IngresarSubCategoria()
-   {
+    {
        val=0;
        try{
            
@@ -172,7 +172,7 @@ public class n_subcategoria {
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
-   }    
+    }    
     
     public void BorrarSubCategoria()
     {
@@ -214,4 +214,45 @@ public class n_subcategoria {
              }
     }  
     
+    public void ActualizarSubCategoria()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="update subcategoria set idcategoria=?,nro=?,nombre=? where idsubcategoria=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+sc.getIdcategoria());
+           ps.setString(++i,""+sc.getNro());
+           ps.setString(++i,""+sc.getNombre());
+           ps.setString(++i,""+sc.getIdsubcategoria());
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
 }

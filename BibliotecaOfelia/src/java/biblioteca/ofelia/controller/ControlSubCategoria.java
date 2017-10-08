@@ -75,6 +75,26 @@ public class ControlSubCategoria extends HttpServlet {
                 }
             }
             
+            if(op.equals("update_SubCategoria")){
+                
+                sc.setIdcategoria(idcategoria);
+                sc.setNro(nro);
+                sc.setNombre(nombre.toUpperCase());
+                sc.setIdsubcategoria(idsubcategoria);
+                
+                nsc.setSc(sc);
+                nsc.ActualizarSubCategoria();
+                
+                if(nsc.val==1)
+                {
+                    response.sendRedirect("Categoria.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Categoria.jsp?mensaje=6");
+                }
+                
+                
+            }
+            
             
         }
     }

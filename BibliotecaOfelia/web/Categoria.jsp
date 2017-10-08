@@ -41,6 +41,15 @@
         icono icon=(icono) li.get(conti);
         icono[conti]=icon.getIcono();
         }
+        //categorias
+        String[][] categoria=new String[100][3];
+        int contct;
+        ArrayList lct=nc.Categorias_Generales();
+        for(contct=0;contct<lct.size();contct++){
+        categoria cat=(categoria) lct.get(contct);
+        categoria[contct][1]=cat.getIdcategoria();
+        categoria[contct][2]=cat.getNombre();
+        }
     %>
 <style>
     .ions {
@@ -204,12 +213,12 @@
                             <div class="form-group">
                                 <label for="numeroCategoria" class="col-sm-2 control-label">*Número: </label>
                                 <div class="col-sm-3">
-                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Categoria">
+                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Categoria" onkeypress="return validaN(event);">
                                 </div>
 
                                 <label for="nombreCategoria" class="col-sm-2 control-label">*Nombre: </label>
                                 <div class="col-sm-5">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Categoria">
+                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Categoria" onkeypress="return validaL(event);">
                                 </div>
                             </div>
 
@@ -217,7 +226,7 @@
 
                                 <label for="descripcionCategoria" class="col-sm-2 control-label">*Descripcion: </label>
                                 <div class="col-sm-9">
-                                    <input name="descripcion" type="text" autocomplete="off" class="form-control" placeholder="Descripcion de la Categoria" title="Descripcion de la Categoria">
+                                    <textarea name="descripcion" type="text" autocomplete="off" class="form-control" placeholder="Descripcion de la Categoria" title="Descripcion de la Categoria" onkeypress="return validaD(event);"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -285,12 +294,12 @@
                             <div class="form-group">
                                 <label for="numeroSubCategoria" class="col-sm-2 control-label">*Número: </label>
                                 <div class="col-sm-3">
-                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Sub Categoria">
+                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Sub Categoria" onkeypress="return validan(event);">
                                 </div>
 
                                 <label for="nombreSubCategoria" class="col-sm-2 control-label">*Nombre: </label>
                                 <div class="col-sm-5">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Sub Categoria">
+                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Sub Categoria" onkeypress="return validaL(event);">
                                 </div>
                             </div>
 
@@ -299,10 +308,9 @@
                                 <div class="col-sm-8">
                                     <select name="idcategoria" class="form-control" title="Categoria Superior">
                                         <option value="0">Selecione su la Categoria</option>
-                                        <% for(int i=0; i<rc.size(); i++){
-                                           categoria ct=(categoria) rc.get(i);
+                                        <% for(int i=0; i<contct; i++){
                                         %>
-                                        <option value="<%=ct.getIdcategoria()%>"><%=ct.getNombre()%>
+                                        <option value="<%=categoria[i][1]%>"><%=categoria[i][2]%>
                                         </option>
                                         <%}%>
 
@@ -379,15 +387,16 @@
                                                                     <td><%= sct.getIdcategoria()%></td>
                                                                     <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar2<%=cont2%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar2<%=cont2%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
-
-                                                                <div class="modal fade modal-banco-first" id="eliminar2<%=cont2%>">
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar2<%=sct.getIdsubcategoria()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar2<%=sct.getIdsubcategoria()%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                                                                
+                                                                <!-- Eliminar Sub Cateroria-->
+                                                                <div class="modal fade modal-banco-first" id="eliminar2<%=sct.getIdsubcategoria()%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
                                                                             <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <button type="button" class="close" id="close1" aria-hidden="true">&times;</button>
                                                                                 <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación Sub Categoría</h4>
                                                                             </div>
                                                                             <div class="modal-body">
@@ -407,13 +416,85 @@
                                                                                     <input type="hidden" name="op" value="delete_SubCategoria">
                                                                                     <input type="hidden" name="idsubcategoria" value="<%= sct.getIdsubcategoria()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+                                                                                    <button type="button" class="btn btn-default" id="closemodal1">Cancelar</button>  
                                                                                 </form>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <script type="text/javascript">
+                                                                    $('#close1').click(function() {
+                                                                    $('#eliminar2<%=sct.getIdsubcategoria()%>').modal('hide');
+                                                                });
+                                                                    $('#closemodal1').click(function() {
+                                                                    $('#eliminar2<%=sct.getIdsubcategoria()%>').modal('hide');
+                                                                });
+                                                                </script>                    
+                                                                
+                                                                <!-- Actualizar Sub Cateroria-->
+                                                                <div class="modal fade" id="editar2<%=sct.getIdsubcategoria()%>" tabindex="-1" role="dialog">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header left">
+                                                                                <button type="button" class="close" id="close2" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Sub Categoria <%=sct.getIdsubcategoria()%></h4>
+                                                                            </div>
+
+                                                                            <div class="modal-body">
+
+                                                                                <form action="ControlSubCategoria" method="post" class="form-horizontal">
+                                                                                    <input type="hidden" name="op" value="update_SubCategoria">
+                                                                                    <input type="hidden" name="idsubcategoria" value="<%=sct.getIdsubcategoria()%>">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="numeroSubCategoria" class="col-sm-4 control-label">*Número: </label>
+                                                                                        <div class="col-sm-8">
+                                                                                            <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Sub Categoria" value="<%= sct.getNro()%>" onkeypress="return validaN(event);">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="nombreSubCategoria" class="col-sm-4 control-label">*Nombre: </label>
+                                                                                        <div class="col-sm-8">
+                                                                                            <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Sub Categoria" value="<%= sct.getNombre()%>" onkeypress="return validaL(event);">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="CategoriaSuperior" class="col-sm-4 control-label">*Categoria Superior: </label>
+                                                                                        <div class="col-sm-8">
+                                                                                            <select name="idcategoria" autocomplete="off" class="form-control" title="Categoria Superior">
+                                                                                                <option value="0">Selecione su la Categoria</option>
+                                                                                                <% for(int i=0; i<contct; i++){
+                                                                                                %>
+                                                                                                <option value="<%=categoria[i][1]%>" <%if(sct.getIdcategoria().equals(categoria[i][2])){%> selected <%}%>><%=categoria[i][2]%>
+                                                                                                </option>
+                                                                                                <%}%>
+
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                                                    <div class="modal-footer">
+                                                                                        
+                                                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                                                                        <a class="btn btn-default" id="closemodal2"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <script type="text/javascript">
+                                                                    $('#close2').click(function() {
+                                                                    $('#editar2<%=sct.getIdsubcategoria()%>').modal('hide');
+                                                                });
+                                                                    $('#closemodal2').click(function() {
+                                                                    $('#editar2<%=sct.getIdsubcategoria()%>').modal('hide');
+                                                                });
+                                                                </script>                                
+                                                                
 
                                                             </center>
                                                             </td>
@@ -494,12 +575,12 @@
                             <div class="form-group">
                                 <label for="numeroCategoria" class="col-sm-2 control-label">*Número: </label>
                                 <div class="col-sm-3">
-                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Categoria" value="<%=ct.getNroini()%>">
+                                    <input name="nro" type="text" autocomplete="off" class="form-control" placeholder="Numero de la Categoria" title="Numero de Categoria" value="<%=ct.getNroini()%>" onkeypress="return validaN(event);">
                                 </div>
 
                                 <label for="nombreCategoria" class="col-sm-2 control-label">*Nombre: </label>
                                 <div class="col-sm-5">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Categoria" value="<%=ct.getNombre()%>">
+                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la Categoria" title="Nombre de la Categoria" value="<%=ct.getNombre()%>" onkeypress="return validaL(event);">
                                 </div>
                             </div>
 
@@ -507,7 +588,7 @@
 
                                 <label for="descripcionCategoria" class="col-sm-2 control-label">*Descripcion: </label>
                                 <div class="col-sm-9">
-                                    <textarea name="descripcion" type="text" autocomplete="off" class="form-control" placeholder="Descripcion de la Categoria" title="Descripcion de la Categoria"><%=ct.getDescripcion()%></textarea>
+                                    <textarea name="descripcion" type="text" autocomplete="off" class="form-control" placeholder="Descripcion de la Categoria" title="Descripcion de la Categoria" onkeypress="return validaD(event);"><%=ct.getDescripcion()%></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -548,8 +629,8 @@
                                     
                                     
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                <button type="button" class="btn btn-info btn-md" id="myBtn">Ocultar Modal</button>
                             </div>
                         </form>
                     </div>
@@ -630,5 +711,6 @@
             <%}%>
         </script>
         <%@include file="include/recursos.jsp" %>
+        <script src="Recursos/js/validar.js" type="text/javascript"></script>
     </body>
 </html>
