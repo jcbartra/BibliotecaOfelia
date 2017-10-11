@@ -315,7 +315,124 @@
                     </div>
                 </div>
             </div>
-        </div>                            
+        </div>
+                                    
+        <!-- ver Sub Menu-->
+        <%
+            
+            String idmen;
+            for(int s=0;s<lmnu.size();s++){
+               menu men=(menu) lmnu.get(s); 
+               cont1++;
+               idmen=men.getIdmenu();
+                %>
+        <div class="modal fade" id="ver<%=idmen%>" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="glyphicon glyphicon-eye-open"></i> Ver Sub Menu <%=idmen%></h4>
+                    </div>
+                        <div class="modal-body">
+                            <section class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box collapsed-box">
+
+                                    <div class="">
+
+                                        <div class="container-fluid">
+
+                                            <div class="col-lg-12">
+                                                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                                    <div class="table-responsive">
+                                                        <table id="tablaSubCategoria<%=idmen%>" name="tablaSubCategoria" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <thead>
+                                                                <tr role="row">
+                                                                    <th><center>N°</center></th>
+                                                            <th><center>Nombre</center></th>
+                                                            <th><center>Link</center></th>
+                                                            <th><center>Menu Superior</center></th>
+                                                            <th><center>Acción</center></th>
+                                                            </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                               
+                                                                <%
+                                                                    int cont2 = 0;
+                                                                    ArrayList rsm= nsmnu.Submenus_Especificos(idmen);
+                                                                    for(int j=0; j<rsm.size(); j++){
+                                                                       submenu sme=(submenu) rsm.get(j); 
+                                                                       cont2++;
+                                                                       
+                                                                               
+                                                                %>
+                                                                <tr role="row" class="odd" align="center">
+                                                                    <td class="sorting_1"><%= cont2%></td>
+                                                                    <td><%= sme.getNombre()%></td>
+                                                                    <td><%= sme.getLink()%></td>
+                                                                    <td><%= sme.getIdmenu()%></td>
+                                                                    <td>
+                                                            <center>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar2<%=sme.getIdsubmenu()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar2<%=sme.getIdsubmenu()%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                                                                
+                                            
+                                                            </center>
+                                                            </td>
+                                                            </tr>
+                                                            <% }%>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $("#tablaSubCategoria<%=idmen%>").DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+            });
+        </script>
+        <%}%>                            
 
         
         <script>

@@ -42,7 +42,6 @@ public class login extends HttpServlet {
             
             String usuario=(String)request.getParameter("user");
             String clave=(String)request.getParameter("pass");
-            
             String clave_encryp=desEncrypter.encrypt(clave);
             
             usuario us=new usuario();

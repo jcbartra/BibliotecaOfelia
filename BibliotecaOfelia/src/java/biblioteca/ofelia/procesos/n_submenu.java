@@ -85,6 +85,58 @@ public class n_submenu {
         return consulta;
     }
     
+    public ArrayList Submenus_Especificos(String idmen){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select nombre,link,icono from submenu "
+                   + "where roles like '*%' or roles like ? and idmenu=? and estado='1' "
+                   + "order by idsubmenu";
+            /*System.out.println("select nombre,link,icono from submenu "
+                   + "where roles like '*%' or roles like '%"+sm.getRoles()+"%' and idmenu='"+sm.getIdmenu()+"' and estado='1' "
+                   + "order by idsubmenu");*/
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,"%"+sm.getRoles()+"%");
+           ps.setString(++i,""+sm.getIdmenu());
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       submenu smn=new submenu();
+                       smn.setNombre(rs.getString("nombre"));
+                       smn.setLink(rs.getString("link"));
+                       smn.setIcono(rs.getString("icono"));
+                       consulta.add(smn);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
     public void IngresarSubMenu()
     {
        val=0;
