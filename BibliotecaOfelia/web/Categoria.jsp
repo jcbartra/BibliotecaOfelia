@@ -68,10 +68,9 @@
                 <section class="content-header">
                     <h1 class="epic-nav-item-heading " aria-selected="true">
                         MÓDULO CATEGORIA
-                        <small>Registrar Categoria</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                        <li><a href="Inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
                         <li class="active">Mantenimiento</li>
                         <li class="active">Registrar Categoria</li>
                     </ol>
@@ -478,7 +477,7 @@
                                                                                     <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                                                                     <div class="modal-footer">
                                                                                         
-                                                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
                                                                                         <a class="btn btn-default" id="closemodal2"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
                                                                                     </div>
                                                                                 </form>
@@ -629,8 +628,8 @@
                                     
                                     
                             <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                                <button type="button" class="btn btn-info btn-md" id="myBtn">Ocultar Modal</button>
                             </div>
                         </form>
                     </div>

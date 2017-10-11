@@ -48,7 +48,7 @@ function validaD(d){
             }
 
             // Patron de entrada, en este caso solo acepta números y letras
-            patron =/[a-zA-Z0-9-/$ ]/;
+            patron =/[a-zA-Z0-9-/$.+ ]/;
             tecla_final = String.fromCharCode(tecla);
             return patron.test(tecla_final);
         }

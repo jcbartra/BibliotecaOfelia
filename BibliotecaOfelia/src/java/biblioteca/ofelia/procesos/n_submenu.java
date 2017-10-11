@@ -85,4 +85,50 @@ public class n_submenu {
         return consulta;
     }
     
+    public void IngresarSubMenu()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into submenu (nombre,link,roles,icono,idmenu,estado) "
+                   + "values (?,?,?,?,?,?)";
+           System.out.println("insert into submenu (nombre,link,icono,idmenu,estado) "
+                   + "values ('"+sm.getNombre()+"','"+sm.getLink()+"','"+sm.getIcono()+"','"+sm.getIdmenu()+"','1')");
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+sm.getNombre());
+           ps.setString(++i,""+sm.getLink());           
+           ps.setString(++i,"0001-");
+           ps.setString(++i,""+sm.getIcono());
+           ps.setString(++i,""+sm.getIdmenu());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
+    
 }

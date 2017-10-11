@@ -33,6 +33,54 @@ public class n_menu {
         this.m = m;
     }
     
+    public ArrayList Menu_General(){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idmenu,nombre,link,icono,estado from menu "
+                   + "order by idmenu";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       menu mn=new menu();
+                       mn.setIdmenu(rs.getString("idmenu"));
+                       mn.setNombre(rs.getString("nombre"));
+                       mn.setLink(rs.getString("link"));
+                       mn.setIcono(rs.getString("icono"));
+                       mn.setEstado(rs.getString("estado"));
+                       consulta.add(mn);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
     public ArrayList ListarMenu(){
         ArrayList consulta=new ArrayList();
         try
@@ -130,5 +178,50 @@ public class n_menu {
                     catch(SQLException e){setMError(e.getMessage());}
              }
     }
+    
+    public void IngresarMenu()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into menu (nombre,link,roles,icono,estado) "
+                   + "values (?,?,?,?,?)";
+           System.out.println("insert into menu (nombre,link,icono,estado) "
+                   + "values ('"+m.getNombre()+"','"+m.getLink()+"','"+m.getIcono()+"','1')");
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+m.getNombre());
+           ps.setString(++i,""+m.getLink());           
+           ps.setString(++i,"0001-");
+           ps.setString(++i,""+m.getIcono());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
     
 }

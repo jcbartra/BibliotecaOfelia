@@ -1,13 +1,13 @@
 <%
 menu mn=new menu();
 n_menu nmn=new n_menu();
-String nombre=(String)session.getAttribute("nombre");
-String rol=(String)session.getAttribute("rol");
-String idrol=(String)session.getAttribute("idrol");
-String usuario=(String)session.getAttribute("usuario");
-String foto=(String)session.getAttribute("foto");
+String nombre=(String)session.getAttribute("nombre");if(nombre==null){nombre="";}
+String rol=(String)session.getAttribute("rol");if(rol==null){rol="";}
+String idrol=(String)session.getAttribute("idrol");if(idrol==null){idrol="";}
+String usuario=(String)session.getAttribute("usuario");if(usuario==null){usuario="";}
+String foto=(String)session.getAttribute("foto");if(foto==null){foto="";}
 
-if(usuario==null){
+if(usuario.equals("")){
     response.sendRedirect("login.jsp");
 }
 
