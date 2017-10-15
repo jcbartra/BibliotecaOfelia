@@ -10,18 +10,18 @@ package biblioteca.ofelia.entidad;
  * @author GADEA-JADE
  */
 public class autor {
-   String idautor;
+   String idAutor;
    String nombre;
    String estado;
     
    public autor(){}
 
-    public String getIdautor() {
-        return idautor;
+    public String getIdAutor() {
+        return idAutor;
     }
 
-    public void setIdautor(String idautor) {
-        this.idautor = idautor;
+    public void setIdAutor(String idAutor) {
+        this.idAutor = idAutor;
     }
 
     public String getNombre() {

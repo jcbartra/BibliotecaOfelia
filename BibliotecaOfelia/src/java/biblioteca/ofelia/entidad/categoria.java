@@ -1,5 +1,5 @@
 package biblioteca.ofelia.entidad;
-///sdhdfgkjzghjkdvbfjdk.zkxjcjcxkj
+
 public class categoria {
     String idcategoria;
     String nroini;
@@ -14,9 +14,6 @@ public class categoria {
     }
 
     public String getIdcategoria() {
-        return idcategoria;
-    }
-     public String getIdcatezsdfg() {
         return idcategoria;
     }
 

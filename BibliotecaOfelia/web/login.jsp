@@ -38,7 +38,7 @@
                             <div class="col-md-10 col-md-offset-1" >
                                 <div class="form-group" id="campo-user">
                                     <label class="control-label"  for="Usuario">USUARIO</label>
-                                    <input type="text" class="form-control" value="set" name="user" placeholder="Escribe tu usuario" id="input-user" autocomplete="off">
+                                    <input type="text" class="form-control" name="user" placeholder="Escribe tu usuario" id="input-user" autocomplete="off">
                                     <span id="span-user"></span>
 
                                 </div>
@@ -47,7 +47,7 @@
                             <div class="col-md-10 col-md-offset-1" >
                                 <div class="form-group" id="campo-pass">
                                     <label class="control-label" for="Clave" >CONTRASEÑA</label>
-                                    <input type="password" class="form-control" value="set" name="pass" placeholder="Escribe tu contraseña" id="input-pass" autocomplete="off">
+                                    <input type="password" class="form-control" name="pass" placeholder="Escribe tu contraseña" id="input-pass" autocomplete="off">
                                     <span id="span-pass"></span>
                                 </div>
                             </div>
