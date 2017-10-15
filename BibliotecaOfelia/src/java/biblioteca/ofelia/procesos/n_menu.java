@@ -8,7 +8,7 @@ public class n_menu {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry;
+    String qry,qry2;
     public static int val;
     
     menu m=new menu();
@@ -190,14 +190,100 @@ public class n_menu {
            
            qry="insert into menu (nombre,link,roles,icono,estado) "
                    + "values (?,?,?,?,?)";
-           System.out.println("insert into menu (nombre,link,icono,estado) "
-                   + "values ('"+m.getNombre()+"','"+m.getLink()+"','"+m.getIcono()+"','1')");
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+m.getNombre());
            ps.setString(++i,""+m.getLink());           
            ps.setString(++i,"0001-");
            ps.setString(++i,""+m.getIcono());
-           ps.setString(++i,"1");
+           ps.setString(++i,""+m.getEstado());
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
+    
+    public void BorrarMenu()
+    {
+       val=0;
+       try{
+           
+           int i=0,e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="delete submenu where idmenu=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+m.getIdmenu());
+           ps.executeQuery();
+           ps.close();
+           
+           qry2="delete menu where idmenu=?";
+           
+           PreparedStatement ps2= conn.prepareStatement(qry2);
+           ps2.setString(++e,""+m.getIdmenu());
+           ps2.executeQuery();
+           
+           val=1;   
+           ps2.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
+    
+    public void ActualizarMenu()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="update menu set nombre=?,link=?,icono=?,estado=? where idmenu=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+m.getNombre());
+           ps.setString(++i,""+m.getLink());
+           ps.setString(++i,""+m.getIcono());
+           ps.setString(++i,""+m.getEstado());
+            ps.setString(++i,""+m.getIdmenu());
            ps.executeQuery();
            val=1;   
            ps.close();

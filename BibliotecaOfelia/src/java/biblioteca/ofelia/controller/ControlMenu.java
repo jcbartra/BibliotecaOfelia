@@ -37,13 +37,14 @@ public class ControlMenu extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
             String nombre=(String)request.getParameter("nombre");
-            String link=(String)request.getParameter("link");
+            String link=(String)request.getParameter("link");if(link==null){link="";}
             String iconos=(String)request.getParameter("iconos");
             String idmenu=(String)request.getParameter("idmenu");
             String op=(String)request.getParameter("op");
-            
+            String estado="";
+            if(link.equals("#")){estado="1";}
+            else{estado="2";}
             menu m=new menu();
             n_menu nm= new n_menu();
             
@@ -52,6 +53,7 @@ public class ControlMenu extends HttpServlet {
                 m.setNombre(nombre);
                 m.setLink(link);
                 m.setIcono(iconos.toLowerCase());
+                m.setEstado(estado);
                 
                 nm.setM(m);
                 nm.IngresarMenu();
@@ -65,6 +67,42 @@ public class ControlMenu extends HttpServlet {
                 
                 
             }
+            if(op.equals("delete_Menu")){
+                m.setIdmenu(idmenu);
+                
+                nm.setM(m);
+                nm.BorrarMenu();
+                
+                if(nm.val==1)
+                {
+                    response.sendRedirect("Menu.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Menu.jsp?mensaje=4");
+                }
+                
+                
+            }
+            if(op.equals("update_Menu")){
+                
+                m.setNombre(nombre);
+                m.setLink(link);
+                m.setIcono(iconos.toLowerCase());
+                m.setEstado(estado);
+                m.setIdmenu(idmenu);
+                
+                nm.setM(m);
+                nm.ActualizarMenu();
+                
+                if(nm.val==1)
+                {
+                    response.sendRedirect("Menu.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Menu.jsp?mensaje=6");
+                }
+                
+                
+            }
+            
         }
     }
 

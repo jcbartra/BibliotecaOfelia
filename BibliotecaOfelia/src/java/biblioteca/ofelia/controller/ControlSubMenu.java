@@ -67,6 +67,42 @@ public class ControlSubMenu extends HttpServlet {
                 
                 
             }
+            
+            if(op.equals("delete_SubMenu")){
+                sm.setIdsubmenu(idsubmenu);
+                
+                nsm.setSm(sm);
+                nsm.BorrarSubMenu();
+                
+                if(nsm.val==1)
+                {
+                    response.sendRedirect("Menu.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Menu.jsp?mensaje=4");
+                }
+                
+                
+            }
+            if(op.equals("update_SubMenu")){
+                
+                sm.setNombre(nombre);
+                sm.setLink(link);
+                sm.setIcono(iconos.toLowerCase());
+                sm.setIdmenu(idmenu);
+                sm.setIdsubmenu(idsubmenu);
+                
+                nsm.setSm(sm);
+                nsm.ActualizarSubMenu();
+                
+                if(nsm.val==1)
+                {
+                    response.sendRedirect("Menu.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Menu.jsp?mensaje=6");
+                }
+                
+                
+            }
         }
     }
 
