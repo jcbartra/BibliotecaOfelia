@@ -9,19 +9,30 @@ package biblioteca.ofelia.entidad;
  *
  * @author GADEA-JADE
  */
-public class autor {
-   String idautor;
-   String nombre;
-   String estado;
+public class editorial {
     
-   public autor(){}
+    String ideditorial;
+    String idubigeo;
+    String nombre;
+    String estado;
 
-    public String getIdautor() {
-        return idautor;
+    public editorial() {
     }
 
-    public void setIdautor(String idautor) {
-        this.idautor = idautor;
+    public String getIdeditorial() {
+        return ideditorial;
+    }
+
+    public void setIdeditorial(String ideditorial) {
+        this.ideditorial = ideditorial;
+    }
+
+    public String getIdubigeo() {
+        return idubigeo;
+    }
+
+    public void setIdubigeo(String idubigeo) {
+        this.idubigeo = idubigeo;
     }
 
     public String getNombre() {
@@ -39,5 +50,7 @@ public class autor {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-   
+    
+    
+           
 }
