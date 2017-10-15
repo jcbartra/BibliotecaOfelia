@@ -1,5 +1,4 @@
-<%@page import="biblioteca.ofelia.procesos.n_menu"%>
-<%@page import="biblioteca.ofelia.entidad.menu"%>
+
 <%
 menu mn=new menu();
 n_menu nmn=new n_menu();
