@@ -33,6 +33,54 @@ public class n_submenu {
         this.sm = sm;
     }
     
+    public ArrayList SubMenuGeneral(){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idsubmenu,idmenu,nombre,roles,estado from submenu "
+                   + "order by idsubmenu";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       submenu smn=new submenu();
+                       smn.setIdsubmenu(rs.getString("idsubmenu"));
+                       smn.setIdmenu(rs.getString("idmenu"));
+                       smn.setNombre(rs.getString("nombre"));
+                       smn.setRoles(rs.getString("roles"));
+                       smn.setEstado(rs.getString("estado"));
+                       consulta.add(smn);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
     public ArrayList ListarSubMenu(){
         ArrayList consulta=new ArrayList();
         try
@@ -109,6 +157,55 @@ public class n_submenu {
                        smn.setIcono(rs.getString("icono"));
                        smn.setNombre_menu(rs.getString("menu"));
                        smn.setIdmenu(rs.getString("idmenu"));
+                       consulta.add(smn);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
+    public ArrayList SubMenuRoles(){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select id,menu,nombre,estado from vsubmenu where idmenu=? and roles like ? "
+                   + "order by id";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, ""+sm.getIdmenu());
+           ps.setString(++i, "%"+sm.getRoles()+"%");
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       submenu smn=new submenu();
+                       smn.setIdsubmenu(rs.getString("id"));
+                       smn.setNombre_menu(rs.getString("menu"));
+                       smn.setNombre(rs.getString("nombre"));
+                       smn.setEstado(rs.getString("estado"));
                        consulta.add(smn);
                    }
            rs.close();

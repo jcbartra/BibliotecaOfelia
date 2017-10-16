@@ -32,7 +32,7 @@
         icono icon=(icono) li.get(conti);
         icono[conti]=icon.getIcono();
         }
-        //categorias
+        //menu
         String[][] menu=new String[100][3];
         int contm;
         ArrayList lmnu=nmnu.Menu_General();
@@ -62,8 +62,8 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="Inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
-                        <li class="active">Mantenimiento</li>
-                        <li class="active">Registrar Menu</li>
+                        <li class="active">Sistema</li>
+                        <li class="active">Menu</li>
                     </ol>
                 </section>
                 <section class="content">
@@ -86,7 +86,7 @@
                             <div class="col-md-12">
                                 <div class="box collapsed-box">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title"> Registro de Categorias</h3>
+                                        <h3 class="box-title"> Registro de Menu</h3>
                                         <div class="box-tools pull-right"></div>
                                     </div>
 
