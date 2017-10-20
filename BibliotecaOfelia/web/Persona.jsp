@@ -1,11 +1,12 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%//jsp:useBean id="ListarCategorias" scope="request" type="java.util.List<VistaCategorias>"/%>
+
 
 <!DOCTYPE html>
 <html>
+    <%@include file="include/mensaje.jsp" %>
     <%@include file="include/head.jsp" %>
-    <%
-        persona p = new persona();
+    <%        persona p = new persona();
         n_persona np = new n_persona();
         np.setP(p);
 
@@ -23,6 +24,7 @@
         }
     </style>
     <body class="hold-transition skin-blue sidebar-mini">
+
         <div class="wrapper">
 
             <%@include file="include/header.jsp" %>
@@ -79,12 +81,12 @@
                                                                 <tr role="row">
                                                                     <th><center>N°</center></th>
                                                             <th><center>Nombres</center></th>
-                                                           
+
                                                             <th><center>Genero</center></th>
                                                             <th><center>Ubigeo</center></th>
                                                             <th><center>Tipo-Doc</center></th>
                                                             <th><center>N° Doc</center></th>
-                                                            
+
                                                             <th><center>Acción</center></th>
                                                             </tr>
                                                             </thead>
@@ -99,13 +101,13 @@
                                                                 %>
                                                                 <tr role="row" class="odd">
                                                                     <td class="sorting_1"><%= cont%></td>            
-                                                                    <td><%= cp.getNombres()+" "+cp.getApe_paterno()+" "+cp.getApe_materno()%></td>
-                                                                    
+                                                                    <td><%= cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
+
                                                                     <td><%= cp.getGenero()%></td>
                                                                     <td><%= cp.getIdubigeo()%></td>
                                                                     <td><%= cp.getIdtipodoc()%></td>
                                                                     <td><%= cp.getNro_doc()%></td>
-                                                                    
+
 
 
 
@@ -114,7 +116,8 @@
                                                                     </td>
                                                                     <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cont%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cp.getIdpersona()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+
                                                                 <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 
                                                                 <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
@@ -149,6 +152,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
 
                                                             </center>
                                                             </td>
@@ -201,16 +205,26 @@
                             </div>
                             <div class="form-group">
                                 <label for="A-materno" class="col-sm-2 control-label">*A-Materno: </label>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">                                          
                                     <input name="ape_materno" type="text" autocomplete="off" class="form-control" placeholder="A-Materno de la persona" title="A-materno de la persona">
                                 </div>
 
                                 <label for="geneoPersona" class="col-sm-2 control-label">*Genero: </label>
-                                <div class="col-sm-5">
 
-                                    <input name="genero" type="text" autocomplete="off" class="form-control" placeholder="Género de la persona" title="Género de la persona">
+                                <div class="col-sm-5">
+                                    <select name="genero" id="genero" class="form-control"  title="Genero">
+                                        <option value=""selected="selected">Selecionar</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn small-box bg- btn-xs" id="colorBox" data-toggle="modal">&nbsp;<br/>&nbsp;</div>
                                 </div>
                             </div>
+
 
 
 
@@ -218,11 +232,14 @@
                                 <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo: </label>
                                 <div class="col-sm-5">
                                     <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
-                                        <option value="" <%if (ub.getIdubigeo() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <option value="" <%if (ub.getIdubigeo()
+                                                        == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
                                             nub.setUb(ub);
                                             ArrayList bc = nub.Buscar_ubigeo();
-                                            for (int x = 0; x < bc.size(); x++) {
+                                            for (int x = 0;
+                                                    x < bc.size();
+                                                    x++) {
                                                 ubigeo au = (ubigeo) bc.get(x);
                                         %>
                                         <option value="<%=au.getIdubigeo()%>"<%if (au.getIdubigeo().equals(p.getIdubigeo())) {%>selected="selected"<%}%>><%=au.getNombre()%></option>
@@ -248,7 +265,9 @@
                                         <%
                                             ntd.setTd(td);
                                             ArrayList bt = ntd.Buscar_tipodoc();
-                                            for (int x = 0; x < bt.size(); x++) {
+                                            for (int x = 0;
+                                                    x < bt.size();
+                                                    x++) {
                                                 tipo_doc atd = (tipo_doc) bt.get(x);
                                         %>
                                         <option value="<%=atd.getIdtipodoc()%>"<%if (atd.getIdtipodoc().equals(p.getIdtipodoc())) {%>selected="selected"<%}%>><%=atd.getNombre()%></option>
@@ -306,74 +325,16 @@
             </div>
         </div>
 
-        <%/*
-             int contador2 = 0;
-             for (VistaCategorias a : ListarCategorias) {
-             contador2++;
-             %/>
-             <div class="modal fade" id="editar<%=contador2%/>" tabindex="-1" role="dialog">
-             <div class="modal-dialog" role="document">
-             <div class="modal-content">
 
-             <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-             <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Categoria</h4>
-             </div>
 
-             <div class="modal-body">
-
-             <form action="ControlCategoria" method="post" class="form-horizontal">
-             <input type="hidden" name="op" value="update_Categoria">
-             <input type="hidden" name="idcategoria" value="<%= a.getIdcategoria_v()%/>">
-
-             <div class="form-group">
-             <label for="numeroCategoria" class="col-sm-2 control-label">*Número: </label>
-             <div class="col-sm-3">
-             <input name="nro" type="text" autocomplete="off" class="form-control" value="<%= a.getNro_v()%/>">
-             </div>
-
-             <label for="nombreCategoria" class="col-sm-2 control-label">*Nombre: </label>
-             <div class="col-sm-5">
-             <input name="nombre" type="text" autocomplete="off" class="form-control" value="<%= a.getNombre_v()%/>">
-             </div>
-             </div>
-
-             <div class="form-group">
-
-             <label for="descripcionCategoria" class="col-sm-2 control-label">*Descripcion: </label>
-             <div class="col-sm-9">
-             <input name="descripcion" type="text" autocomplete="off" class="form-control" value="<%= a.getDescripcion_v()%/>">
-             </div>
-             </div>
-             <div class="form-group">
-             <label for="CategoriaSuperior" class="col-sm-2 control-label">*Categoria Superior: </label>
-             <div class="col-sm-8">
-             <select name="idcategoria_sup" class="form-control" value="<%//=a.getCat_sup_v()%/>">
-             <% for(int i=0; i<rc.size(); i++){
-             categoria ct=(categoria) rc.get(i);
-             %/>
-             <option value="<%=ct.getIdcategoria()%/>"><%=ct.getNombre()%/>
-             </option>
-             <%}%/>
-             </select>
-             </div>
-             </div>
-             <div class="modal-footer">
-             <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
-             <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-             </div>
-             </form>
-             </div>
-             </div>
-             </div>
-             </div>
-             <% }*/%>
 
         <!--  VER  PERSONA-->
         <%
             int cont1 = 0;
             String idper;
-            for (int i = 0; i < rc.size(); i++) {
+            for (int i = 0;
+                    i < rc.size();
+                    i++) {
                 persona cp = (persona) rc.get(i);
                 idper = cp.getIdpersona();
                 cont1++;
@@ -407,7 +368,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td width="143"><img src="../NetBeansProjects/BibliotecaOfelia/BibliotecaOfelia/web/Recursos/img/avatar5.png" width="142" height="114" /></td>
-                                                                        <td><%=cp.getNombres()+" "+cp.getApe_paterno()+" "+cp.getApe_materno()%></td>
+                                                                        <td><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
                                                                     </tr>
                                                                     <tr>
 
@@ -456,12 +417,7 @@
                                                                         <td>&nbsp;</td>
 
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td>&nbsp;</td>
-                                                                        <td><input type="submit" name="op" id="button" value="REGRESAR"></td>
-
-
-                                                                    </tr>
+                                                                    
 
                                                                 </table>
                                                             </body>
@@ -480,7 +436,158 @@
                     </div>
                 </div>
             </div>
+        </div>     
+<%}%>
+        <!-- Actualizar Categoría-->                                                          
+
+<%        int cont2 = 0;
+        String idper2;
+        ArrayList rcs = np.Mostrar_PersonaAdd();
+        for (int e = 0;
+        e < rcs.size();
+        e++) {
+        persona cp2 = (persona) rcs.get(e);
+        idper2 = cp2.getIdpersona();
+        cont2++;
+%>
+
+        <div class="modal fade" id="editar<%=idper2%>" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Persona</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="ControlPersona" method="post" class="form-horizontal">
+                            <input type="hidden" name="op" value="update_persona">
+                            <input type="hidden" name="id" value="<%=idper2%>">
+
+                            <div class="form-group">
+                                <label for="Nombres" class="col-sm-2 control-label">*Nombres: </label>
+                                <div class="col-sm-3">
+                                    <input name="nombres" type="text" autocomplete="off" class="form-control" placeholder="Nombres de la persona" title="nombresde la persona" value="<%=cp2.getNombres()%>">
+                                </div>
+
+                                <label for="A-paterno" class="col-sm-2 control-label">*A-Paterno: </label>
+                                <div class="col-sm-3">
+                                    <input name="ape_paterno" type="text" autocomplete="off" class="form-control" placeholder="A-paterno de la persona" title="A-paterno de la persona" value="<%=cp2.getApe_paterno()%>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="A-materno" class="col-sm-2 control-label">*A-Materno: </label>
+                                <div class="col-sm-3">
+                                    <input name="ape_materno" type="text" autocomplete="off" class="form-control" placeholder="A-Materno de la persona" title="A-materno de la persona" value="<%=cp2.getApe_materno()%>">
+                                </div>
+
+                                <label for="generoPersona" class="col-sm-2 control-label">*Genero: </label>
+
+                                <div class="col-sm-5">
+                                    <select name="genero" id="genero" class="form-control"  title="Genero">
+                                        <option value="">Selecionar</option>
+                                        <option value="M" <%if(cp2.getGenero().equals("M")){%>selected="selected"<%}%>>Masculino</option>
+                                        <option value="F" <%if(cp2.getGenero().equals("F")){%>selected="selected"<%}%>>Femenino</option>
+
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn small-box bg- btn-xs" id="colorBox" data-toggle="modal">&nbsp;<br/>&nbsp;</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo: <%=cp2.getIdubigeo()%></label>
+                                <div class="col-sm-5">
+                                    <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
+                                            <option value="" <%if (ub.getIdubigeo()
+                                                        == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                        <%
+
+                                            for (int x = 0;
+                                                    x < bc.size();
+                                                    x++) {
+                                                ubigeo au = (ubigeo) bc.get(x);
+                                        %>
+                                        <option value="<%=au.getIdubigeo()%>"<%if (au.getIdubigeo().equals(cp2.getIdubigeo())) {%>selected="selected"<%}%>><%=au.getNombre()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Tipo-doc" class="col-sm-2 control-label">*Tipo-Doc: </label>
+                                    <div class="col-sm-5">
+                                        <select name="idtipodoc" id="iconos" class="form-control" title="Tipo_Doc">
+                                            <option value="" <%if (td.getIdtipodoc() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <%
+                                                ntd.setTd(td);
+                                                for (int x = 0;
+                                                        x < bt.size();
+                                                        x++) {
+                                                    tipo_doc atd = (tipo_doc) bt.get(x);
+                                            %>
+                                            <option value="<%=atd.getIdtipodoc()%>"<%if (atd.getIdtipodoc().equals(cp2.getIdtipodoc())) {%>selected="selected"<%}%>><%=atd.getNombre()%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <span class="" id="iconoBox" with="20px"></span>
+                                    </div>
+                                </div>  
+
+                                <div class="form-group">
+                                    <label for="N-Doc" class="col-sm-2 control-label">*N°_Doc: </label>
+                                    <div class="col-sm-3">
+                                        <input name="nro_doc" type="text" autocomplete="off" class="form-control" placeholder="Nro-doc   de la persona" title="Nro-doc   de la persona" value="<%=cp2.getNro_doc()%>">
+                                    </div>
+
+                                    <label for="F-Nacimiento" class="col-sm-2 control-label">*F-Nacimiento: </label>
+                                    <div class="col-sm-5">
+                                        <input name="fecha_nacimiento" type="text" autocomplete="off" class="form-control" placeholder="F-nacimiento de la persona"value="<%=cp2.getFecha_nacimiento()%>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="DirecciónPersona" class="col-sm-2 control-label">*Dirección: </label>
+                                    <div class="col-sm-3">
+                                        <input name="direccion" type="text" autocomplete="off" class="form-control" placeholder="Dirección de la persona" title="Dirección de la persona"value="<%=cp2.getDireccion()%>">
+                                    </div>
+
+                                    <label for="TeléfonoPersona" class="col-sm-2 control-label">*Teléfono: </label>
+                                    <div class="col-sm-5">
+                                        <input name="telefono" type="text" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona"value="<%=cp2.getTelefono()%>">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="FotoPersona" class="col-sm-2 control-label">*Foto: </label>
+                                    <div class="col-sm-3">
+                                        <input name="foto" type="text" autocomplete="off" class="form-control" placeholder="Foto de la Persona" title="Foto de la Persona">
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn small-box bg- btn-xs" id="colorBox" data-toggle="modal">&nbsp;<br/>&nbsp;</div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
+                                <a class="btn btn-default" data-dismiss="modal"id="closemodal2<%=idper2%>"><i class="fa fa-close" aria-hidden="true"></i> cerrar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <script>
             $(function () {
                 $("#tablaPersona").DataTable({

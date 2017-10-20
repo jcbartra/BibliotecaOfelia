@@ -1,133 +1,30 @@
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.tipo_doc;
-import biblioteca.ofelia.util.DBConn;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import biblioteca.ofelia.entidad.*;
-import biblioteca.ofelia.util.*;
-import java.sql.*;
-import java.util.*;
-/**
- *
- * @author Alex Maluquish
- */
-/*
-public class n_ubigeo {
-    DBConn tran=null;
-    Connection conn=null;
-    String qry,qry2;//almacena la transacción
-    public static int val;//definir si la transacción tuvo éxito
-
-    ubigeo ub=new ubigeo();
-    public n_ubigeo() {
-        tran=new DBConn();
-    }
-    
-    private String MError= new String();
-    public void setMError(String mensaje)
-    {MError=mensaje;}
-    public String getMError()
-    {
-   return MError;
-    }
-
-    public ubigeo getUb() {
-        return ub;
-    }
-
-    public void setUb(ubigeo ub) {
-        this.ub = ub;
-    }
-    
-    public ArrayList Buscar_ubigeo()
-    {
-        ArrayList consulta=new ArrayList();
-        try
-        {
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select idubigeo,nombre from ubigeo order by idubigeo";
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ResultSet rs=ps.executeQuery();
-           while(rs.next())
-                   {
-                       
-                       ubigeo ub=new ubigeo();
-                       ub.setIdubigeo(rs.getString("idubigeo"));
-                       ub.setNombre(rs.getString("nombre"));
-                       consulta.add(ub);
-                   }
-           rs.close();
-           ps.close();
-           conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
-        /*}
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-        return consulta;
-    }
-   
-
-}
-*/
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.tipo_doc;
-import biblioteca.ofelia.util.DBConn;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import biblioteca.ofelia.entidad.*;
+import biblioteca.ofelia.entidad.rol;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
+
 /**
  *
- * @author Alex Maluquish
+ * @author Karol
  */
-public class n_ubigeo {
+public class n_rol {
+    
     DBConn tran=null;
     Connection conn=null;
-    String qry,qry2;//almacena la transacción
+    String qry;//almacena la transacción
     public static int val;//definir si la transacción tuvo éxito
+    
+    rol r = new rol();
 
-    ubigeo ub=new ubigeo();
-    public n_ubigeo() {
+    public n_rol() {
         tran=new DBConn();
     }
     
@@ -139,40 +36,38 @@ public class n_ubigeo {
    return MError;
     }
 
-    public ubigeo getUb() {
-        return ub;
+    public rol getR() {
+        return r;
     }
 
-    public void setUb(ubigeo ub) {
-        this.ub = ub;
+    public void setR(rol r) {
+        this.r = r;
     }
     
-    public ArrayList Buscar_ubigeo()
-    {
+    
+    public ArrayList Roles(){
         ArrayList consulta=new ArrayList();
         try
         {
+           val=0; 
            int i=0;
+           int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select idubigeo,nombre from ubigeo order by idubigeo";
+           qry="select idrol as id, rol from rol where estado='1' order by idrol";
+            System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
                    {
-                       
-                       ubigeo ub=new ubigeo();
-                       ub.setIdubigeo(rs.getString("idubigeo"));
-                       ub.setNombre(rs.getString("nombre"));
-                       consulta.add(ub);
+                       rol rl=new rol();
+                       rl.setIdrol(rs.getString("id"));
+                       rl.setRol(rs.getString("rol"));
+                       consulta.add(rl);
                    }
            rs.close();
            ps.close();
            conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
         }
          catch(SQLException e){
                      try{
@@ -194,7 +89,51 @@ public class n_ubigeo {
              }
         return consulta;
     }
-   public ArrayList Listar_Ubigeo()
+    
+    
+    
+    public void IngresarRol()
+   {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into rol (rol, estado) "
+                   + "values (?,?)";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+r.getRol());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+   }
+        
+    public ArrayList Buscar_Rol()
     {
         ArrayList consulta=new ArrayList();
         try
@@ -202,20 +141,17 @@ public class n_ubigeo {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           //qry="select idubigeo, ubigeo, codigo, departamento, pais from v_ubigeo";
-           qry="select ub.idubigeo, ub.nombre as ubigeo, ub.cod as codigo, de.nombre as departamento, pa.nombre as pais from departamento de, ubigeo ub, pais pa where ub.iddepartamento=de.iddepartamento and de.idpais=pa.idpais";
+           qry="select r.idrol, r.rol, r.estado from rol r order by idrol  ";
+            System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
-                   {  
-                       ubigeo ub=new ubigeo();
-                       ub.setIdubigeo(rs.getString("idubigeo"));
-                       ub.setNombre(rs.getString("ubigeo"));
-                       ub.setCod(rs.getString("codigo"));
-                       ub.setIddepartamento(rs.getString("departamento"));
-                       ub.setIdpais(rs.getString("pais"));
-                       consulta.add(ub);
-
+                   {
+                       rol r=new rol();
+                       r.setIdrol(rs.getString("idrol"));
+                       r.setRol(rs.getString("rol"));
+                       r.setEstado(rs.getString("estado"));
+                       consulta.add(r);
                    }
            rs.close();
            ps.close();
@@ -245,5 +181,88 @@ public class n_ubigeo {
              }
         return consulta;
     }
-
+    
+    public void Buscar_Rol_id()
+    {
+        try
+        {
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idrol, rol, estado from rol where idrol=? ";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+r.getIdrol());
+           ResultSet rs=ps.executeQuery();
+           if(rs.next())
+                   { 
+                       r.setIdrol(rs.getString("idrol"));
+                       r.setRol(rs.getString("rol"));
+                       r.setEstado(rs.getString("estado"));
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        
+    }
+       
+       public void EliminarRol()
+        {
+        val=0;
+        
+        try{
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="delete rol where idrol=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+r.getIdrol());
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+       
+        }
+        catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             
+    }
+       
+   }    
 }
