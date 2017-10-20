@@ -194,6 +194,56 @@ public class n_ubigeo {
              }
         return consulta;
     }
-   
+   public ArrayList Listar_Ubigeo()
+    {
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           //qry="select idubigeo, ubigeo, codigo, departamento, pais from v_ubigeo";
+           qry="select ub.idubigeo, ub.nombre as ubigeo, ub.cod as codigo, de.nombre as departamento, pa.nombre as pais from departamento de, ubigeo ub, pais pa where ub.iddepartamento=de.iddepartamento and de.idpais=pa.idpais";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {  
+                       ubigeo ub=new ubigeo();
+                       ub.setIdubigeo(rs.getString("idubigeo"));
+                       ub.setNombre(rs.getString("ubigeo"));
+                       ub.setCod(rs.getString("codigo"));
+                       ub.setIddepartamento(rs.getString("departamento"));
+                       ub.setIdpais(rs.getString("pais"));
+                       consulta.add(ub);
+
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
 
 }
