@@ -395,7 +395,7 @@
                                                                         <div class="modal-content">
 
                                                                             <div class="modal-header">
-                                                                                <button type="button" class="close" id="close1" aria-hidden="true">&times;</button>
+                                                                                <button type="button" class="close" id="close1<%=sct.getIdsubcategoria()%>" aria-hidden="true">&times;</button>
                                                                                 <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación Sub Categoría</h4>
                                                                             </div>
                                                                             <div class="modal-body">
@@ -415,7 +415,7 @@
                                                                                     <input type="hidden" name="op" value="delete_SubCategoria">
                                                                                     <input type="hidden" name="idsubcategoria" value="<%= sct.getIdsubcategoria()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                                                                                    <button type="button" class="btn btn-default" id="closemodal1">Cancelar</button>  
+                                                                                    <button type="button" class="btn btn-default" id="closemodal1<%=sct.getIdsubcategoria()%>">Cancelar</button>  
                                                                                 </form>
                                                                             </div>
 
@@ -423,10 +423,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <script type="text/javascript">
-                                                                    $('#close1').click(function() {
+                                                                    $('#close1<%=sct.getIdsubcategoria()%>').click(function() {
                                                                     $('#eliminar2<%=sct.getIdsubcategoria()%>').modal('hide');
                                                                 });
-                                                                    $('#closemodal1').click(function() {
+                                                                    $('#closemodal1<%=sct.getIdsubcategoria()%>').click(function() {
                                                                     $('#eliminar2<%=sct.getIdsubcategoria()%>').modal('hide');
                                                                 });
                                                                 </script>                    
@@ -437,7 +437,7 @@
                                                                         <div class="modal-content">
 
                                                                             <div class="modal-header left">
-                                                                                <button type="button" class="close" id="close2" aria-hidden="true">&times;</button>
+                                                                                <button type="button" class="close" id="close2<%=sct.getIdsubcategoria()%>" aria-hidden="true">&times;</button>
                                                                                 <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Sub Categoria <%=sct.getIdsubcategoria()%></h4>
                                                                             </div>
 
@@ -478,7 +478,7 @@
                                                                                     <div class="modal-footer">
                                                                                         
                                                                                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
-                                                                                        <a class="btn btn-default" id="closemodal2"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                                                                        <a class="btn btn-default" id="closemodal2<%=sct.getIdsubcategoria()%>"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
@@ -486,10 +486,10 @@
                                                                     </div>
                                                                 </div>
                                                                 <script type="text/javascript">
-                                                                    $('#close2').click(function() {
+                                                                    $('#close2<%=sct.getIdsubcategoria()%>').click(function() {
                                                                     $('#editar2<%=sct.getIdsubcategoria()%>').modal('hide');
                                                                 });
-                                                                    $('#closemodal2').click(function() {
+                                                                    $('#closemodal2<%=sct.getIdsubcategoria()%>').click(function() {
                                                                     $('#editar2<%=sct.getIdsubcategoria()%>').modal('hide');
                                                                 });
                                                                 </script>                                

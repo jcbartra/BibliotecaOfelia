@@ -13,16 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import biblioteca.ofelia.entidad.menu;
-import biblioteca.ofelia.procesos.n_menu;
+import biblioteca.ofelia.entidad.accesos;
+import biblioteca.ofelia.procesos.n_accesos;
 import biblioteca.ofelia.util.*;
-/**
- *
- * @author JcBartra
- */
-@WebServlet(name = "ControlMenu", urlPatterns = {"/ControlMenu"})
-public class ControlMenu extends HttpServlet {
+
+@WebServlet(name = "ControlAccesos", urlPatterns = {"/ControlAccesos"})
+public class ControlAccesos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,71 +33,67 @@ public class ControlMenu extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String nombre=(String)request.getParameter("nombre");
-            String link=(String)request.getParameter("link");if(link==null){link="";}
-            String iconos=(String)request.getParameter("iconos");
-            String idmenu=(String)request.getParameter("idmenu");
-            String op=(String)request.getParameter("op");
-            String estado="";
-            if(link.equals("#")){estado="1";}
-            else{estado="2";}
-            menu m=new menu();
-            n_menu nm= new n_menu();
             
-            if(op.equals("add_Menu")){
-                
-                m.setNombre(nombre);
-                m.setLink(link);
-                m.setIcono(iconos.toLowerCase());
-                m.setEstado(estado);
-                
-                nm.setM(m);
-                nm.IngresarMenu();
-                
-                if(nm.val==1)
+            String idmenu="";
+            String idsubmenu="";
+            String idrol=(String) request.getParameter("idrol");
+            String seleccion="";
+            int pru=0;
+            String men="";
+            int tmenu=Integer.parseInt((String)request.getParameter("tmenu"));
+            
+            accesos ac=new accesos();
+            n_accesos nac=new n_accesos();
+            
+            
+            for (int i = 1; i <= tmenu; i++) {
+                if(!men.equals(idmenu)&&pru==1){pru=0;}
+                out.println(idmenu+"---"+pru);
+                idmenu=(String) request.getParameter("idmenu"+idrol+i);
+                idsubmenu=(String) request.getParameter("idsubmenu"+idrol+i);
+                seleccion=(String) request.getParameter("seleccion"+idrol+i);if(seleccion==null){seleccion="N";}
+                //out.println("*menu -"+idmenu+" *submenu -"+idsubmenu+" *rol -"+idrol+" *selección -"+seleccion+"<br/>");
+                //si se va a ingresar los menues
+                if(seleccion.equals("S")&&pru==0)
                 {
-                    response.sendRedirect("Menu.jsp?mensaje=1");
-                }else{
-                    response.sendRedirect("Menu.jsp?mensaje=2");
+                   /* ac.setIdmenu(idmenu);
+                    ac.setIdrol(idrol);
+                    nac.setAc(ac);
+                    nac.ActualizarAccesos();*/
+                }
+                //si se va a eliminar los menues
+                if(!men.equals(idmenu)&&seleccion.equals("N")&&pru==0)
+                {
+                    /*ac.setIdmenu(idmenu);
+                    ac.setIdrol(idrol);
+                    nac.setAc(ac);
+                    nac.BorrarAccesos();*/
+                }
+                if(seleccion.equals("S")){
+                    System.out.println("1++s-"+seleccion+" sm-"+idsubmenu+" r-"+idrol);
+                    ac.setIdsubmenu(idsubmenu);
+                    ac.setIdrol(idrol);
+                    nac.setAc(ac);
+                    nac.ActualizarSubAccesos();
+                }
+                else{
+                    System.out.println("2++s-"+seleccion+" sm-"+idsubmenu+" r-"+idrol);
+                    ac.setIdsubmenu(idsubmenu);
+                    ac.setIdrol(idrol);
+                    nac.setAc(ac);
+                    nac.BorrarSubAccesos();
                 }
                 
                 
             }
-            if(op.equals("delete_Menu")){
-                m.setIdmenu(idmenu);
-                
-                nm.setM(m);
-                nm.BorrarMenu();
-                
-                if(nm.val==1)
-                {
-                    response.sendRedirect("Menu.jsp?mensaje=3");
-                }else{
-                    response.sendRedirect("Menu.jsp?mensaje=4");
-                }
-                
-                
+            
+            if(nac.val==1){
+                response.sendRedirect("Accesos.jsp?mensaje=5");
             }
-            if(op.equals("update_Menu")){
-                
-                m.setNombre(nombre);
-                m.setLink(link);
-                m.setIcono(iconos.toLowerCase());
-                m.setEstado(estado);
-                m.setIdmenu(idmenu);
-                
-                nm.setM(m);
-                nm.ActualizarMenu();
-                
-                if(nm.val==1)
-                {
-                    response.sendRedirect("Menu.jsp?mensaje=5");
-                }else{
-                    response.sendRedirect("Menu.jsp?mensaje=6");
-                }
-                
-                
+            else{
+                response.sendRedirect("Accesos.jsp?mensaje=6");
             }
+            
             
         }
     }

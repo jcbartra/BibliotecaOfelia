@@ -8,6 +8,7 @@ public class submenu {
     String roles;
     String icono;
     String idmenu;
+    String nombre_menu;
     String estado;
 
     public submenu() {
@@ -61,6 +62,14 @@ public class submenu {
         this.idmenu = idmenu;
     }
 
+    public String getNombre_menu() {
+        return nombre_menu;
+    }
+
+    public void setNombre_menu(String nombre_menu) {
+        this.nombre_menu = nombre_menu;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -68,6 +77,8 @@ public class submenu {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
     
     
     
