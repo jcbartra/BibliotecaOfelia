@@ -14,6 +14,7 @@ public class ubigeo {
     String nombre;
     String cod;
     String iddepartamento;
+    String idpais;
     String estado;
 
     public ubigeo() {
@@ -51,6 +52,14 @@ public class ubigeo {
         this.iddepartamento = iddepartamento;
     }
 
+    public String getIdpais() {
+        return idpais;
+    }
+
+    public void setIdpais(String idpais) {
+        this.idpais = idpais;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -58,6 +67,6 @@ public class ubigeo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     
 }
