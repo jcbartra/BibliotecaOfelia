@@ -40,13 +40,13 @@ public class ControlRol extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             String rol=(String)request.getParameter("rol");
+            String idrol=(String)request.getParameter("idrol");
             String op=(String)request.getParameter("op");
             
             rol r = new rol();
             n_rol nr = new n_rol();
             
             if(op.equals("add_Rol")){
-                
                 
                 r.setRol(rol.toUpperCase());
                 
@@ -62,15 +62,35 @@ public class ControlRol extends HttpServlet {
              }
             
             
-            if(op.equals("eliminar")){
-                r.setIdrol(rol);
+            if(op.equals("delete_Rol")){
+                r.setIdrol(idrol);
                 nr.setR(r);
                 nr.EliminarRol();
-                if(nr.val==1){
-                    response.sendRedirect("Rol.jsp?mensaje=2");
-                }else{
+                if(nr.val==1)
+                {
                     response.sendRedirect("Rol.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Rol.jsp?mensaje=4");
                 }
+            }
+            
+            
+            if(op.equals("update_Rol")){
+
+                r.setRol(rol.toUpperCase());
+                r.setIdrol(idrol);
+                
+                nr.setR(r);
+                nr.ActualizarRol();
+                
+                if(nr.val==1)
+                {
+                    response.sendRedirect("Rol.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Rol.jsp?mensaje=6");
+                }
+                
+                
             }
             
             

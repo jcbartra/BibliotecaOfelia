@@ -6,6 +6,7 @@
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
     <%
+        int cont2 = 0;
     
         rol r = new rol();
         n_rol nr=new n_rol();
@@ -39,18 +40,20 @@
                 </section>
                 <section class="content">
                     <div class="row">
-
                         <div class="col-md-12">
+                            <div class="col-md-12">
+                                
                             <button class="btn btn-primary" data-toggle="modal" data-target="#addRol">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Rol
                             </button>
 
-                            <a href="ListarRol" class="btn btn-primary">
+                            <a href="Rol.jsp" class="btn btn-primary">
                                 <i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
                                 &nbsp;&nbsp;&nbsp;
                             <label class="<%=style%>"><%=mensaje%></label>
 
                             <br><br>
+                            </div>
                         </div>
 
                     </div>
@@ -59,7 +62,7 @@
 
                     <section class="content">
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-4">
+                            <div class="col-md-12">
                                 <div class="box collapsed-box">
                                     <div class="box-header with-border">
                                         <center><h3 class="box-title">Registro de Roles</h3></center>
@@ -92,15 +95,15 @@
                                                                                                                                    
                                                                 <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cont%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=rl.getIdrol()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=rl.getIdrol()%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
                                                              
-                                                                <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
+                                                                <div class="modal fade modal-banco-first" id="eliminar<%=rl.getIdrol()%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
 
                                                                             <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <button type="button" class="close" id="close<%=rl.getIdrol()%>" aria-hidden="true">&times;</button>
                                                                                 <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación</h4>
                                                                             </div>
                                                                             <div class="modal-body">
@@ -120,13 +123,61 @@
                                                                                     <input type="hidden" name="op" value="delete_Rol">
                                                                                     <input type="hidden" name="idrol" value="<%=rl.getIdrol()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+                                                                                    <button type="button" class="btn btn-default" id="closemodal<%=rl.getIdrol()%>">Cancelar</button>  
                                                                                 </form>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                                
+                                                                                <script type="text/javascript">
+                                                                    $('#close<%=rl.getIdrol()%>').click(function() {
+                                                                    $('#eliminar<%=rl.getIdrol()%>').modal('hide');
+                                                                });
+                                                                    $('#closemodal<%=rl.getIdrol()%>').click(function() {
+                                                                    $('#eliminar<%=rl.getIdrol()%>').modal('hide');
+                                                                });
+                                                                </script>  
+                                                                
+<!-- Actualizar Categoría-->
+        <%
+            for(int d=0; d<ro.size(); d++){
+                rol rp=(rol) ro.get(d); 
+                idrol=rp.getIdrol();
+                cont2++;
+                
+        %>
+        <div class="modal fade" id="editar<%=idrol%>" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Rol</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="ControlRol" method="post" class="form-horizontal">
+                            <input type="hidden" name="op" value="update_Rol">
+                            <input type="hidden" name="idrol" value="<%=idrol%>">
+
+                            <div class="form-group">
+                                <label for="nombreRol" class="col-sm-2 control-label">*Nombre: </label>
+                                <div class="col-sm-3">
+                                    <input name="rol" type="text" autocomplete="off" class="form-control" placeholder="Nombre Rol" title="Nombre Rol" value="<%=rp.getRol()%>" onkeypress="return validaL(event);">
+                                </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
+                                <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
 
                                                             </center>
                                                             </td>
@@ -170,7 +221,7 @@
                             <div class="form-group">
                                 <label for="nombreRol" class="col-sm-2 control-label">*Rol: </label>
                                 <div class="col-sm-3">
-                                    <input name="rol" type="text" autocomplete="off" class="form-control" placeholder="Nombre de Rol" title="Nombre de Rol">
+                                    <input name="rol" type="text" autocomplete="off" class="form-control" placeholder="Nombre de Rol" title="Nombre de Rol" onkeypress="return validaL(event);">
                                 </div>
                             </div>
  

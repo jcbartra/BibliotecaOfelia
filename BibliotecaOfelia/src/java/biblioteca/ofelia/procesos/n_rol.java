@@ -132,119 +132,71 @@ public class n_rol {
                     catch(SQLException e){setMError(e.getMessage());}
              }
    }
-        
-    public ArrayList Buscar_Rol()
-    {
-        ArrayList consulta=new ArrayList();
-        try
-        {
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select r.idrol, r.rol, r.estado from rol r order by idrol  ";
-            System.out.println(qry);
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ResultSet rs=ps.executeQuery();
-           while(rs.next())
-                   {
-                       rol r=new rol();
-                       r.setIdrol(rs.getString("idrol"));
-                       r.setRol(rs.getString("rol"));
-                       r.setEstado(rs.getString("estado"));
-                       consulta.add(r);
-                   }
-           rs.close();
-           ps.close();
-           conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
-        }
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-        return consulta;
-    }
     
-    public void Buscar_Rol_id()
-    {
-        try
-        {
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select idrol, rol, estado from rol where idrol=? ";
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+r.getIdrol());
-           ResultSet rs=ps.executeQuery();
-           if(rs.next())
-                   { 
-                       r.setIdrol(rs.getString("idrol"));
-                       r.setRol(rs.getString("rol"));
-                       r.setEstado(rs.getString("estado"));
-                   }
-           rs.close();
-           ps.close();
-           conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
-        }
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-        
-    }
        
        public void EliminarRol()
-        {
-        val=0;
-        
-        try{
+    {
+       val=0;
+       try{
+           
+           int i=0,e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="delete rol where idrol=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+r.getIdrol());
+           ps.executeQuery();
+           ps.close();
+           
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+       
+       
+       public void ActualizarRol()
+    {
+       val=0;
+       try{
+           
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="delete rol where idrol=?";
+           
+           qry="update rol set rol=? where idrol=?";
+           
            PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+r.getRol());
            ps.setString(++i,""+r.getIdrol());
            ps.executeQuery();
            val=1;   
            ps.close();
-       
-        }
-        catch(SQLException e){
+           conn.close();
+  
+      }
+      catch(SQLException e){
                      try{
                     conn.rollback();
                     setMError(e.getMessage()+"<br>Transaction is being rolled back");
@@ -261,8 +213,6 @@ public class n_rol {
              finally{
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
-             
-    }
-       
-   }    
+             }
+    }  
 }
