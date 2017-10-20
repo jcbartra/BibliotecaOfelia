@@ -132,8 +132,7 @@ public class n_rol {
                     catch(SQLException e){setMError(e.getMessage());}
              }
    }
-    
-    
+        
     public ArrayList Buscar_Rol()
     {
         ArrayList consulta=new ArrayList();

@@ -47,6 +47,7 @@ public class ControlRol extends HttpServlet {
             
             if(op.equals("add_Rol")){
                 
+                
                 r.setRol(rol.toUpperCase());
                 
                 nr.setR(r);

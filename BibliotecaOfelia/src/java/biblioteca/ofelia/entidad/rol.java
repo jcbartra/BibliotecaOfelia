@@ -17,6 +17,7 @@ public class rol {
     String estado;
 
     public rol() {
+        
     }
 
     public String getIdrol() {

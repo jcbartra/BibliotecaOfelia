@@ -6,6 +6,7 @@
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
     <%
+    
         rol r = new rol();
         n_rol nr=new n_rol();
         nr.setR(r);
