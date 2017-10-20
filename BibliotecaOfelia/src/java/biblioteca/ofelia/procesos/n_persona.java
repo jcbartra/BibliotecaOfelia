@@ -158,6 +158,61 @@ public class n_persona {
         }
         return consulta;
     }
+    public ArrayList Mostrar_PersonaAdd() {
+        ArrayList consulta = new ArrayList();
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select id, nombres ,paterno, materno ,tipo_doc,ubigeo,genero,nacimiento,documento,  direccion, telefono,foto, estado from datos_personas";
+            System.out.println(qry);
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                persona p = new persona();
+                p.setIdpersona(rs.getString("id"));
+                p.setNombres(rs.getString("nombres"));
+                p.setApe_paterno(rs.getString("paterno"));
+                p.setApe_materno(rs.getString("materno"));
+                p.setGenero(rs.getString("genero"));
+                p.setIdubigeo(rs.getString("ubigeo"));
+                p.setIdtipodoc(rs.getString("tipo_doc"));
+                 p.setNro_doc(rs.getString("documento"));
+                p.setFecha_nacimiento(rs.getString("nacimiento"));
+                p.setDireccion(rs.getString("direccion"));
+                p.setTelefono(rs.getString("telefono"));
+                p.setFoto(rs.getString("foto"));
+                p.setEstado(rs.getString("estado"));
+                consulta.add(p);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+            /*
+             for(int n=0;n<consulta.size();n++){
+             auto aus= (auto) consulta.get(n);
+             }*/
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+        return consulta;
+    }
 
    public ArrayList VerPersonaId(String idper) {
         ArrayList consulta = new ArrayList();
@@ -319,11 +374,15 @@ public class n_persona {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "Update persona set nombres=?, ape_paterno=?, ape_materno=?, idtipodoc=?, idubigeo=?,genero=?,fecha_nacimiento=?,nro_doc=?,direccion=? ,telefono=?, estado=? where idanimales=?";
-
+            qry = "Update persona set nombres=?, ape_paterno=?, ape_materno=?, idtipodoc=?, idubigeo=?,genero=?,fecha_nacimiento=?,nro_doc=?,direccion=? ,telefono=? where idpersona=?";
+            System.out.println("Update persona set nombres='"+p.getNombres()+"', ape_paterno='"+p.getApe_paterno()+"', "
+                    + "ape_materno='"+p.getApe_materno()+"', idtipodoc='"+p.getIdtipodoc()+"', idubigeo='"+p.getIdubigeo()+"',"
+                    + "genero='"+p.getGenero()+"',fecha_nacimiento='"+p.getFecha_nacimiento()+"',nro_doc='"+p.getNro_doc()+"',"
+                    + "direccion='"+p.getDireccion()+"' ,telefono='"+p.getTelefono()+"' where idpersona='"+p.getIdpersona()+"'");
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + p.getNombres());
             ps.setString(++i, "" + p.getApe_paterno());
+            ps.setString(++i, "" + p.getApe_materno());
             ps.setString(++i, "" + p.getIdtipodoc());
             ps.setString(++i, "" + p.getIdubigeo());
             ps.setString(++i, "" + p.getGenero());
@@ -331,7 +390,6 @@ public class n_persona {
             ps.setString(++i, "" + p.getNro_doc());
             ps.setString(++i, "" + p.getDireccion());
             ps.setString(++i, "" + p.getTelefono());
-            ps.setString(++i, "" + p.getEstado());
             ps.setString(++i, "" + p.getIdpersona());
             ps.executeQuery();
             val = 1;

@@ -90,7 +90,7 @@ public class ControlPersona extends HttpServlet {
                 }
             }
 
-            if (op.equals("update")) {
+            if (op.equals("update_persona")) {
                 
                 p.setIdtipodoc(idtipodoc);
                 p.setIdubigeo(idubigeo);
@@ -98,17 +98,25 @@ public class ControlPersona extends HttpServlet {
                 p.setApe_paterno(ape_paterno);
                 p.setApe_materno(ape_materno);
                 p.setGenero(genero);
+                p.setIdubigeo(idubigeo);
+                p.setIdtipodoc(idtipodoc);
+                 p.setNro_doc(nro_doc);
                 p.setFecha_nacimiento(fecha_nacimiento);
-                p.setNro_doc(nro_doc);
                 p.setDireccion(direccion);
                 p.setTelefono(telefono);
+                p.setFoto(foto);
                 p.setIdpersona(id);
 
                 np.setP(p);
 
                 np.actualizar();
 
-                
+                if(np.val==1)
+                {
+                    response.sendRedirect("Persona.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Persona.jsp?mensaje=6");
+                }
             }
         }
     }
