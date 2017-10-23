@@ -158,7 +158,7 @@ public class n_persona {
         }
         return consulta;
     }
-    public ArrayList Mostrar_PersonaAdd() {
+    public ArrayList Mostrar_PersonaUpdate() {
         ArrayList consulta = new ArrayList();
         try {
             int i = 0;
@@ -214,119 +214,8 @@ public class n_persona {
         return consulta;
     }
 
-   public ArrayList VerPersonaId(String idper) {
-        ArrayList consulta = new ArrayList();
-        try {
-            int i = 0;
-            conn = tran.getConnection();
-            conn.setAutoCommit(false);
-            qry = "select id,nombres||' '||paterno||' '||materno AS ncompleto,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,"
-                    + "telefono,foto,estado from datos_persona where id=?";
-            System.out.println("select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,"
-                    + "telefono,foto,estado from datos_persona where id='"+idper+"'");
-            PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "" + idper);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                persona p = new persona();
-                p.setIdpersona(rs.getString("id"));
-                p.setNombres(rs.getString("nombres"));
-                p.setApe_paterno(rs.getString("paterno"));
-                p.setApe_materno(rs.getString("materno"));
-                p.setGenero(rs.getString("genero"));
-                p.setIdubigeo(rs.getString("ubigeo"));
-                p.setIdtipodoc(rs.getString("tipo_doc"));
-                 p.setNro_doc(rs.getString("documento"));
-                p.setFecha_nacimiento(rs.getString("nacimiento"));
-                p.setDireccion(rs.getString("direccion"));
-                p.setTelefono(rs.getString("telefono"));
-                p.setFoto(rs.getString("foto"));
-                p.setEstado(rs.getString("estado"));
-                consulta.add(p);
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-            /*
-             for(int n=0;n<consulta.size();n++){
-             auto aus= (auto) consulta.get(n);
-             }*/
-        } catch (SQLException e) {
-            try {
-                conn.rollback();
-                setMError(e.getMessage() + "<br>Transaction is being rolled back");
-            } catch (SQLException e2) {
-                setMError(e.getMessage());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            setMError(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                setMError(e.getMessage());
-            }
-        }
-        return consulta;
-    }
+   
 
-//    public void Ver_persona_Id() {
-//        try {
-//            int i = 0;
-//            conn = tran.getConnection();
-//            conn.setAutoCommit(false);
-//            qry = "select p.idpersona as id,p.nombres,p.ape_paterno||' '||p.ape_materno as apellidos ,t.idtipodoc,u.idubigeo,p.genero,p.fecha_nacimiento,p.nro_doc,\n"
-//                    + "p.direccion,p.telefono,p.estado from persona p, tipo_doc t ,ubigeo u \n"
-//                    + "where p.idtipodoc=t.idtipodoc and p.idubigeo=u.idubigeo and idpersona=?";
-//            PreparedStatement ps = conn.prepareStatement(qry);
-//            ps.setString(++i, "" + p.getIdpersona());
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//
-//                p.setNombres(rs.getString("nombres"));
-//                p.setApe_paterno(rs.getString("ape_paterno"));
-//                p.setApe_materno(rs.getString("ape_materno"));
-//                p.setIdtipodoc(rs.getString("idtipodoc"));
-//                p.setIdubigeo(rs.getString("idubigeo"));
-//                p.setGenero(rs.getString("genero"));
-//                p.setFecha_nacimiento(rs.getString("fecha_nacimiento"));
-//                p.setNro_doc(rs.getString("nro_doc"));
-//                p.setDireccion(rs.getString("direccion"));
-//                p.setTelefono(rs.getString("telefono"));
-//                p.setEstado(rs.getString("estado"));
-//                p.setIdpersona(rs.getString("id"));
-//            }
-//            rs.close();
-//            ps.close();
-//            conn.close();
-//            /*
-//             for(int n=0;n<consulta.size();n++){
-//             auto aus= (auto) consulta.get(n);
-//             }*/
-//        } catch (SQLException e) {
-//            try {
-//                conn.rollback();
-//                setMError(e.getMessage() + "<br>Transaction is being rolled back");
-//            } catch (SQLException e2) {
-//                setMError(e.getMessage());
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            setMError(e.getMessage());
-//        } finally {
-//            try {
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException e) {
-//                setMError(e.getMessage());
-//            }
-//        }
-//
-//    }
 
     public void Eliminar() {
         val = 0;
@@ -416,6 +305,56 @@ public class n_persona {
                 setMError(e.getMessage());
             }
         }
+    }
+    
+    public ArrayList Buscar_Persona()
+    {
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idpersona,nombres,ape_paterno,ape_materno from persona order by nombres";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       
+                       persona p=new persona();
+                       p.setIdpersona(rs.getString("idpersona"));
+                       p.setNombres(rs.getString("nombres"));
+                       p.setApe_paterno(rs.getString("ape_paterno"));
+                       p.setApe_materno(rs.getString("ape_materno"));
+                       consulta.add(p);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
     }
 
 }

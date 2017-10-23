@@ -33,7 +33,9 @@
 
 
             <div class="content-wrapper">
+
                 <section class="content-header">
+
                     <h1 class="epic-nav-item-heading " aria-selected="true">
                         MÓDULO PERSONA
                         <small>Registrar Persona</small>
@@ -46,18 +48,16 @@
                 </section>
                 <section class="content">
                     <div class="row">
-
+                      <div class="col-md-12">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona
-                            </button>
-
-                            <a href="ListarCategoria" class="btn btn-primary">
-                                <i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
-
-                            <br><br>
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona </button>
+      
+                          <a href="Persona.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
+                          <label class="<%=style%>"><%=mensaje%></label>
+                          <br>
+                          <br>
                         </div>
-
+                      </div>
                     </div>
 
                     <section class="content">
@@ -86,7 +86,7 @@
                                                             <th><center>Ubigeo</center></th>
                                                             <th><center>Tipo-Doc</center></th>
                                                             <th><center>N° Doc</center></th>
-
+                                                            <th><center>Ver</center></th>
                                                             <th><center>Acción</center></th>
                                                             </tr>
                                                             </thead>
@@ -213,7 +213,7 @@
 
                                 <div class="col-sm-5">
                                     <select name="genero" id="genero" class="form-control"  title="Genero">
-                                        <option value=""selected="selected">Selecionar</option>
+                                        <option value="" hidden="hidden"selected="selected">Selecionar</option>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
 
@@ -232,7 +232,7 @@
                                 <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo: </label>
                                 <div class="col-sm-5">
                                     <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
-                                            <option value="" <%if (ub.getIdubigeo()
+                                        <option value="" hidden="hidden"<%if (ub.getIdubigeo()
                                                         == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
                                             nub.setUb(ub);
@@ -261,7 +261,7 @@
                                 <label for="Tipo-doc" class="col-sm-2 control-label">*Tipo-Doc: </label>
                                 <div class="col-sm-5">
                                     <select name="idtipodoc" id="iconos" class="form-control" title="Tipo_Doc">
-                                        <option value="" <%if (td.getIdtipodoc() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                        <option value="" hidden="hidden"<%if (td.getIdtipodoc() == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
                                             ntd.setTd(td);
                                             ArrayList bt = ntd.Buscar_tipodoc();
@@ -284,12 +284,12 @@
                             <div class="form-group">
                                 <label for="N-Doc" class="col-sm-2 control-label">*N°_Doc: </label>
                                 <div class="col-sm-3">
-                                    <input name="nro_doc" type="text" autocomplete="off" class="form-control" placeholder="Nro-doc   de la persona" title="Nro-doc   de la persona">
+                                    <input name="nro_doc" type="number" autocomplete="off" class="form-control" placeholder="Nro-doc   de la persona" title="Nro-doc   de la persona">
                                 </div>
 
                                 <label for="F-Nacimiento" class="col-sm-2 control-label">*F-Nacimiento: </label>
                                 <div class="col-sm-5">
-                                    <input name="fecha_nacimiento" type="text" autocomplete="off" class="form-control" placeholder="F-nacimiento de la persona">
+                                    <input name="fecha_nacimiento" type="date" autocomplete="off" class="form-control" placeholder="F-nacimiento de la persona">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -300,13 +300,13 @@
 
                                 <label for="TeléfonoPersona" class="col-sm-2 control-label">*Teléfono: </label>
                                 <div class="col-sm-5">
-                                    <input name="telefono" type="text" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona">
+                                    <input name="telefono" type="number" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="FotoPersona" class="col-sm-2 control-label">*Foto: </label>
-                                <div class="col-sm-3">
-                                    <input name="foto" type="text" autocomplete="off" class="form-control" placeholder="Foto de la Persona" title="Foto de la Persona">
+                                <div class="col-sm-3"  >
+                                    <input name="foto" type="file" autocomplete="off" >
                                 </div>
 
 
@@ -362,7 +362,7 @@
                                                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                                         <div class="table-responsive">
                                                             <body >
-                                                                <table width="308" align="center">
+                                                                <table width="308" align="center" >
                                                                     <tr>
                                                                         <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
                                                                     </tr>
@@ -380,7 +380,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Fecha Nacimiento:</td>
-                                                                        <td><%=cp.getFecha_nacimiento()%></td>
+                                                                        <td ><%=cp.getFecha_nacimiento()%></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Ubigeo:</td>
@@ -417,7 +417,7 @@
                                                                         <td>&nbsp;</td>
 
                                                                     </tr>
-                                                                    
+
 
                                                                 </table>
                                                             </body>
@@ -437,19 +437,19 @@
                 </div>
             </div>
         </div>     
-<%}%>
-        <!-- Actualizar Categoría-->                                                          
+        <%}%>
+        <!-- Actualizar Persona-->                                                          
 
-<%        int cont2 = 0;
-        String idper2;
-        ArrayList rcs = np.Mostrar_PersonaAdd();
-        for (int e = 0;
-        e < rcs.size();
-        e++) {
-        persona cp2 = (persona) rcs.get(e);
-        idper2 = cp2.getIdpersona();
-        cont2++;
-%>
+        <%        int cont2 = 0;
+            String idper2;
+            ArrayList rcs = np.Mostrar_PersonaUpdate();
+            for (int e = 0;
+                    e < rcs.size();
+                    e++) {
+                persona cp2 = (persona) rcs.get(e);
+                idper2 = cp2.getIdpersona();
+                cont2++;
+        %>
 
         <div class="modal fade" id="editar<%=idper2%>" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -486,9 +486,9 @@
 
                                 <div class="col-sm-5">
                                     <select name="genero" id="genero" class="form-control"  title="Genero">
-                                        <option value="">Selecionar</option>
-                                        <option value="M" <%if(cp2.getGenero().equals("M")){%>selected="selected"<%}%>>Masculino</option>
-                                        <option value="F" <%if(cp2.getGenero().equals("F")){%>selected="selected"<%}%>>Femenino</option>
+                                        <option value=""hidden="hidden">Selecionar</option>
+                                        <option value="M" <%if (cp2.getGenero().equals("M")) {%>selected="selected"<%}%>>Masculino</option>
+                                        <option value="F" <%if (cp2.getGenero().equals("F")) {%>selected="selected"<%}%>>Femenino</option>
 
                                     </select>
 
@@ -498,10 +498,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo: <%=cp2.getIdubigeo()%></label>
+                                <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo:</label>
                                 <div class="col-sm-5">
                                     <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
-                                            <option value="" <%if (ub.getIdubigeo()
+                                        <option value="" hidden="hidden"<%if (ub.getIdubigeo()
                                                         == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
 
@@ -522,7 +522,7 @@
                                     <label for="Tipo-doc" class="col-sm-2 control-label">*Tipo-Doc: </label>
                                     <div class="col-sm-5">
                                         <select name="idtipodoc" id="iconos" class="form-control" title="Tipo_Doc">
-                                            <option value="" <%if (td.getIdtipodoc() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <option value="" hidden="hidden"<%if (td.getIdtipodoc() == null) {%>selected="selected"<%}%>>Selecionar</option>
                                             <%
                                                 ntd.setTd(td);
                                                 for (int x = 0;
