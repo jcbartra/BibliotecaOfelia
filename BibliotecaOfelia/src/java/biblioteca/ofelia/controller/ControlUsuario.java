@@ -7,6 +7,7 @@ package biblioteca.ofelia.controller;
 
 import biblioteca.ofelia.entidad.usuario;
 import biblioteca.ofelia.procesos.n_usuario;
+import biblioteca.ofelia.util.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,12 +37,16 @@ public class ControlUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            STRCrypto desEncrypter = new STRCrypto("ndprVF14Jp8=");
+            
             String idrol = (String) request.getParameter("rol");
             String idpersona = (String) request.getParameter("persona");
             String usuario = (String) request.getParameter("usuario");
             String clave = (String) request.getParameter("clave");
             String ops = (String) request.getParameter("ops");
             String ids = (String) request.getParameter("ids");
+            
+            String clave_encrypt=desEncrypter.encrypt(clave);
             
             usuario us=new usuario();
             n_usuario nus =new n_usuario();
@@ -51,7 +56,7 @@ public class ControlUsuario extends HttpServlet {
                 us.setIdrol(idrol);
                 us.setIdpersona(idpersona);
                 us.setUsuario(usuario);
-                us.setClave(clave);
+                us.setClave(clave_encrypt);
 
                 nus.setUs(us);
                 nus.InsertarUsuario();
@@ -73,6 +78,28 @@ public class ControlUsuario extends HttpServlet {
                     response.sendRedirect("Usuario.jsp?mensaje=1");
                 }else{
                     response.sendRedirect("Usuario.jsp?mensaje=2");
+                }
+            }
+            
+            
+            if (ops.equals("update_usuario")) {
+                
+                us.setIdrol(idrol);
+                us.setIdpersona(idpersona);
+                us.setUsuario(usuario);
+                us.setClave(clave);
+                us.setIdusuario(ids);
+               
+
+                nus.setUs(us);
+
+                nus.actualizarUser();
+
+                if(nus.val==1)
+                {
+                    response.sendRedirect("Usuario.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Usuario.jsp?mensaje=6");
                 }
             }
             

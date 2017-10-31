@@ -22,6 +22,7 @@ public class n_usuario {
     public static int val;//definir si la transacción tuvo éxito
 
     usuario us= new usuario();
+    STRCrypto desEncrypter = new STRCrypto("ndprVF14Jp8=");
 
     public n_usuario() {
         tran = new DBConn();
@@ -52,7 +53,7 @@ public class n_usuario {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idu,rol,persona,usuario,estado from lista_usserid";
+            qry = "select idu,rol,persona,usuario from reporte_user";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
@@ -62,7 +63,7 @@ public class n_usuario {
                 us.setIdrol(rs.getString("rol"));
                 us.setIdpersona(rs.getString("persona"));
                 us.setUsuario(rs.getString("usuario"));
-                us.setEstado(rs.getString("estado"));
+                ;
 
                 consulta.add(us);
             }
@@ -103,15 +104,12 @@ public class n_usuario {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "insert into usuario (idrol,idpersona,usuario,clave,estado"
+            qry = "insert into usuario(idrol,idpersona,usuario,clave,estado)"
 
                     + "values (?,?,?,?,?)";
             System.out.println("estas aqui");
-//            System.out.println("insert into persona (idtipodoc,idubigeo,nombres,ape_paterno,ape_materno,genero,"
-//                    + "fecha_nacimiento,nro_doc,direccion,telefono,foto,estado) "
-//                    + "values ('"+p.getIdtipodoc()+"','"+p.getIdubigeo()+"','"+p.getNombres()+"','"+p.getApe_paterno()+"',"
-//                    + "'"+p.getApe_materno()+"','"+p.getGenero()+"','"+p.getFecha_nacimiento()+"','"+p.getNro_doc()+"','"+p.getDireccion()+"',"
-//                    + "'"+p.getTelefono()+"','"+p.getFoto()+"','1')");
+            System.out.println("insert into usuario (idrol,idpersona,usuario,clave,estado)"
+                  + "values ('"+us.getIdrol()+"','"+us.getIdpersona()+"','"+us.getUsuario()+"','"+us.getClave()+"','"+us.getEstado()+"','1')");
 
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + us.getIdrol());
@@ -184,6 +182,100 @@ public class n_usuario {
             }
         }
     }
+    
+    public void actualizarUser() {
+        val = 0;
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+
+            qry = "Update usuario set idrol=?, idpersona=?, usuario=?, clave=? where idusuario=?";
+//            System.out.println("Update persona set nombres='"+p.getNombres()+"', ape_paterno='"+p.getApe_paterno()+"', "
+//                    + "ape_materno='"+p.getApe_materno()+"', idtipodoc='"+p.getIdtipodoc()+"', idubigeo='"+p.getIdubigeo()+"',"
+//                    + "genero='"+p.getGenero()+"',fecha_nacimiento='"+p.getFecha_nacimiento()+"',nro_doc='"+p.getNro_doc()+"',"
+//                    + "direccion='"+p.getDireccion()+"' ,telefono='"+p.getTelefono()+"' where idpersona='"+p.getIdpersona()+"'");
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, "" + us.getIdrol());
+            ps.setString(++i, "" + us.getIdpersona());
+            ps.setString(++i, "" + us.getUsuario());
+            ps.setString(++i, "" + us.getClave());
+            ps.setString(++i, "" + us.getIdusuario());
+            ps.executeQuery();
+            val = 1;
+            ps.close();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+    }
+    
+    public ArrayList MostrarUsuarioUpdate() {
+        ArrayList consulta = new ArrayList();
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select iduser,rol,persona,usuario,clave from userupdate";
+            System.out.println(qry);
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                usuario us = new usuario();
+                us.setIdusuario(rs.getString("iduser"));
+                us.setIdrol(rs.getString("rol"));
+                us.setIdpersona(rs.getString("persona"));
+                us.setUsuario(rs.getString("user"));
+                us.setClave( desEncrypter.decrypt(rs.getString("clave")) );
+                consulta.add(us);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+            /*
+             for(int n=0;n<consulta.size();n++){
+             auto aus= (auto) consulta.get(n);
+             }*/
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+        return consulta;
+    }
+    
 
     
 }

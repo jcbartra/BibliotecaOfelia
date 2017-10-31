@@ -53,13 +53,13 @@
 
                         <div class="col-md-12">
                             <div class="col-md-12">
-                          <button class="btn btn-primary" data-toggle="modal" data-target="#addUsuario"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Usuario </button>
-      
-                          <a href="Usuario.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
-                          <label class="<%=style%>"><%=mensaje%></label>
-                          <br>
-                          <br>
-                        </div>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addUsuario"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Usuario </button>
+
+                                <a href="Usuario.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
+                                <label class="<%=style%>"><%=mensaje%></label>
+                                <br>
+                                <br>
+                            </div>
                         </div>
 
                     </div>
@@ -115,7 +115,7 @@
                                                                     </td>
                                                                     <td>
                                                             <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cu.getIdusuario()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#update<%=cu.getIdusuario()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
 
                                                                 <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 
@@ -234,7 +234,7 @@
                                                     x++) {
                                                 persona up = (persona) bp.get(x);
                                         %>
-                                        <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(us.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + "" + up.getApe_materno()%></option>
+                                        <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(us.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
                                         <%
                                             }
                                         %>
@@ -307,7 +307,7 @@
                                                 <div class="col-lg-12">
                                                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                                         <div class="table-responsive">
-                                                            <table id="tablaUsuario<%=idus%>" name="tablaUsuario" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                            <table id="tablaUsuarios<%=idus%>" name="tablaUsuarios" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                                                 <thead>
                                                                     <tr role="row">
                                                                         <th><center>N°</center></th>
@@ -325,7 +325,7 @@
                                                                         <td><%= cu.getIdpersona()%></td>
                                                                         <td><%= cu.getUsuario()%></td>
                                                                         <td><%= cu.getEstado()%></td>
-                                                                        
+
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -344,46 +344,70 @@
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>  
+        <%}%>
+        <!-- Actualizar Usuario--> 
+        <%
+            int cont2 = 0;
+            String idus2;
+            ArrayList cus = nus.MostrarUsuarioUpdate();
+            for (int i = 0; i < cus.size(); i++) {
+                usuario cu2 = (usuario) cus.get(i);
+                idus2 = cu2.getIdusuario();
+                cont2++;
 
+        %>
+        <div class="modal fade" id="update<%=idus2%>" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
 
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Persona</h4>
+                    </div>
+                    <div class="modal-body">
 
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
-
-        <script>
-            $(function () {
-                $("#tablaUsuarios").DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
+    <script>
+        $(function () {
+            $("#tablaUsuarios").DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
-                });
-
+                }
             });
-        </script>
 
-        <% }%>
+        });
+    </script>
+<% }%>
+    
 
-        <%@include file="include/recursos.jsp" %>
-    </body>
+    <%@include file="include/recursos.jsp" %>
+</body>
 </html>

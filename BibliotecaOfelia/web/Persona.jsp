@@ -544,12 +544,12 @@
                                 <div class="form-group">
                                     <label for="N-Doc" class="col-sm-2 control-label">*N°_Doc: </label>
                                     <div class="col-sm-3">
-                                        <input name="nro_doc" type="text" autocomplete="off" class="form-control" placeholder="Nro-doc   de la persona" title="Nro-doc   de la persona" value="<%=cp2.getNro_doc()%>">
+                                        <input name="nro_doc" type="number" autocomplete="off" class="form-control" placeholder="Nro-doc   de la persona" title="Nro-doc   de la persona" value="<%=cp2.getNro_doc()%>">
                                     </div>
 
                                     <label for="F-Nacimiento" class="col-sm-2 control-label">*F-Nacimiento: </label>
                                     <div class="col-sm-5">
-                                        <input name="fecha_nacimiento" type="text" autocomplete="off" class="form-control" placeholder="F-nacimiento de la persona"value="<%=cp2.getFecha_nacimiento()%>">
+                                        <input name="fecha_nacimiento" type="date" autocomplete="off" class="form-control" placeholder="F-nacimiento de la persona"value="<%=cp2.getFecha_nacimiento()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -560,13 +560,13 @@
 
                                     <label for="TeléfonoPersona" class="col-sm-2 control-label">*Teléfono: </label>
                                     <div class="col-sm-5">
-                                        <input name="telefono" type="text" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona"value="<%=cp2.getTelefono()%>">
+                                        <input name="telefono" type="number" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona"value="<%=cp2.getTelefono()%>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="FotoPersona" class="col-sm-2 control-label">*Foto: </label>
                                     <div class="col-sm-3">
-                                        <input name="foto" type="text" autocomplete="off" class="form-control" placeholder="Foto de la Persona" title="Foto de la Persona">
+                                        <input name="foto" type="file" autocomplete="off" class="form-control" >
                                     </div>
 
 
