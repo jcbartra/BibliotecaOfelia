@@ -7,9 +7,9 @@
     <%@include file="include/mensaje.jsp" %>
     <%
         int cont = 0;
-        ubigeo ub = new ubigeo();
-        n_ubigeo nub = new n_ubigeo();
-        nub.setUb(ub);
+        pais pa = new pais();
+        n_pais npa = new n_pais();
+        npa.setPa(pa);
     %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -19,24 +19,20 @@
                 <section class="content-header">
                     <h1 class="epic-nav-item-heading " aria-selected="true">
                         MÓDULO REGISTRO
-                        <small>Registrar Ubigeo</small>
+                        <small>Registrar Pais</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
                         <li class="active">Registro</li>
-                        <li class="active">Registrar Ubigeo</li>
+                        <li class="active">Registrar Pais</li>
                     </ol>
                 </section>
                 <section class="content">
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addUbigeo">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Ubigeo</button>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#addPais">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Pais</button>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addDepartamento">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Departamento</button>
-                            <a class="btn btn-primary" href="Ubigeo.jsp"><i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
+                            <a class="btn btn-primary" href="Pais.jsp"><i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
                         </div>
 
                     </div>
@@ -69,19 +65,18 @@
                                                         </thead>
                                                         <tbody>
                                                             <%
-                                                                    ArrayList rc= nub.Listar_Ubigeo();
+                                                                    ArrayList rc= npa.Listar_pais();
                                                                     for(int i=0; i<rc.size(); i++){
-                                                                       ubigeo ubi=(ubigeo) rc.get(i); 
+                                                                       pais pai=(pais) rc.get(i); 
                                                                        
                                                                        cont++;
                                                                                
                                                                 %>
                                                             <tr role="row" class="odd">
                                                                 <td class="sorting_1"><%=cont%></td>
-                                                                <td><%= ubi.getNombre()%></td>
-                                                                <td><%= ubi.getCod()%></td>
-                                                                <td><%= ubi.getIddepartamento()%></td>
-                                                                <td><%= ubi.getIdpais()%></td>
+                                                                <td><%= pai.getIdpais()%></td>
+                                                                <td><%= pai.getCod()%></td>
+                                                                <td><%= pai.getNombre()%></td>
                                                                 <td>
                                                                 <td>
                                                         <center>
@@ -232,95 +227,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
+                                    <div class="col-sm-4">
+                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
+                                    </div>
                                 <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
                                     <div class="col-sm-4">
                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Pais">
-                                    </div>
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                    <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                
-            </div>
-            <div class="modal fade" id="addPais" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Pais</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <form action="ControlPais" method="post" class="form-horizontal">
-                                <input type="hidden" name="op" value="add">
-                                <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Nombre:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
-                                    </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Codigo:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                    <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                      
-                                                        
-            <div class="modal fade" id="addDepartamento" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Ubigeo</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <form action="ControlUbigeo" method="post" class="form-horizontal">
-                                <input type="hidden" name="op" value="add">
-                                <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Nombre:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
-                                    </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Codigo:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Pais">
-                                    </div>
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -374,4 +287,3 @@
     </body>
 
 </html>
-
