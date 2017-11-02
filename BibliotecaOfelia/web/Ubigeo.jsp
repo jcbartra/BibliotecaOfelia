@@ -5,11 +5,16 @@
 <html>
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
-    <%
-        int cont = 0;
+    <%        int cont = 0;
         ubigeo ub = new ubigeo();
         n_ubigeo nub = new n_ubigeo();
         nub.setUb(ub);
+        pais pa = new pais();
+        n_pais npa = new n_pais();
+        npa.setPa(pa);
+        departamento dep = new departamento();
+        n_departamento ndep = new n_departamento();
+        ndep.setDep(dep);
     %>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -63,69 +68,69 @@
                                                         <th><center>Codigo</center></th>
                                                         <th><center>Departamento</center></th>
                                                         <th><center>Pais</center></th>
-                                                        <th><center>Accion</center></th>
+                                                        <th><center>ver</center></th>
+                                                        <th><center>Acciones</center></th>
                                                         </tr>
 
                                                         </thead>
                                                         <tbody>
                                                             <%
-                                                                    ArrayList rc= nub.Listar_Ubigeo();
-                                                                    for(int i=0; i<rc.size(); i++){
-                                                                       ubigeo ubi=(ubigeo) rc.get(i); 
-                                                                       
-                                                                       cont++;
-                                                                               
-                                                                %>
+                                                                ArrayList rc = nub.Listar_Ubigeo();
+                                                                for (int i = 0; i < rc.size(); i++) {
+                                                                    ubigeo ubi = (ubigeo) rc.get(i);
+
+                                                                    cont++;
+
+                                                            %>
                                                             <tr role="row" class="odd">
                                                                 <td class="sorting_1"><%=cont%></td>
                                                                 <td><%= ubi.getNombre()%></td>
                                                                 <td><%= ubi.getCod()%></td>
                                                                 <td><%= ubi.getIddepartamento()%></td>
                                                                 <td><%= ubi.getIdpais()%></td>
-                                                                <td>
-                                                                <td>
+                                                                <td><center><a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cont%>" ><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i></a></center></td>                                                 
+                                                        <td>
                                                         <center>
-                                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#ver<%=cont%>" ><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                             <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cont%>" ><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                             <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
                                                             <!---------------------------------------------------------VER PAIS----------------------->
-                                                                <div class="modal fade" id="ver<%=cont%>" tabindex="-1" role="dialog">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
+                                                            <div class="modal fade" id="ver<%=cont%>" tabindex="-1" role="dialog">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
 
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <!---------------------------------MODIFICAR-------------------------------->
-                                                                                <h4 class="modal-title"><i class="fa fa-pencil" aria-hidden="true"></i> Ver caracteristicas del pais <%=ubi.getNombre()%></h4>
-                                                                            </div>
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                            <!---------------------------------MODIFICAR-------------------------------->
+                                                                            <h4 class="modal-title"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> Ver caracteristicas de <%=ubi.getNombre()%></h4>
+                                                                        </div>
 
-                                                                            <div class="modal-body">
+                                                                        <div class="modal-body">
 
-                                                                                <form action="ControlUbigeo" method="post" class="form-horizontal">
-                                                                                    <input type="hidden" name="op" value="update">
-                                                                                    <input type="hidden" name="idubigeo" value="<%=ubi.getIdubigeo()%>">
-                                                                                                                                                                     
-                                                                                    <div class="form-group">
-                                                                                        <label for="" class="col-sm-5 control-label ">Ciudades de <%=ubi.getNombre()%></label>
-                                                                                        <center> <div class="col-sm-5 ">
+                                                                            <form action="ControlUbigeo" method="post" class="form-horizontal">
+                                                                                <input type="hidden" name="op" value="update">
+                                                                                <input type="hidden" name="idubigeo" value="<%=ubi.getIdubigeo()%>">
+
+                                                                                <div class="form-group">
+                                                                                    <label for="" class="col-sm-5 control-label ">Ciudades de <%=ubi.getNombre()%></label>
+                                                                                    <center> <div class="col-sm-5 ">
                                                                                             <select name="idtipo_incidencia" class="form-control">
                                                                                                 <option>Seleccione</option>                                                                                               
                                                                                                 <option value="<%=ubi.getIdubigeo()%>"><%= ubi.getNombre()%></option>
-                                                                                                
+
                                                                                             </select>
                                                                                         </div></center>                                                                                        
-                                                                                    </div>
+                                                                                </div>
 
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                                                                        <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                                                                                    </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                                                                    <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                                                                </div>
 
-                                                                                </form>
-                                                                            </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
                                                             <!----------------------------------termino---------------------------------> 
 
                                                             <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
@@ -179,6 +184,38 @@
                                                                                     <div class="col-sm-4">
                                                                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" value="<%=ubi.getNombre()%>">
                                                                                     </div>
+                                                                                    <label for="ubigeo" class="col-sm-5 control-label">* Codigo:</label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" value="<%=ubi.getCod()%>">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label for="ubigeo" class="col-sm-5 control-label">* Departamento:</label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" value="<%=ubi.getIddepartamento()%>">
+                                                                                    </div>
+                                                                                    <label for="ubigeo" class="col-sm-5 control-label">* Pais:</label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" value="<%=ubi.getIdpais()%>">
+                                                                                    </div>
+                                                                                    <label for="" class="col-sm-5 control-label ">* Pais</label>
+                                                                                    <div class="col-sm-5">
+                                                                                        <select name="idpais" id="iconos" class="form-control" title="Pais">
+                                                                                            <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                                                                            <%
+                                                                                                npa.setPa(pa);
+                                                                                                ArrayList bp = npa.Buscar_pais();
+                                                                                                for (int x = 0;
+                                                                                                        x < bp.size();
+                                                                                                        x++) {
+                                                                                                    pais atp = (pais) bp.get(x);
+                                                                                            %>
+                                                                                            <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(pa.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
+                                                                                            <%
+                                                                                                }
+                                                                                            %>
+                                                                                        </select>
+                                                                                    </div>      
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
@@ -220,28 +257,65 @@
 
                         <div class="modal-body">
                             <form action="ControlUbigeo" method="post" class="form-horizontal">
-                                <input type="hidden" name="op" value="add">
+                                <input type="hidden" name="op" value="add_Ubigeo">
                                 <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Nombre:</label>
+                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
+                                        <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
                                     </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Codigo:</label>
+                                    <label for="codigo" class="col-sm-2 control-label">*Codigo:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
+                                        <input name="codigo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
                                     </div>
                                 </div>
+                                <%  String p;
+                                %>
                                 <div class="form-group">
-                                <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Pais">
-                                    </div>
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
+                                    <label for="" class="col-sm-5 control-label ">* Pais</label>
+                                    <div class="col-sm-5">
+                                        <select name="idpais" id="iconos" class="form-control" title="Pais">
+                                            <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <%  
+                                                npa.setPa(pa);
+                                                ArrayList bp = npa.Buscar_pais();
+                                                for (int x = 0;
+                                                        x < bp.size();
+                                                        x++) {
+                                                    pais atp = (pais) bp.get(x);
+                                            %>
+                                            <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(pa.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+                                    </div>    
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-5 control-label ">* Departamento ojo</label>
+                                    <div class="col-sm-5">
+                                        <select name="iddepartamento" id="iconos" class="form-control" title="Departamento">
+                                            <option value="" hidden="hidden"<%if (dep.getIddepartamento()== null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <%
+                                                ndep.setDep(dep);
+                                                ArrayList bpp = ndep.Buscar_departamento();
+                                                for (int y = 0;
+                                                        y < bpp.size();
+                                                        y++) {
+                                                    departamento atd = (departamento) bpp.get(y);
+                                            %>
+                                            <option value="<%=atd.getIddepartamento()%>"<%if (atd.getIddepartamento().equals(dep.getIddepartamento())) {%>selected="selected"<%}%>><%=atd.getNombre()%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+                                    </div>    
+                                </div>
+                                <!--<div class="form-group">       
+                                    <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
                                     <div class="col-sm-4">
                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
+                                    </div></div>
+                                <div class="modal-footer">-->
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
                                     <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
                                 </div>
@@ -250,7 +324,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
             <div class="modal fade" id="addPais" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
@@ -275,7 +349,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
+                                    <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
                                     <div class="col-sm-4">
                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
                                     </div>
@@ -289,8 +363,8 @@
                     </div>
                 </div>
             </div>
-                      
-                                                        
+
+
             <div class="modal fade" id="addDepartamento" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -314,11 +388,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
+                                    <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
                                     <div class="col-sm-4">
                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Pais">
                                     </div>
-                                <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
+                                    <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
                                     <div class="col-sm-4">
                                         <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
                                     </div>

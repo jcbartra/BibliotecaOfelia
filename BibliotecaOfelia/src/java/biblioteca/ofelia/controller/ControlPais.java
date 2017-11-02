@@ -5,6 +5,8 @@
  */
 package biblioteca.ofelia.controller;
 
+import biblioteca.ofelia.entidad.pais;
+import biblioteca.ofelia.procesos.n_pais;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,15 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import biblioteca.ofelia.entidad.ubigeo;
-import biblioteca.ofelia.procesos.n_ubigeo;
-import biblioteca.ofelia.util.*;
+
 /**
  *
  * @author SORALUZ
  */
-@WebServlet(name = "ControlUbigeo", urlPatterns = {"/ControlUbigeo"})
-public class ControlUbigeo extends HttpServlet {
+@WebServlet(name = "ControlPais", urlPatterns = {"/ControlPais"})
+public class ControlPais extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,75 +35,66 @@ public class ControlUbigeo extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
-            String idubigeo=(String)request.getParameter("idubigeo");
+            String idpais=(String)request.getParameter("idpais");
             String nombre=(String)request.getParameter("nombre");
             String cod=(String)request.getParameter("cod");
-            String iddepartamento=(String)request.getParameter("iddepartamento");
-            String idpais=(String)request.getParameter("idpais");
             String estado=(String)request.getParameter("estado");
             String op=(String)request.getParameter("op");
             
-            ubigeo u= new ubigeo();
-            n_ubigeo nu =new n_ubigeo();
+            pais p= new pais();
+            n_pais pa =new n_pais();
             
-            if(op.equals("add_Ubigeo")){
+            if(op.equals("add_Pais")){
                 
-                u.setNombre(nombre);
-                u.setCod(cod);
-                u.setIddepartamento(iddepartamento);
-                u.setIdpais(idpais);
-                u.setEstado(estado);                
-                nu.setUb(u);
-                nu.IngresarUbigeo();
+                p.setNombre(nombre);
+                p.setCod(cod);
+                p.setEstado(estado);                
+                pa.setPa(p);
+                pa.IngresarPais();
                 
-                if(nu.val==1)
+                if(pa.val==1)
                 {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=1");
+                    response.sendRedirect("Pais.jsp?mensaje=1");
                 }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=2");
+                    response.sendRedirect("Pais.jsp?mensaje=2");
                 }
                 
                 
             }
             
-            if(op.equals("delete_Ubigeo")){
-                u.setIdubigeo(idubigeo);
-                nu.setUb(u);
-                nu.BorrarUbigeo();
-                if(nu.val==1)
+            if(op.equals("delete_Pais")){
+                p.setIdpais(idpais);
+                pa.setPa(p);
+                pa.BorrarPais();
+                if(pa.val==1)
                 {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=3");
+                    response.sendRedirect("Pais.jsp?mensaje=3");
                 }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=4");
+                    response.sendRedirect("Pais.jsp?mensaje=4");
                 }
             }
             
-            if(op.equals("update_Ubigeo")){
+            if(op.equals("update_Pais")){
                 
-                u.setIdubigeo(idubigeo);
-                u.setNombre(nombre);
-                u.setCod(cod);
-                u.setIddepartamento(iddepartamento);
-                u.setIdpais(idpais);
-                u.setEstado(estado);                
-                nu.setUb(u);
-                nu.actualizar();
+                p.setIdpais(idpais);
+                p.setNombre(nombre);
+                p.setCod(cod);
+                p.setEstado(estado);                
+                pa.setPa(p);
+                pa.actualizarPais();
                 
                 
-                if(nu.val==1)
+                if(pa.val==1)
                 {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=5");
+                    response.sendRedirect("Pais.jsp?mensaje=5");
                 }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=6");
+                    response.sendRedirect("Pais.jsp?mensaje=6");
                 }
                 
                 
             }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

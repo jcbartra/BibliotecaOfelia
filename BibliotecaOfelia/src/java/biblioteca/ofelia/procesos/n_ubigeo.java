@@ -137,7 +137,50 @@ public class n_ubigeo {
              }
         return consulta;
     }
- public void Eliminar(){
+   public void IngresarUbigeo()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into ubigeo (nombre,cod,iddepartamento,idpais,estado) "
+                   + "values (?,?,?,?,?)";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+ub.getNombre());
+           ps.setString(++i,""+ub.getCod());
+           ps.setString(++i,""+ub.getIddepartamento());
+           ps.setString(++i,""+ub.getIdpais());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+ public void BorrarUbigeo(){
         val=0;
         try{
             int i=0;
@@ -181,11 +224,11 @@ public class n_ubigeo {
         
             qry="update ubigeo set ubigeo=?, codigo=?, departamento=?, pais=? idubigeo=?";// el ? sirve para aumentar la veracidad de la conección de la BD
             PreparedStatement ps= conn.prepareStatement(qry);
+            ps.setString(++i,""+ub.getIdubigeo());
             ps.setString(++i,""+ub.getNombre());
             ps.setString(++i,""+ub.getCod());
             ps.setString(++i,""+ub.getIddepartamento());
-            ps.setString(++i,""+ub.getIdpais());
-            ps.setString(++i,""+ub.getIdubigeo());
+            ps.setString(++i,""+ub.getIdpais());            
             ps.executeQuery();
             val=1;
             ps.close();
