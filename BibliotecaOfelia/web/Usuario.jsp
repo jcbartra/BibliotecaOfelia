@@ -141,7 +141,7 @@
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <form  action="ControlUsuario" method="post">
-                                                                                    <input type="hidden" name="ops" value="eliminarUser">
+                                                                                    <input type="hidden" name="ops" value="eliminar">
                                                                                     <input type="hidden" name="ids" value="<%=cu.getIdusuario()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
@@ -176,7 +176,7 @@
 
             <%@include file="include/footer.jsp" %>
         </div>
-        <!-- Registro Persona-->
+        <!-- Registro Usuario-->
         <div class="modal fade" id="addUsuario" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -274,8 +274,6 @@
 
         <!--  VER  USUARIOS-->
 
-
-
         <%        int cont1 = 0;
             String idus;
 
@@ -307,28 +305,72 @@
                                                 <div class="col-lg-12">
                                                     <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                                         <div class="table-responsive">
-                                                            <table id="tablaUsuarios<%=idus%>" name="tablaUsuarios" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                                                <thead>
-                                                                    <tr role="row">
-                                                                        <th><center>N°</center></th>
-                                                                <th><center>Rol</center></th>
-                                                                <th><center>Persona</center></th>
-                                                                <th><center>Usuario</center></th>
-                                                                <th><center>Estado</center></th>
-                                                                </tr>
-                                                                </thead>
-
-                                                                <tbody>
-                                                                    <tr role="row" class="odd" align="center">
-                                                                        <td class="sorting_1"><%= cont1%></td>
-                                                                        <td><%= cu.getIdrol()%></td>
-                                                                        <td><%= cu.getIdpersona()%></td>
-                                                                        <td><%= cu.getUsuario()%></td>
-                                                                        <td><%= cu.getEstado()%></td>
+                                                            <body >
+                                                                <table width="308" align="center" >
+                                                                    <tr>
+                                                                        <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td width="143"><img src="../NetBeansProjects/BibliotecaOfelia/BibliotecaOfelia/web/Recursos/img/avatar5.png" width="142" height="114" /></td>
+                                                                        <td><%=cu.getIdpersona()%></td>
+                                                                    </tr>
+                                                                    <tr>
 
                                                                     </tr>
-                                                                </tbody>
-                                                            </table>
+
+                                                                    <tr>
+                                                                        <td height="33" colspan="2"><strong>Date User</strong></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Ubigeo:</td>
+                                                                        <td ><%=cu.getN_ubigeo()%></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Tipo Documento:</td>
+                                                                        <td><%=cu.getN_tipodoc()%></td>
+
+                                                                    </tr>
+                                                                    
+                                                                    <tr>
+                                                                        <td>N° Documento:</td>
+                                                                        <td><%=cu.getN_nro()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Género:</td>
+                                                                        <td><%=cu.getN_sexo()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Dirección:</td>
+                                                                        <td><%=cu.getDireccion()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Teléfono:</td>
+                                                                        <td><%=cu.getTelefono()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Rol:</td>
+                                                                        <td><%=cu.getIdrol()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Usuario</td>
+                                                                        <td><%=cu.getUsuario()%></td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>&nbsp;</td>
+                                                                        <td>&nbsp;</td>
+
+                                                                    </tr>
+
+
+                                                                </table>
+                                                            </body>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -344,7 +386,7 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div> 
         <%}%>
         <!-- Actualizar Usuario--> 
         <%
@@ -363,51 +405,143 @@
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Persona</h4>
+                        <h4 class="modal-title"><i class="ion-person-add"></i> Actualizar Usuario</h4>
                     </div>
                     <div class="modal-body">
 
-                       
+                        <form action="ControlUsuario" method="post" class="form-horizontal">
+                            <input type="hidden" name="ops" value="update_usuario">
+                            <input type="hidden" name="ids" value="<%=idus2%>">
+
+                            <div class="form-group">
+                                <label for="Rol" class="col-sm-2 control-label">*Rol </label>
+                                <div class="col-sm-5">
+                                    <select name="rol" id="rol" class="form-control"  title="Rol">
+                                        <option value="" hidden="" <%if (r.getIdrol()
+                                                    == null) {%>selected="selected"<%}%>>Selecionar...</option>
+                                        <%
+                                         
+
+                                            for (int x = 0;
+                                                    x < br.size();
+                                                    x++) {
+                                                rol ar = (rol) br.get(x);
+                                        %>
+                                        <option value="<%=ar.getIdrol()%>"<%if (ar.getIdrol().equals(cu2.getIdrol())) {%>selected="selected"<%}%>><%=ar.getRol()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="btn small-box bg- btn-xs" id="colorBox" data-toggle="modal">&nbsp;<br/>&nbsp;</div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <label for="Persona" class="col-sm-2 control-label">*Persona: </label>
+                                <div class="col-sm-5">
+                                    <select name="persona" id="persona" class="form-control" title="persona">
+                                        <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Selecionar...</option>
+                                        <%
+                                            
+
+                                            for (int x = 0;
+                                                    x < bp.size();
+                                                    x++) {
+                                                persona up = (persona) bp.get(x);
+                                        %>
+                                        <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(cu2.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <span class="" id="iconoBox" with="20px"></span>
+                                </div>
+                            </div>  
+                                    
+                            <div class="form-group">
+                                <label for="Usuario" class="col-sm-2 control-label">*Usuario: </label>
+                                <div class="col-sm-3">
+                                    <input name="usuario" type="text" autocomplete="off" class="form-control" placeholder="Usuario de la persona" title="usuario  de la persona" value="<%=cu2.getUsuario()%>">
+                                </div>
+
+                                <label for="F-Clave" class="col-sm-2 control-label">*Clave: </label>
+                                <div class="col-sm-5">
+                                    <input name="clave" type="password" autocomplete="off" class="form-control" placeholder="calve de la persona" title="clave de la persona" value="<%=cu2.getClave()%>">
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
+                                <a class="btn btn-default" data-dismiss="modal"id="closemodal2<%=idus2%>"><i class="fa fa-close" aria-hidden="true"></i> cerrar</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        
 
-    <script>
-        $(function () {
-            $("#tablaUsuarios").DataTable({
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        <script>
+            $(function () {
+                $("#tablaUsuarios").DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
                     }
-                }
+                });
+
             });
+        </script>
+        <% }%>
+        <script>
+            function cambiar_color()
+            {
+                var color = document.getElementById("colores").value;
+                color = color.toLowerCase();
+                var cadena = "btn small-box bg-" + color + " btn-xs";
+                //alert(cadena);
+                document.getElementById("colorBox").className = cadena;
+            }
+            ;
+            function cambiar_icono()
+            {
+                var icono = document.getElementById("iconos").value;
+                icono = icono.toLowerCase();
+                var cadena = "ions " + icono;
+                //alert(cadena);
+                document.getElementById("iconoBox").className = cadena;
+            }
+            ;
+        </script>
 
-        });
-    </script>
-<% }%>
-    
-
-    <%@include file="include/recursos.jsp" %>
-</body>
+        <%@include file="include/recursos.jsp" %>
+    </body>
 </html>

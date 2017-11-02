@@ -69,7 +69,7 @@ public class ControlUsuario extends HttpServlet {
                 
             }
             
-            if (us.equals("eliminarUser")) {
+            if (us.equals("eliminar")) {
                 us.setIdusuario(ids);
                 nus.setUs(us);
                 nus.EliminarUsuario();
@@ -87,7 +87,7 @@ public class ControlUsuario extends HttpServlet {
                 us.setIdrol(idrol);
                 us.setIdpersona(idpersona);
                 us.setUsuario(usuario);
-                us.setClave(clave);
+                us.setClave(clave_encrypt);
                 us.setIdusuario(ids);
                
 

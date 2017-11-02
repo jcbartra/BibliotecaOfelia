@@ -53,17 +53,24 @@ public class n_usuario {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idu,rol,persona,usuario from reporte_user";
+            qry = "select idu,persona,ubigeo,documento,numero,sexo,direccion,telefono,foto,rol,usuario from personass";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 usuario us = new usuario();
+                
                 us.setIdusuario(rs.getString("idu"));
                 us.setIdrol(rs.getString("rol"));
                 us.setIdpersona(rs.getString("persona"));
+                us.setN_ubigeo(rs.getString("ubigeo"));
+                us.setN_tipodoc(rs.getString("documento"));
+                us.setN_nro(rs.getString("numero"));
+                us.setN_sexo(rs.getString("sexo"));
+                us.setDireccion(rs.getString("direccion"));
+                us.setTelefono(rs.getString("telefono"));
                 us.setUsuario(rs.getString("usuario"));
-                ;
+                
 
                 consulta.add(us);
             }
@@ -234,7 +241,7 @@ public class n_usuario {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select iduser,rol,persona,usuario,clave from userupdate";
+            qry = "select iduser,rol,persona,usuario,clave from updatepersona";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
@@ -243,7 +250,7 @@ public class n_usuario {
                 us.setIdusuario(rs.getString("iduser"));
                 us.setIdrol(rs.getString("rol"));
                 us.setIdpersona(rs.getString("persona"));
-                us.setUsuario(rs.getString("user"));
+                us.setUsuario(rs.getString("usuario"));
                 us.setClave( desEncrypter.decrypt(rs.getString("clave")) );
                 consulta.add(us);
             }
