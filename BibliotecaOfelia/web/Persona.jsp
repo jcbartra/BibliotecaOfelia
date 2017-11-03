@@ -23,6 +23,7 @@
             font-size: 30px;
         }
     </style>
+    
     <body class="hold-transition skin-blue sidebar-mini">
 
         <div class="wrapper">
@@ -189,9 +190,8 @@
 
                     <div class="modal-body">
 
-                        <form action="ControlPersona" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Persona">
-
+                        <form enctype="multipart/form-data" action="ControlPersona?op=add_Persona" method="post" class="form-horizontal">
+                            
                             <div class="form-group">
                                 <label for="numeroCategoria" class="col-sm-2 control-label">*Nombres: </label>
                                 <div class="col-sm-3">
@@ -312,9 +312,6 @@
 
                             </div>
 
-
-
-
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
@@ -367,7 +364,7 @@
                                                                         <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td width="143"><img src="../NetBeansProjects/BibliotecaOfelia/BibliotecaOfelia/web/Recursos/img/avatar5.png" width="142" height="114" /></td>
+                                                                        <td width="143"><img src="Recursos/img/personas/<%=cp.getFoto()%>" width="142" height="114" /></td>
                                                                         <td><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
                                                                     </tr>
                                                                     <tr>
@@ -563,10 +560,10 @@
                                         <input name="telefono" type="number" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona"value="<%=cp2.getTelefono()%>">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                    <div hidden="hidden" class="form-group">
                                     <label for="FotoPersona" class="col-sm-2 control-label">*Foto: </label>
                                     <div class="col-sm-3">
-                                        <input name="foto" type="file" autocomplete="off" class="form-control" >
+                                        <input name="foto" type="file" autocomplete="off" class="form-control" value="<%=cp2.getFoto()%>">
                                     </div>
 
 

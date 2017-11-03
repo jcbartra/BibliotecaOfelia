@@ -16,12 +16,13 @@ import java.util.*;
  * @author Alex Maluquish
  */
 public class n_usuario {
+
     DBConn tran = null;
     Connection conn = null;
     String qry, qry2;//almacena la transacción
     public static int val;//definir si la transacción tuvo éxito
 
-    usuario us= new usuario();
+    usuario us = new usuario();
     STRCrypto desEncrypter = new STRCrypto("ndprVF14Jp8=");
 
     public n_usuario() {
@@ -33,8 +34,8 @@ public class n_usuario {
     public void setMError(String mensaje) {
         MError = mensaje;
     }
-    
-     public String getMError() {
+
+    public String getMError() {
         return MError;
     }
 
@@ -45,8 +46,7 @@ public class n_usuario {
     public void setUs(usuario us) {
         this.us = us;
     }
-    
-    
+
     public ArrayList MostrarUsuarios() {
         ArrayList consulta = new ArrayList();
         try {
@@ -59,7 +59,7 @@ public class n_usuario {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 usuario us = new usuario();
-                
+
                 us.setIdusuario(rs.getString("idu"));
                 us.setIdrol(rs.getString("rol"));
                 us.setIdpersona(rs.getString("persona"));
@@ -70,7 +70,6 @@ public class n_usuario {
                 us.setDireccion(rs.getString("direccion"));
                 us.setTelefono(rs.getString("telefono"));
                 us.setUsuario(rs.getString("usuario"));
-                
 
                 consulta.add(us);
             }
@@ -102,8 +101,7 @@ public class n_usuario {
         }
         return consulta;
     }
-    
-    
+
     public void InsertarUsuario() {
         val = 0;
         try {
@@ -112,11 +110,10 @@ public class n_usuario {
             conn.setAutoCommit(false);
 
             qry = "insert into usuario(idrol,idpersona,usuario,clave,estado)"
-
                     + "values (?,?,?,?,?)";
             System.out.println("estas aqui");
             System.out.println("insert into usuario (idrol,idpersona,usuario,clave,estado)"
-                  + "values ('"+us.getIdrol()+"','"+us.getIdpersona()+"','"+us.getUsuario()+"','"+us.getClave()+"','"+us.getEstado()+"','1')");
+                    + "values ('" + us.getIdrol() + "','" + us.getIdpersona() + "','" + us.getUsuario() + "','" + us.getClave() + "','" + us.getEstado() + "','1')");
 
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + us.getIdrol());
@@ -150,7 +147,7 @@ public class n_usuario {
             }
         }
     }
-    
+
     public void EliminarUsuario() {
         val = 0;
 
@@ -164,7 +161,7 @@ public class n_usuario {
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + us.getIdusuario());
             ps.executeQuery();
-            val = 1;
+            val=1;
             ps.close();
 
             conn.close();
@@ -189,7 +186,7 @@ public class n_usuario {
             }
         }
     }
-    
+
     public void actualizarUser() {
         val = 0;
         try {
@@ -234,7 +231,7 @@ public class n_usuario {
             }
         }
     }
-    
+
     public ArrayList MostrarUsuarioUpdate() {
         ArrayList consulta = new ArrayList();
         try {
@@ -251,7 +248,7 @@ public class n_usuario {
                 us.setIdrol(rs.getString("rol"));
                 us.setIdpersona(rs.getString("persona"));
                 us.setUsuario(rs.getString("usuario"));
-                us.setClave( desEncrypter.decrypt(rs.getString("clave")) );
+                us.setClave(desEncrypter.decrypt(rs.getString("clave")));
                 consulta.add(us);
             }
             rs.close();
@@ -282,7 +279,5 @@ public class n_usuario {
         }
         return consulta;
     }
-    
 
-    
 }

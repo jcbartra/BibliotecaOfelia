@@ -69,15 +69,15 @@ public class ControlUsuario extends HttpServlet {
                 
             }
             
-            if (us.equals("eliminar")) {
+            if (ops.equals("eliminar")) {
                 us.setIdusuario(ids);
                 nus.setUs(us);
                 nus.EliminarUsuario();
                 if(nus.val==1)
                 {
-                    response.sendRedirect("Usuario.jsp?mensaje=1");
+                    response.sendRedirect("Usuario.jsp?mensaje=3");
                 }else{
-                    response.sendRedirect("Usuario.jsp?mensaje=2");
+                    response.sendRedirect("Usuario.jsp?mensaje=4");
                 }
             }
             

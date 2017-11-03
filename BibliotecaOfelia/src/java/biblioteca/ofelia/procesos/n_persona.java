@@ -6,6 +6,8 @@
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.*;
+import static biblioteca.ofelia.procesos.n_categoria.val;
+import static biblioteca.ofelia.procesos.n_usuario.val;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
@@ -122,7 +124,7 @@ public class n_persona {
                 p.setGenero(rs.getString("genero"));
                 p.setIdubigeo(rs.getString("ubigeo"));
                 p.setIdtipodoc(rs.getString("tipo_doc"));
-                 p.setNro_doc(rs.getString("documento"));
+                p.setNro_doc(rs.getString("documento"));
                 p.setFecha_nacimiento(rs.getString("nacimiento"));
                 p.setDireccion(rs.getString("direccion"));
                 p.setTelefono(rs.getString("telefono"));
@@ -158,6 +160,7 @@ public class n_persona {
         }
         return consulta;
     }
+
     public ArrayList Mostrar_PersonaUpdate() {
         ArrayList consulta = new ArrayList();
         try {
@@ -177,7 +180,7 @@ public class n_persona {
                 p.setGenero(rs.getString("genero"));
                 p.setIdubigeo(rs.getString("ubigeo"));
                 p.setIdtipodoc(rs.getString("tipo_doc"));
-                 p.setNro_doc(rs.getString("documento"));
+                p.setNro_doc(rs.getString("documento"));
                 p.setFecha_nacimiento(rs.getString("nacimiento"));
                 p.setDireccion(rs.getString("direccion"));
                 p.setTelefono(rs.getString("telefono"));
@@ -214,25 +217,31 @@ public class n_persona {
         return consulta;
     }
 
-   
-
-
     public void Eliminar() {
         val = 0;
 
         try {
-            int i = 0;
+            int i=0,e=0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "delete persona where idpersona=?";
+            qry = "delete usuario where idpersona=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + p.getIdpersona());
             ps.executeQuery();
-            val = 1;
             ps.close();
+            
+            
+            qry2 = "delete persona where idpersona=?";
 
+            PreparedStatement ps2 = conn.prepareStatement(qry2);
+            ps2.setString(++e, "" + p.getIdpersona());
+            ps2.executeQuery();
+            val = 1;
+            ps2.close();
+
+           
             conn.close();
 
         } catch (SQLException e) {
@@ -264,10 +273,10 @@ public class n_persona {
             conn.setAutoCommit(false);
 
             qry = "Update persona set nombres=?, ape_paterno=?, ape_materno=?, idtipodoc=?, idubigeo=?,genero=?,fecha_nacimiento=?,nro_doc=?,direccion=? ,telefono=? where idpersona=?";
-            System.out.println("Update persona set nombres='"+p.getNombres()+"', ape_paterno='"+p.getApe_paterno()+"', "
-                    + "ape_materno='"+p.getApe_materno()+"', idtipodoc='"+p.getIdtipodoc()+"', idubigeo='"+p.getIdubigeo()+"',"
-                    + "genero='"+p.getGenero()+"',fecha_nacimiento='"+p.getFecha_nacimiento()+"',nro_doc='"+p.getNro_doc()+"',"
-                    + "direccion='"+p.getDireccion()+"' ,telefono='"+p.getTelefono()+"' where idpersona='"+p.getIdpersona()+"'");
+            System.out.println("Update persona set nombres='" + p.getNombres() + "', ape_paterno='" + p.getApe_paterno() + "', "
+                    + "ape_materno='" + p.getApe_materno() + "', idtipodoc='" + p.getIdtipodoc() + "', idubigeo='" + p.getIdubigeo() + "',"
+                    + "genero='" + p.getGenero() + "',fecha_nacimiento='" + p.getFecha_nacimiento() + "',nro_doc='" + p.getNro_doc() + "',"
+                    + "direccion='" + p.getDireccion() + "' ,telefono='" + p.getTelefono() + "' where idpersona='" + p.getIdpersona() + "'");
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + p.getNombres());
             ps.setString(++i, "" + p.getApe_paterno());
@@ -306,54 +315,51 @@ public class n_persona {
             }
         }
     }
-    
-    public ArrayList Buscar_Persona()
-    {
-        ArrayList consulta=new ArrayList();
-        try
-        {
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select idpersona,nombres,ape_paterno,ape_materno from persona order by nombres";
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ResultSet rs=ps.executeQuery();
-           while(rs.next())
-                   {
-                       
-                       persona p=new persona();
-                       p.setIdpersona(rs.getString("idpersona"));
-                       p.setNombres(rs.getString("nombres"));
-                       p.setApe_paterno(rs.getString("ape_paterno"));
-                       p.setApe_materno(rs.getString("ape_materno"));
-                       consulta.add(p);
-                   }
-           rs.close();
-           ps.close();
-           conn.close(); 
-           /*
-           for(int n=0;n<consulta.size();n++){
-                   auto aus= (auto) consulta.get(n);
-           }*/
+
+    public ArrayList Buscar_Persona() {
+        ArrayList consulta = new ArrayList();
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select idpersona,nombres,ape_paterno,ape_materno from persona order by nombres";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                persona p = new persona();
+                p.setIdpersona(rs.getString("idpersona"));
+                p.setNombres(rs.getString("nombres"));
+                p.setApe_paterno(rs.getString("ape_paterno"));
+                p.setApe_materno(rs.getString("ape_materno"));
+                consulta.add(p);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+            /*
+             for(int n=0;n<consulta.size();n++){
+             auto aus= (auto) consulta.get(n);
+             }*/
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
         }
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
         return consulta;
     }
 
