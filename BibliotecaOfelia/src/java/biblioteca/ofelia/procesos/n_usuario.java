@@ -156,7 +156,7 @@ public class n_usuario {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "delete usuario where idusuario=?";
+            qry = "update usuario set estado='0' where idusuario=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + us.getIdusuario());

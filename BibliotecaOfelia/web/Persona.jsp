@@ -190,10 +190,10 @@
 
                     <div class="modal-body">
 
-                        <form enctype="multipart/form-data" action="ControlPersona?op=add_Persona" method="post" class="form-horizontal">
-                            
+                        <form action="ControlPersona" method="post" class="form-horizontal">
+                            <input type="hidden" name="op" value="add_Persona">
                             <div class="form-group">
-                                <label for="numeroCategoria" class="col-sm-2 control-label">*Nombres: </label>
+                                <label for="nombres" class="col-sm-2 control-label">*Nombres: </label>
                                 <div class="col-sm-3">
                                     <input name="nombres" type="text" autocomplete="off" class="form-control" placeholder="Nombre de la personas" title="Nombres de la persona">
                                 </div>

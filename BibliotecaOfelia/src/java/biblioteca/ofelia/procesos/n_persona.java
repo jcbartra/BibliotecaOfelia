@@ -110,8 +110,7 @@ public class n_persona {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,"
-                    + "telefono,foto,estado from datos_persona";
+            qry = "select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,telefono,foto,estado from datos_persona";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
@@ -221,27 +220,17 @@ public class n_persona {
         val = 0;
 
         try {
-            int i=0,e=0;
+            int i=0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "delete usuario where idpersona=?";
+            qry = "update persona set estado='0' where idpersona=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, "" + p.getIdpersona());
             ps.executeQuery();
-            ps.close();
-            
-            
-            qry2 = "delete persona where idpersona=?";
-
-            PreparedStatement ps2 = conn.prepareStatement(qry2);
-            ps2.setString(++e, "" + p.getIdpersona());
-            ps2.executeQuery();
             val = 1;
-            ps2.close();
-
-           
+            ps.close();   
             conn.close();
 
         } catch (SQLException e) {

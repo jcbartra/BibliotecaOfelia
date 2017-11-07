@@ -42,7 +42,7 @@ public class ControlUsuario extends HttpServlet {
             String idrol = (String) request.getParameter("rol");
             String idpersona = (String) request.getParameter("persona");
             String usuario = (String) request.getParameter("usuario");
-            String clave = (String) request.getParameter("clave");
+            String clave = (String) request.getParameter("clave");if(clave==null){clave="n";}
             String ops = (String) request.getParameter("ops");
             String ids = (String) request.getParameter("ids");
             
