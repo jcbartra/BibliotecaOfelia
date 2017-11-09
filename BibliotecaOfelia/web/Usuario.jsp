@@ -311,7 +311,7 @@
                                                                         <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td width="143"><img src="Recursos/img/personas/<%=cu.getFoto()%>" width="142" height="114" /></td>
+                                                                        
                                                                         <td><%=cu.getIdpersona()%></td>
                                                                     </tr>
                                                                     <tr>
