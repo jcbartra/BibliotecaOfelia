@@ -402,9 +402,9 @@ public class n_persona {
             qry = "select idpersona, nombre, nro_doc, foto, tipo from vista_lector "
                     + "where nombres like ? and ape_paterno like ? and ape_materno like ? and estado='1'";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "%"+p.getNombres()+"%");
-            ps.setString(++i, "%"+p.getApe_paterno()+"%");
-            ps.setString(++i, "%"+p.getApe_materno()+"%");
+            ps.setString(++i, ""+p.getNombres()+"%");
+            ps.setString(++i, ""+p.getApe_paterno()+"%");
+            ps.setString(++i, ""+p.getApe_materno()+"%");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 

@@ -10,6 +10,7 @@ package biblioteca.ofelia.entidad;
  * @author JcBartra
  */
 public class prest_detalle {
+    String dato;
     String idprestamo;
     String idprest_detalle;
     String idlector;
@@ -19,13 +20,26 @@ public class prest_detalle {
     String idusuario;
     String usuario;
     String fecha_prestamo;
+    String est_prest_dev;
     String estado;
     String fech_dev;
-    String est_prest_dev;
+    String Hora_dev;
+    String fech_dev_ef;
+    String Hora_dev_ef;
+    String hora_entrega;
+    String fecha_entrega;
     String dev_efec;
     String devuelta;
 
     public prest_detalle() {
+    }
+
+    public String getDato() {
+        return dato;
+    }
+
+    public void setDato(String dato) {
+        this.dato = dato;
     }
 
     public String getIdprestamo() {
@@ -100,6 +114,14 @@ public class prest_detalle {
         this.fecha_prestamo = fecha_prestamo;
     }
 
+    public String getEst_prest_dev() {
+        return est_prest_dev;
+    }
+
+    public void setEst_prest_dev(String est_prest_dev) {
+        this.est_prest_dev = est_prest_dev;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -116,12 +138,44 @@ public class prest_detalle {
         this.fech_dev = fech_dev;
     }
 
-    public String getEst_prest_dev() {
-        return est_prest_dev;
+    public String getHora_dev() {
+        return Hora_dev;
     }
 
-    public void setEst_prest_dev(String est_prest_dev) {
-        this.est_prest_dev = est_prest_dev;
+    public void setHora_dev(String Hora_dev) {
+        this.Hora_dev = Hora_dev;
+    }
+
+    public String getFech_dev_ef() {
+        return fech_dev_ef;
+    }
+
+    public void setFech_dev_ef(String fech_dev_ef) {
+        this.fech_dev_ef = fech_dev_ef;
+    }
+
+    public String getHora_dev_ef() {
+        return Hora_dev_ef;
+    }
+
+    public void setHora_dev_ef(String Hora_dev_ef) {
+        this.Hora_dev_ef = Hora_dev_ef;
+    }
+
+    public String getHora_entrega() {
+        return hora_entrega;
+    }
+
+    public void setHora_entrega(String hora_entrega) {
+        this.hora_entrega = hora_entrega;
+    }
+
+    public String getFecha_entrega() {
+        return fecha_entrega;
+    }
+
+    public void setFecha_entrega(String fecha_entrega) {
+        this.fecha_entrega = fecha_entrega;
     }
 
     public String getDev_efec() {
@@ -139,6 +193,8 @@ public class prest_detalle {
     public void setDevuelta(String devuelta) {
         this.devuelta = devuelta;
     }
+
     
+
     
 }

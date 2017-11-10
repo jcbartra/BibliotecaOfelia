@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import biblioteca.ofelia.entidad.accesos;
-import biblioteca.ofelia.procesos.n_accesos;
+import biblioteca.ofelia.entidad.prest_detalle;
+import biblioteca.ofelia.procesos.n_prest_detalle;
 import biblioteca.ofelia.util.*;
 
-@WebServlet(name = "ControlAccesos", urlPatterns = {"/ControlAccesos"})
-public class ControlAccesos extends HttpServlet {
+@WebServlet(name = "ControlPrestamo", urlPatterns = {"/ControlPrestamo"})
+public class ControlPrestamo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,56 +33,50 @@ public class ControlAccesos extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String idejemplar=(String)request.getParameter("idejemplar");
+            String idlector=(String)request.getParameter("idpersona");
+            String idusuario=(String)request.getParameter("idusuario");
+            String idprestamo=(String)request.getParameter("idprestamo");
+            String fecha_entrega=(String)request.getParameter("fecha_entrega");if(fecha_entrega==null){fecha_entrega="0000-00-00";}
+            String hora_entrega=(String)request.getParameter("hora_entrega");
+            String minuto_entrega=(String)request.getParameter("minuto_entrega");
+            String detalle_devolucion=(String)request.getParameter("detalle_devolucion");
+            String op=(String)request.getParameter("op");
             
-            String idmenu="";
-            String idsubmenu="";
-            String idrol=(String) request.getParameter("idrol");
-            String seleccion="";
-            int pru=0;
-            String men="";
-            int tmenu=Integer.parseInt((String)request.getParameter("tmenu"));
+            String f_entrega=fecha_entrega.substring(8,10)+"/"+fecha_entrega.substring(5,7)+"/"+fecha_entrega.substring(0,4);
             
-            accesos ac=new accesos();
-            n_accesos nac=new n_accesos();
-            
-            ac.setIdrol(idrol);
-            nac.setAc(ac);
-            
-            nac.BorrarAccesos();
-            nac.BorrarSubAccesos();
-            
-            for (int i = 1; i <= tmenu; i++) {
-                if(!men.equals(idmenu)&&pru==1){pru=0;}
-                out.println(idmenu+"---"+pru);
-                idmenu=(String) request.getParameter("idmenu"+idrol+i);
-                idsubmenu=(String) request.getParameter("idsubmenu"+idrol+i);
-                seleccion=(String) request.getParameter("seleccion"+idrol+i);if(seleccion==null){seleccion="N";}
-                out.println("*menu -"+idmenu+" *submenu -"+idsubmenu+" *rol -"+idrol+" *selección -"+seleccion+"<br/>");
-                //si se va a ingresar los menues
-                if(!men.equals(idmenu)&&seleccion.equals("S"))
+            prest_detalle pd=new prest_detalle();
+            n_prest_detalle npd=new n_prest_detalle();
+            out.println("--------------------------------------"+op);
+            if(op.equals("add_prestamo")){
+                pd.setIdejemplar(idejemplar);
+                pd.setIdlector(idlector);
+                pd.setIdusuario(idusuario);
+                pd.setFech_dev(f_entrega);
+                pd.setHora_dev(hora_entrega+":"+minuto_entrega);
+                npd.setPd(pd);
+                npd.IngresarPrestamo();
+                if(npd.val==1)
                 {
-                    out.println("se registra el "+idmenu);
-                   ac.setIdmenu(idmenu);
-                    ac.setIdrol(idrol);
-                    nac.setAc(ac);
-                    nac.ActualizarAccesos();
+                    response.sendRedirect("Prestamo.jsp?mensaje=1");
+                }else{
+                    response.sendRedirect("Prestamo.jsp?mensaje=2");
                 }
-                //si se va a ingresar los sub accesos
-                if(seleccion.equals("S"))
-                {
-                    ac.setIdsubmenu(idsubmenu);
-                    ac.setIdrol(idrol);
-                    nac.setAc(ac);
-                    nac.ActualizarSubAccesos();
-                }
-                
             }
             
-            if(nac.val==1){
-                response.sendRedirect("Accesos.jsp?mensaje=5");
-            }
-            else{
-                response.sendRedirect("Accesos.jsp?mensaje=6");
+            if(op.equals("entrega_prestamo")){
+                out.println("--------------------------------------");
+                pd.setIdejemplar(idejemplar);
+                pd.setIdprestamo(idprestamo);
+                pd.setDevuelta(detalle_devolucion);
+                npd.setPd(pd);
+                npd.DevolverLibro();
+                if(npd.val==1)
+                {
+                    response.sendRedirect("Prestamo.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Prestamo.jsp?mensaje=4");
+                }
             }
             
             

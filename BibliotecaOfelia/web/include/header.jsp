@@ -7,6 +7,7 @@ String nombre=(String)session.getAttribute("nombre");if(nombre==null){nombre="";
 String rol=(String)session.getAttribute("rol");if(rol==null){rol="";}
 String idrol=(String)session.getAttribute("idrol");if(idrol==null){idrol="";}
 String usuario=(String)session.getAttribute("usuario");if(usuario==null){usuario="";}
+String idusuario=(String)session.getAttribute("idusuario");if(idusuario==null){idusuario="";}
 String foto=(String)session.getAttribute("foto");if(foto==null){foto="";}
 
 if(usuario.equals("")){

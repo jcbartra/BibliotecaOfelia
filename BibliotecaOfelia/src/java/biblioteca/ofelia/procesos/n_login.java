@@ -100,7 +100,7 @@ public class n_login {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select persona, usuario, idrol, rol, foto from login where usuario=?";
+           qry="select persona, usuario,idusuario, idrol, rol, foto from login where usuario=?";
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+us.getUsuario());
            ResultSet rs=ps.executeQuery();
@@ -108,6 +108,7 @@ public class n_login {
             {
                 us.setIdpersona(rs.getString("persona"));
                 us.setUsuario(rs.getString("usuario"));
+                us.setIdusuario(rs.getString("idusuario"));
                 us.setIdrol(rs.getString("idrol"));
                 us.setRol(rs.getString("rol"));
                 us.setFoto(rs.getString("foto"));
