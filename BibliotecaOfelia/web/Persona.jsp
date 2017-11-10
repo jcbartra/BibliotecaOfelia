@@ -212,8 +212,8 @@
 
                     <div class="modal-body">
 
-                        <form action="ControlPersona" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Persona">
+                        <form enctype="MULTIPART/FORM-DATA" action="ControlPersona?op=add_Persona" method="post" class="form-horizontal">
+                            
                             <div class="form-group">
                                 <label for="nombres" class="col-sm-2 control-label">*Nombres: </label>
                                 <div class="col-sm-3">
