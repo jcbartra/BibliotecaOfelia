@@ -24,6 +24,9 @@
         .ions {
             font-size: 30px;
         }
+        
+        .letragrande{font-size:20px;}
+        .letragrandex{font-size:25px;}
     </style>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -70,12 +73,13 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title"> Registro de Personas</h3>
                                         <div class="box-tools pull-right"></div>
-                                        <div class="form-group" class="btn btn-primary" class="col-sm-2 control-label">
+                                        <div class="form-group" class="col-sm-2 control-label">
                                             <div >
                                                 <div class="col-sm-3">
                                                     <div >
                                                         <form action="Persona.jsp" method="post" name="form1">
-                                                            <select  class="btn btn-info" onchange="document.form1.submit();" name="act">
+                                                            <select   class="btn btn-primary"onchange="document.form1.submit();" name="act">
+                                                                
                                                                 <option value="1" <%if(act.equals("1")){%>selected<%}%>>Personas Activas</option>
                                                                 <option value="%" <%if(act.equals("%")){%>selected<%}%>>Todas las Personas</option>
                                                                 <option value="0" <%if(act.equals("0")){%>selected<%}%>>Personas Inactivas</option>
@@ -383,18 +387,18 @@
                                                             <body >
                                                                 <table width="308" align="center" >
                                                                     <tr>
-                                                                        <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
+                                                                        <td class="letragrandex" colspan="2" align="center" bgcolor="#2E9AFE"><strong>DATOS PERSONALES</strong></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td width="143"><img src="Recursos/img/personas/<%=cp.getFoto()%>" width="142" height="114" /></td>
-                                                                        <td><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
+                                                                        <td width="143"><img src="<%=cp.getFoto()%>"  class="img-thumbnail"width="142" height="114" /></td>
+                                                                        <td class="letragrande"><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
                                                                     </tr>
                                                                     <tr>
 
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td height="33" colspan="2"><strong>PERSONAL</strong></td>
+                                                                        <td class="letragrandex"height="33" colspan="2"><em><strong>PERSONAL</strong></em></td>
 
                                                                     </tr>
                                                                     <tr>

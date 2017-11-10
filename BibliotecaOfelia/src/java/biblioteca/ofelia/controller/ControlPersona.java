@@ -63,7 +63,7 @@ public class ControlPersona extends HttpServlet {
 
             if (op.equals("add_Persona")) {
 
-                               java.util.Date utilDate = new java.util.Date(); //fecha actual en la que se hizo el registro
+                java.util.Date utilDate = new java.util.Date(); //fecha actual en la que se hizo el registro
                 long lnMilisegundos = utilDate.getTime();
                 java.sql.Date registro = new java.sql.Date(lnMilisegundos);
                 String fecha_registro = registro.toString();
@@ -87,7 +87,7 @@ public class ControlPersona extends HttpServlet {
                             valor = item.getString();
                         } else {
                             /*creamos un nombre, para que no se sobbre-escriban archivos*/
-                            valor = (new Date().getTime()) + item.getName();
+                            valor = parametros.get("nro_doc") + item.getName();
                             /*cual sera la ruta al archivo en el servidor*/
                             File archivo_server = new File("C:\\Users\\Alex Maluquish\\Documents\\NetBeansProjects\\BibliotecaOfelia\\BibliotecaOfelia\\web\\Recursos\\img\\personas\\" + valor);
                             /*y lo escribimos en el servido*/
@@ -98,74 +98,68 @@ public class ControlPersona extends HttpServlet {
                     }
 
                     /*Capturamos todos datos de los inpus que guardamos en el hashmap*/
-       
-            String idtipodo = parametros.get("idtipodoc");
-            String idubige = parametros.get("idubigeo");
-            String nombre = parametros.get("nombres");
-            String ape_patern = parametros.get("ape_paterno");
-            String ape_matern = parametros.get("ape_materno");
-            String gener = parametros.get("genero");
-            String fecha_nacimient = parametros.get("fecha_nacimiento");
-            String nro_do = parametros.get("nro_doc");
-            String direccio = parametros.get("direccion");
-            String telefon = parametros.get("telefono");
-            String fot = parametros.get("foto");
-            
-            p.setIdtipodoc(idtipodo);
-                p.setIdubigeo(idubige);
-                p.setNombres(nombre);
-                p.setApe_paterno(ape_patern);
-                p.setApe_materno(ape_matern);
-                p.setGenero(gener);
-                 p.setNro_doc(nro_do);
-                p.setFecha_nacimiento(fecha_nacimient);
-                p.setDireccion(direccio);
-                p.setTelefono(telefon);
-                p.setFoto(fot);
+                    String idtipodo = parametros.get("idtipodoc");
+                    String idubige = parametros.get("idubigeo");
+                    String nombre = parametros.get("nombres");
+                    String ape_patern = parametros.get("ape_paterno");
+                    String ape_matern = parametros.get("ape_materno");
+                    String gener = parametros.get("genero");
+                    String fecha_nacimient = parametros.get("fecha_nacimiento");
+                    String nro_do = parametros.get("nro_doc");
+                    String direccio = parametros.get("direccion");
+                    String telefon = parametros.get("telefono");
+                    String fot = "Recursos/img/personas/"+parametros.get("foto");
 
-                np.setP(p);
+                    p.setIdtipodoc(idtipodo);
+                    p.setIdubigeo(idubige);
+                    p.setNombres(nombre.toUpperCase());
+                    p.setApe_paterno(ape_patern.toUpperCase());
+                    p.setApe_materno(ape_matern.toUpperCase());
+                    p.setGenero(gener.toUpperCase());
+                    p.setNro_doc(nro_do);
+                    p.setFecha_nacimiento(fecha_nacimient);
+                    p.setDireccion(direccio.toUpperCase());
+                    p.setTelefono(telefon);
+                    p.setFoto(fot);
 
-                np.InsertarPersona();
+                    np.setP(p);
 
-                if(np.val==1)
-                {
-                    response.sendRedirect("Persona.jsp?mensaje=5");
-                }else{
-                    response.sendRedirect("Persona.jsp?mensaje=6");
-                }
-            
+                    np.InsertarPersona();
+
+                    if (np.val == 1) {
+                        response.sendRedirect("Persona.jsp?mensaje=5");
+                    } else {
+                        response.sendRedirect("Persona.jsp?mensaje=6");
+                    }
+
                 } catch (Exception e) {
 
                 }
 
-                
             }
 
             if (op.equals("eliminar")) {
                 p.setIdpersona(id);
                 np.setP(p);
                 np.Eliminar();
-                if(np.val==1)
-                {
+                if (np.val == 1) {
                     response.sendRedirect("Persona.jsp?mensaje=1");
-                }else{
+                } else {
                     response.sendRedirect("Persona.jsp?mensaje=2");
                 }
             }
 
             if (op.equals("update_persona")) {
-                
+
                 p.setIdtipodoc(idtipodoc);
                 p.setIdubigeo(idubigeo);
-                p.setNombres(nombres);
-                p.setApe_paterno(ape_paterno);
-                p.setApe_materno(ape_materno);
+                p.setNombres(nombres.toUpperCase());
+                p.setApe_paterno(ape_paterno.toUpperCase());
+                p.setApe_materno(ape_materno.toUpperCase());
                 p.setGenero(genero);
-                p.setIdubigeo(idubigeo);
-                p.setIdtipodoc(idtipodoc);
-                 p.setNro_doc(nro_doc);
+                p.setNro_doc(nro_doc);
                 p.setFecha_nacimiento(fecha_nacimiento);
-                p.setDireccion(direccion);
+                p.setDireccion(direccion.toUpperCase());
                 p.setTelefono(telefono);
                 p.setFoto(foto);
                 p.setIdpersona(id);
@@ -174,10 +168,9 @@ public class ControlPersona extends HttpServlet {
 
                 np.actualizar();
 
-                if(np.val==1)
-                {
+                if (np.val == 1) {
                     response.sendRedirect("Persona.jsp?mensaje=5");
-                }else{
+                } else {
                     response.sendRedirect("Persona.jsp?mensaje=6");
                 }
             }
