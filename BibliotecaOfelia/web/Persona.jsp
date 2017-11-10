@@ -23,7 +23,7 @@
             font-size: 30px;
         }
     </style>
-    
+
     <body class="hold-transition skin-blue sidebar-mini">
 
         <div class="wrapper">
@@ -49,16 +49,16 @@
                 </section>
                 <section class="content">
                     <div class="row">
-                      <div class="col-md-12">
                         <div class="col-md-12">
-                          <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona </button>
-      
-                          <a href="Persona.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
-                          <label class="<%=style%>"><%=mensaje%></label>
-                          <br>
-                          <br>
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona </button>
+
+                                <a href="Persona.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
+                                <label class="<%=style%>"><%=mensaje%></label>
+                                <br>
+                                <br>
+                            </div>
                         </div>
-                      </div>
                     </div>
 
                     <section class="content">
@@ -68,108 +68,162 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title"> Registro de Personas</h3>
                                         <div class="box-tools pull-right"></div>
+                                        <div class="form-group" class="btn btn-primary" class="col-sm-2 control-label">
+                                            <div >
+                                                <div class="col-sm-3">
+                                                    <div >
+                                                        <select name="persona" id="persona" class="form-control" title="persona">
+                                                            <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Desactivos...</option>
+                                                            <%
+                                                                np.setP(p);
+                                                                ArrayList bp = np.Buscar_Persona();
+                                                                for (int x = 0;
+                                                                        x < bp.size();
+                                                                        x++) {
+                                                                    persona up = (persona) bp.get(x);
+                                                            %>
+                                                            <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(p.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
+                                                            <%
+                                                                }
+                                                            %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-2">
+                                                    <span class="" id="iconoBox" with="20px"></span>
+                                                </div>
+
+
+                                                <div class="col-sm-3">
+
+                                                    <div >
+                                                        <select name="persona" id="persona" class="form-control" title="persona">
+                                                            <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Activos...</option>
+                                                            <%
+                                                                np.setP(p);
+                                                                ArrayList bpc = np.Buscar_Persona();
+                                                                for (int x = 0;
+                                                                        x < bpc.size();
+                                                                        x++) {
+                                                                    persona up = (persona) bpc.get(x);
+                                                            %>
+                                                            <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(p.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
+                                                            <%
+                                                                }
+                                                            %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span class="" id="iconoBox" with="20px"></span>
+                                                    </div>
+                                                </div> 
+                                            </div> 
+                                        </div>
                                     </div>
+                                </div>
 
-                                    <div class="">
-
-                                        <div class="container-fluid">
-
-                                            <div class="col-lg-12">
-                                                <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                                                    <div class="table-responsive">
-                                                        <table id="tablaPersona" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                                            <thead>
-                                                                <tr role="row">
-                                                                    <th><center>N°</center></th>
-                                                            <th><center>Nombres</center></th>
-
-                                                            <th><center>Genero</center></th>
-                                                            <th><center>Ubigeo</center></th>
-                                                            <th><center>Tipo-Doc</center></th>
-                                                            <th><center>N° Doc</center></th>
-                                                            <th><center>Ver</center></th>
-                                                            <th><center>Acción</center></th>
-                                                            </tr>
-                                                            </thead>
-
-                                                            <tbody>
-                                                                <%                                                                    int cont = 0;
-                                                                    ArrayList rc = np.Mostrar_Persona();
-                                                                    for (int i = 0; i < rc.size(); i++) {
-                                                                        persona cp = (persona) rc.get(i);
-                                                                        cont++;
-
-                                                                %>
-                                                                <tr role="row" class="odd">
-                                                                    <td class="sorting_1"><%= cont%></td>            
-                                                                    <td><%= cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
-
-                                                                    <td><%= cp.getGenero()%></td>
-                                                                    <td><%= cp.getIdubigeo()%></td>
-                                                                    <td><%= cp.getIdtipodoc()%></td>
-                                                                    <td><%= cp.getNro_doc()%></td>
+                                <div class="">
 
 
+                                    <div class="container-fluid">
+
+                                        <div class="col-lg-12">
+                                            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                                <div class="table-responsive">
+                                                    <table id="tablaPersona" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                                                        <thead>
+                                                            <tr role="row">
+                                                                <th><center>N°</center></th>
+                                                        <th><center>Nombres</center></th>
+
+                                                        <th><center>Género</center></th>
+                                                        <th><center>Ubigeo</center></th>
+                                                        <th><center>Tipo-Doc</center></th>
+                                                        <th><center>N° Doc</center></th>
+                                                        <th><center>Ver</center></th>
+                                                        <th><center>Acción</center></th>
+                                                        </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <%                                                                    int cont = 0;
+                                                                ArrayList rc = np.Mostrar_Persona();
+                                                                for (int i = 0; i < rc.size(); i++) {
+                                                                    persona cp = (persona) rc.get(i);
+                                                                    cont++;
+
+                                                            %>
+                                                            <tr role="row" class="odd">
+                                                                <td class="sorting_1"><%= cont%></td>            
+                                                                <td><%= cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
+
+                                                                <td><%= cp.getGenero()%></td>
+                                                                <td><%= cp.getIdubigeo()%></td>
+                                                                <td><%= cp.getIdtipodoc()%></td>
+                                                                <td><%= cp.getNro_doc()%></td>
 
 
 
-                                                                    <td align="center"><a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cp.getIdpersona()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
-                                                                    </td>
-                                                                    <td>
-                                                            <center>
-                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cp.getIdpersona()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
 
-                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 
-                                                                <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
+                                                                <td align="center"><a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cp.getIdpersona()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
+                                                                </td>
+                                                                <td>
+                                                        <center>
+                                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cp.getIdpersona()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
 
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación</h4>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="row">
+                                                            <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
 
-                                                                                    <img src="Recursos/img/Eliminar.png" class="col-md-3">
+                                                            <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
 
-                                                                                    <div class="col-md-7">
-                                                                                        <br>
-                                                                                        <p>Esta apunto de borrar un registro, este procedimiento es irreversible.</p>
-                                                                                        <p>¿Desea Proceder?</p>
-                                                                                    </div>
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                            <h4 class="modal-title"><i class="fa fa-trash" aria-hidden="true"></i> Confirmar Eliminación</h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="row">
+
+                                                                                <img src="Recursos/img/Eliminar.png" class="col-md-3">
+
+                                                                                <div class="col-md-7">
+                                                                                    <br>
+                                                                                    <p>Esta apunto de borrar un registro, este procedimiento es irreversible.</p>
+                                                                                    <p>¿Desea Proceder?</p>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="modal-footer">
-                                                                                <form  action="ControlPersona" method="post">
-                                                                                    <input type="hidden" name="op" value="eliminar">
-                                                                                    <input type="hidden" name="id" value="<%=cp.getIdpersona()%>">
-                                                                                    <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
-                                                                                </form>
-                                                                            </div>
-
                                                                         </div>
+                                                                        <div class="modal-footer">
+                                                                            <form  action="ControlPersona" method="post">
+                                                                                <input type="hidden" name="op" value="eliminar">
+                                                                                <input type="hidden" name="id" value="<%=cp.getIdpersona()%>">
+                                                                                <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+                                                                            </form>
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
 
-                                                            </center>
-                                                            </td>
-                                                            </tr>
-                                                            <% }%>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                        </center>
+                                                        </td>
+                                                        </tr>
+                                                        <% }%>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-
                                 </div>
+                                <br>
+
                             </div>
+                        </div>
 
                         </div>
                     </section>
@@ -232,7 +286,7 @@
                                 <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo: </label>
                                 <div class="col-sm-5">
                                     <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
-                                        <option value="" hidden="hidden"<%if (ub.getIdubigeo()
+                                            <option value="" hidden="hidden"<%if (ub.getIdubigeo()
                                                         == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
                                             nub.setUb(ub);
@@ -498,7 +552,7 @@
                                 <label for="Ubigeo" class="col-sm-2 control-label">*Ubigeo:</label>
                                 <div class="col-sm-5">
                                     <select name="idubigeo" id="colores" class="form-control"  title="Ubigeo">
-                                        <option value="" hidden="hidden"<%if (ub.getIdubigeo()
+                                            <option value="" hidden="hidden"<%if (ub.getIdubigeo()
                                                         == null) {%>selected="selected"<%}%>>Selecionar</option>
                                         <%
 
@@ -560,7 +614,7 @@
                                         <input name="telefono" type="number" autocomplete="off" class="form-control" placeholder="Teléfono de la Persona" title="Teléfono de la Persona"value="<%=cp2.getTelefono()%>">
                                     </div>
                                 </div>
-                                    <div hidden="hidden" class="form-group">
+                                <div hidden="hidden" class="form-group">
                                     <label for="FotoPersona" class="col-sm-2 control-label">*Foto: </label>
                                     <div class="col-sm-3">
                                         <input name="foto" type="file" autocomplete="off" class="form-control" value="<%=cp2.getFoto()%>">
@@ -584,6 +638,15 @@
             </div>
         </div>
 
+        <div class="modal fade modal-banco-first" id="ver_activos">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+
+
+                </div>
+            </div>
+        </div>
 
         <script>
             $(function () {

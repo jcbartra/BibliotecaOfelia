@@ -93,6 +93,90 @@ public class n_departamento {
              }
         return consulta;
     }
+    public void IngresarDepartamento()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="insert into departamento (nombre,codigo,idpais,estado) "
+                   + "values (?,?,?,?)";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+dep.getNombre());
+           ps.setString(++i,""+dep.getCod());
+           ps.setString(++i,""+dep.getIdpais());
+           ps.setString(++i,"1");
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+    
+    public void BorrarDepartamento()
+    {
+       val=0;
+       try{
+           
+           int i=0,e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+                    
+           qry2="delete departamento where iddepartamento=?";
+           
+           PreparedStatement ps2= conn.prepareStatement(qry2);
+           ps2.setString(++e,""+dep.getIddepartamento());
+           ps2.executeQuery();
+           
+           val=1;   
+           ps2.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
+    
+
     public ArrayList Buscar_departamento()
     {
         ArrayList consulta=new ArrayList();
@@ -141,4 +225,45 @@ public class n_departamento {
              }
         return consulta;
     }
+    public void ActualizarDepartamento()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="update departamento set iddepartamento=?,nombre=?,cod=?,idpais=?";
+           
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+dep.getIddepartamento());
+           ps.setString(++i,""+dep.getNombre());
+           ps.setString(++i,""+dep.getCod());
+           ps.setString(++i,""+dep.getIdpais());
+           ps.executeQuery();
+           val=1;   
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }  
 }

@@ -48,7 +48,7 @@
 
                     <section class="content">
                         <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
+                            <div class="col-md-12">
                                 <div class="box collapsed-box">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Registro de Ubigeo</h3>
@@ -245,7 +245,11 @@
                         </div>
                     </section>
                 </section>
+                <!------------------------otro listar------------------------------>
+                
+                <!------------------------otro listar------------------------------>
             </div>
+            <!----------------------del listar------------------->                                            
             <div class="modal fade" id="addUbigeo" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -337,21 +341,15 @@
 
                         <div class="modal-body">
                             <form action="ControlPais" method="post" class="form-horizontal">
-                                <input type="hidden" name="op" value="add">
+                                <input type="hidden" name="op" value="add_Pais">
                                 <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Nombre:</label>
+                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
+                                        <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
                                     </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Codigo:</label>
+                                    <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
+                                        <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -371,30 +369,38 @@
 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Ubigeo</h4>
+                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Departamento</h4>
                         </div>
 
                         <div class="modal-body">
-                            <form action="ControlUbigeo" method="post" class="form-horizontal">
-                                <input type="hidden" name="op" value="add">
+                            <form action="ControlDepartamento" method="post" class="form-horizontal">
+                                <input type="hidden" name="op" value="add_Departamento">
                                 <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Nombre:</label>
+                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
+                                        <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del depa">
                                     </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Codigo:</label>
+                                    <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
                                     <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
+                                        <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Pais:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Pais">
-                                    </div>
-                                    <label for="ubigeo" class="col-sm-2 control-label">*Departamento:</label>
-                                    <div class="col-sm-4">
-                                        <input name="ubigeo" type="text" autocomplete="off" class="form-control" placeholder="Seleccione Departamento">
+                                <div class="form-group">                                    
+                                    <label for="" class="col-sm-5 control-label ">* Pais</label>
+                                    <div class="col-sm-5">
+                                        <select name="idpais" id="iconos" class="form-control" title="Pais">
+                                            <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <%  
+                                                for (int x = 0;
+                                                        x < bp.size();
+                                                        x++) {
+                                                    pais atp = (pais) bp.get(x);
+                                            %>
+                                            <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(pa.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

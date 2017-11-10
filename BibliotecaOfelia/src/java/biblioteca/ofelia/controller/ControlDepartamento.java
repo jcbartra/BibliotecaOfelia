@@ -5,8 +5,8 @@
  */
 package biblioteca.ofelia.controller;
 
-import biblioteca.ofelia.entidad.pais;
-import biblioteca.ofelia.procesos.n_pais;
+import biblioteca.ofelia.entidad.departamento;
+import biblioteca.ofelia.procesos.n_departamento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author SORALUZ
  */
-@WebServlet(name = "ControlPais", urlPatterns = {"/ControlPais"})
-public class ControlPais extends HttpServlet {
+@WebServlet(name = "ControlDepartamento", urlPatterns = {"/ControlDepartamento"})
+public class ControlDepartamento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,23 +35,24 @@ public class ControlPais extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String idpais=(String)request.getParameter("idpais");
+            String iddepartamento=(String)request.getParameter("iddepartamento");
             String nombre=(String)request.getParameter("nombre");
             String cod=(String)request.getParameter("cod");
-            String estado=(String)request.getParameter("estado");
+            String idpais=(String)request.getParameter("idpais");
             String op=(String)request.getParameter("op");
             
-            pais p= new pais();
-            n_pais pa =new n_pais();
+            departamento d= new departamento();
+            n_departamento nd =new n_departamento();
             
-            if(op.equals("add_Pais")){
+            if(op.equals("add_Departamento")){
                 
-                p.setNombre(nombre);
-                p.setCod(cod);              
-                pa.setPa(p);
-                pa.IngresarPais();
+                d.setNombre(nombre);
+                d.setCod(cod);
+                d.setIdpais(idpais);                
+                nd.setDep(d);
+                nd.IngresarDepartamento();
                 
-                if(pa.val==1)
+                if(nd.val==1)
                 {
                     response.sendRedirect("Ubigeo.jsp?mensaje=1");
                 }else{
@@ -61,11 +62,11 @@ public class ControlPais extends HttpServlet {
                 
             }
             
-            if(op.equals("delete_Pais")){
-                p.setIdpais(idpais);
-                pa.setPa(p);
-                pa.BorrarPais();
-                if(pa.val==1)
+            if(op.equals("delete_Departamento")){
+                d.setIddepartamento(iddepartamento);
+                nd.setDep(d);
+                nd.Buscar_departamento();
+                if(nd.val==1)
                 {
                     response.sendRedirect("Ubigeo.jsp?mensaje=3");
                 }else{
@@ -73,16 +74,17 @@ public class ControlPais extends HttpServlet {
                 }
             }
             
-            if(op.equals("update_Pais")){
+            if(op.equals("update_Departamento")){
                 
-                p.setIdpais(idpais);
-                p.setNombre(nombre);
-                p.setCod(cod);               
-                pa.setPa(p);
-                pa.actualizarPais();
+                d.setIddepartamento(iddepartamento);
+                d.setNombre(nombre);
+                d.setCod(cod);
+                d.setIdpais(idpais);
                 
+                nd.setDep(d);
+                nd.ActualizarDepartamento();
                 
-                if(pa.val==1)
+                if(nd.val==1)
                 {
                     response.sendRedirect("Ubigeo.jsp?mensaje=5");
                 }else{
@@ -91,8 +93,11 @@ public class ControlPais extends HttpServlet {
                 
                 
             }
+            
+            
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
