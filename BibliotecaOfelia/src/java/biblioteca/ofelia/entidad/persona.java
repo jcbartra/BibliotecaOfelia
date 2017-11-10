@@ -23,16 +23,7 @@ public class persona {
     String telefono;
     String foto;
     String estado;
-    
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-    
+    String tipo_lector;
 
     public persona() {
     }
@@ -125,6 +116,14 @@ public class persona {
         this.telefono = telefono;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -132,5 +131,16 @@ public class persona {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getTipo_lector() {
+        return tipo_lector;
+    }
+
+    public void setTipo_lector(String tipo_lector) {
+        this.tipo_lector = tipo_lector;
+    }
+    
+
+    
     
 }

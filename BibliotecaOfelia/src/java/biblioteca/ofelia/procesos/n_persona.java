@@ -351,5 +351,92 @@ public class n_persona {
         }
         return consulta;
     }
+    
+    public void Buscar_Persona_dni() {
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select idpersona, nombre, nro_doc, foto, tipo from vista_lector where nro_doc=? and estado='1'";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, ""+p.getNro_doc());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+
+                p.setIdpersona(rs.getString("idpersona"));
+                p.setNombres(rs.getString("nombre"));
+                p.setNro_doc(rs.getString("nro_doc"));
+                p.setFoto(rs.getString("foto"));
+                p.setTipo_lector(rs.getString("tipo"));
+                val=1;
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+    }
+    
+    public void Buscar_Persona_datos() {
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select idpersona, nombre, nro_doc, foto, tipo from vista_lector "
+                    + "where nombres like ? and ape_paterno like ? and ape_materno like ? and estado='1'";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, "%"+p.getNombres()+"%");
+            ps.setString(++i, "%"+p.getApe_paterno()+"%");
+            ps.setString(++i, "%"+p.getApe_materno()+"%");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+
+                p.setIdpersona(rs.getString("idpersona"));
+                p.setNombres(rs.getString("nombre"));
+                p.setNro_doc(rs.getString("nro_doc"));
+                p.setFoto(rs.getString("foto"));
+                p.setTipo_lector(rs.getString("tipo"));
+                val=1;
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+    }
 
 }

@@ -42,7 +42,7 @@ public class n_accesos {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            qry="select idmenu from menu where idmenu=? and roles like ?";
-            //System.out.println("select idmenu from menu where idmenu='"+ac.getIdmenu()+"' and roles like '%"+ac.getIdrol()+"%'");
+            System.out.println("select idmenu from menu where idmenu='"+ac.getIdmenu()+"' and roles like '%"+ac.getIdrol()+"%'");
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i, ""+ac.getIdmenu());
            ps.setString(++i, ""+ac.getIdrol()+"-");
@@ -50,68 +50,16 @@ public class n_accesos {
            if(!rs.next())
                    {
                        qry2="update menu set roles=roles||? where idmenu=?";
-                       //System.out.println("update menu set roles=roles||'"+ac.getIdrol()+"-' where idmenu='"+ac.getIdmenu()+"'");
+                       System.out.println("update menu set roles=roles||'"+ac.getIdrol()+"-' where idmenu='"+ac.getIdmenu()+"'");
                         PreparedStatement ps2= conn.prepareStatement(qry2);
                         ps2.setString(++e, ""+ac.getIdrol()+"-");
                         ps2.setString(++e, ""+ac.getIdmenu());
                         ps2.executeQuery();
-                        val=1;   
+                        val=2;   
                         ps2.close();
                    }
            else{
-               val =1;
-           }
-           rs.close();
-           ps.close();
-           conn.close(); 
-        }
-         catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-    }
-    
-    public void BorrarAccesos(){
-        try
-        {
-           val=0; 
-           int i=0;
-           int e=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           qry="select idmenu from menu where idmenu=? and roles like ?";
-           //System.out.println("select idmenu from menu where idmenu='"+ac.getIdmenu()+"' and roles like '%"+ac.getIdrol()+"%'");
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i, ""+ac.getIdmenu());
-           ps.setString(++i, "%"+ac.getIdrol()+"%");
-           ResultSet rs=ps.executeQuery();
-           if(rs.next())
-                   {
-                       qry2="update menu set roles=replace(roles,?,'') where idmenu=?";
-                       //System.out.println("update menu set roles=replace(roles,'"+ac.getIdrol()+"-','') where idmenu='"+ac.getIdmenu()+"'");
-                        PreparedStatement ps2= conn.prepareStatement(qry2);
-                        ps2.setString(++e, ""+ac.getIdrol()+"-");
-                        ps2.setString(++e, ""+ac.getIdmenu());
-                        ps2.executeQuery();
-                        val=1;   
-                        ps2.close();
-                   }
-           else{
-               val =1;
+               val =2;
            }
            rs.close();
            ps.close();
@@ -151,19 +99,19 @@ public class n_accesos {
            ps.setString(++i, ""+ac.getIdsubmenu());
            ps.setString(++i, ""+ac.getIdrol()+"-");
            ResultSet rs=ps.executeQuery();
-           if(!rs.next())
+           if(rs.next())
                    {
-                       qry2="update submenu set roles=roles||? where idsubmenu=?";
-                       System.out.println("update submenu set roles=roles||'"+ac.getIdrol()+"-' where idsubmenu='"+ac.getIdsubmenu()+"'");
-                        /*PreparedStatement ps2= conn.prepareStatement(qry2);
-                        ps2.setString(++e, ""+ac.getIdrol()+"-");
-                        ps2.setString(++e, ""+ac.getIdsubmenu());
-                        ps2.executeQuery();*/
-                        val=1;   
-                        //ps2.close();
+                      val=2; 
                    }
            else{
-               val =1;
+               qry2="update submenu set roles=roles||? where idsubmenu=?";
+                System.out.println("update submenu set roles=roles||'"+ac.getIdrol()+"-' where idsubmenu='"+ac.getIdsubmenu()+"'");
+                 PreparedStatement ps2= conn.prepareStatement(qry2);
+                 ps2.setString(++e, ""+ac.getIdrol()+"-");
+                 ps2.setString(++e, ""+ac.getIdsubmenu());
+                 ps2.executeQuery();
+                 val=2;   
+                 ps2.close();
            }
            rs.close();
            ps.close();
@@ -189,6 +137,42 @@ public class n_accesos {
              }
     }
     
+    public void BorrarAccesos(){
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="update menu set roles=replace(roles,?,'')";
+           System.out.println("update menu set roles=replace(roles,'"+ac.getIdrol()+"-',''");
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, ""+ac.getIdrol()+"-");
+           ps.executeQuery();
+           val=1;
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }
     public void BorrarSubAccesos(){
         try
         {
@@ -207,15 +191,15 @@ public class n_accesos {
                    {
                        qry2="update submenu set roles=replace(roles,?,'') where idsubmenu=?";
                        System.out.println("update submenu set roles=replace(roles,'"+ac.getIdrol()+"-','') where idsubmenu='"+ac.getIdsubmenu()+"'");
-                        /*PreparedStatement ps2= conn.prepareStatement(qry2);
+                        PreparedStatement ps2= conn.prepareStatement(qry2);
                         ps2.setString(++e, ""+ac.getIdrol()+"-");
                         ps2.setString(++e, ""+ac.getIdsubmenu());
-                        ps2.executeQuery();*/
-                        val=1;   
-                        //ps2.close();
+                        ps2.executeQuery();
+                        val=2;   
+                        ps2.close();
                    }
            else{
-               val =1;
+               val =2;
            }
            rs.close();
            ps.close();
