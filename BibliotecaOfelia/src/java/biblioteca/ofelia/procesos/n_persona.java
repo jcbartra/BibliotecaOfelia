@@ -110,9 +110,11 @@ public class n_persona {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,telefono,foto,estado from datos_persona";
+            qry = "select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,"
+                    + "direccion,telefono,foto,estado from datos_persona where estado like ?";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, "%"+p.getEstado());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 persona p = new persona();

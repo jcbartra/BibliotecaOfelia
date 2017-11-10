@@ -1,7 +1,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
+<%
+    String act=(String)request.getParameter("act");if(act==null){act="1";}
+%>
 <!DOCTYPE html>
 <html>
     <%@include file="include/mensaje.jsp" %>
@@ -22,6 +24,9 @@
         .ions {
             font-size: 30px;
         }
+        
+        .letragrande{font-size:20px;}
+        .letragrandex{font-size:25px;}
     </style>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -68,56 +73,21 @@
                                     <div class="box-header with-border">
                                         <h3 class="box-title"> Registro de Personas</h3>
                                         <div class="box-tools pull-right"></div>
-                                        <div class="form-group" class="btn btn-primary" class="col-sm-2 control-label">
+                                        <div class="form-group" class="col-sm-2 control-label">
                                             <div >
                                                 <div class="col-sm-3">
                                                     <div >
-                                                        <select name="persona" id="persona" class="form-control" title="persona">
-                                                            <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Desactivos...</option>
-                                                            <%
-                                                                np.setP(p);
-                                                                ArrayList bp = np.Buscar_Persona();
-                                                                for (int x = 0;
-                                                                        x < bp.size();
-                                                                        x++) {
-                                                                    persona up = (persona) bp.get(x);
-                                                            %>
-                                                            <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(p.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
-                                                            <%
-                                                                }
-                                                            %>
-                                                        </select>
+                                                        <form action="Persona.jsp" method="post" name="form1">
+                                                            <select   class="btn btn-primary"onchange="document.form1.submit();" name="act">
+                                                                
+                                                                <option value="1" <%if(act.equals("1")){%>selected<%}%>>Personas Activas</option>
+                                                                <option value="%" <%if(act.equals("%")){%>selected<%}%>>Todas las Personas</option>
+                                                                <option value="0" <%if(act.equals("0")){%>selected<%}%>>Personas Inactivas</option>
+                                                            </select>
+                                                        </form>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-2">
-                                                    <span class="" id="iconoBox" with="20px"></span>
-                                                </div>
-
-
-                                                <div class="col-sm-3">
-
-                                                    <div >
-                                                        <select name="persona" id="persona" class="form-control" title="persona">
-                                                            <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Activos...</option>
-                                                            <%
-                                                                np.setP(p);
-                                                                ArrayList bpc = np.Buscar_Persona();
-                                                                for (int x = 0;
-                                                                        x < bpc.size();
-                                                                        x++) {
-                                                                    persona up = (persona) bpc.get(x);
-                                                            %>
-                                                            <option value="<%=up.getIdpersona()%>"<%if (up.getIdpersona().equals(p.getIdpersona())) {%>selected="selected"<%}%>><%=up.getNombres() + " " + up.getApe_paterno() + " " + up.getApe_materno()%></option>
-                                                            <%
-                                                                }
-                                                            %>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <span class="" id="iconoBox" with="20px"></span>
-                                                    </div>
-                                                </div> 
                                             </div> 
                                         </div>
                                     </div>
@@ -147,7 +117,9 @@
                                                         </thead>
 
                                                         <tbody>
-                                                            <%                                                                    int cont = 0;
+                                                            <%
+                                                                int cont = 0;
+                                                                p.setEstado(act);
                                                                 ArrayList rc = np.Mostrar_Persona();
                                                                 for (int i = 0; i < rc.size(); i++) {
                                                                     persona cp = (persona) rc.get(i);
@@ -244,8 +216,8 @@
 
                     <div class="modal-body">
 
-                        <form action="ControlPersona" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Persona">
+                        <form enctype="MULTIPART/FORM-DATA" action="ControlPersona?op=add_Persona" method="post" class="form-horizontal">
+                            
                             <div class="form-group">
                                 <label for="nombres" class="col-sm-2 control-label">*Nombres: </label>
                                 <div class="col-sm-3">
@@ -415,18 +387,18 @@
                                                             <body >
                                                                 <table width="308" align="center" >
                                                                     <tr>
-                                                                        <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS PERSONALES</strong></em></td>
+                                                                        <td class="letragrandex" colspan="2" align="center" bgcolor="#2E9AFE"><strong>DATOS PERSONALES</strong></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td width="143"><img src="Recursos/img/personas/<%=cp.getFoto()%>" width="142" height="114" /></td>
-                                                                        <td><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
+                                                                        <td width="143"><img src="<%=cp.getFoto()%>"  class="img-thumbnail"width="142" height="114" /></td>
+                                                                        <td class="letragrande"><%=cp.getNombres() + " " + cp.getApe_paterno() + " " + cp.getApe_materno()%></td>
                                                                     </tr>
                                                                     <tr>
 
                                                                     </tr>
 
                                                                     <tr>
-                                                                        <td height="33" colspan="2"><strong>PERSONAL</strong></td>
+                                                                        <td class="letragrandex"height="33" colspan="2"><em><strong>PERSONAL</strong></em></td>
 
                                                                     </tr>
                                                                     <tr>
@@ -638,15 +610,7 @@
             </div>
         </div>
 
-        <div class="modal fade modal-banco-first" id="ver_activos">
-            <div class="modal-dialog">
-                <div class="modal-content">
-
-
-
-                </div>
-            </div>
-        </div>
+        <%}%>
 
         <script>
             $(function () {
@@ -679,28 +643,9 @@
 
             });
         </script>
-        <%}%>
+        
 
-        <script>
-            function cambiar_color()
-            {
-                var color = document.getElementById("colores").value;
-                color = color.toLowerCase();
-                var cadena = "btn small-box bg-" + color + " btn-xs";
-                //alert(cadena);
-                document.getElementById("colorBox").className = cadena;
-            }
-            ;
-            function cambiar_icono()
-            {
-                var icono = document.getElementById("iconos").value;
-                icono = icono.toLowerCase();
-                var cadena = "ions " + icono;
-                //alert(cadena);
-                document.getElementById("iconoBox").className = cadena;
-            }
-            ;
-        </script>
+        
         <%@include file="include/recursos.jsp" %>
     </body>
 </html>

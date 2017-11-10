@@ -7,13 +7,21 @@ package biblioteca.ofelia.controller;
 
 import biblioteca.ofelia.entidad.persona;
 import biblioteca.ofelia.procesos.n_persona;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -55,54 +63,103 @@ public class ControlPersona extends HttpServlet {
 
             if (op.equals("add_Persona")) {
 
-                p.setIdtipodoc(idtipodoc);
-                p.setIdubigeo(idubigeo);
-                p.setNombres(nombres);
-                p.setApe_paterno(ape_paterno);
-                p.setApe_materno(ape_materno);
-                p.setGenero(genero);
-                p.setFecha_nacimiento(fecha_nacimiento);
-                p.setNro_doc(nro_doc);
-                p.setDireccion(direccion);
-                p.setTelefono(telefono);
-                p.setFoto(foto);
+                java.util.Date utilDate = new java.util.Date(); //fecha actual en la que se hizo el registro
+                long lnMilisegundos = utilDate.getTime();
+                java.sql.Date registro = new java.sql.Date(lnMilisegundos);
+                String fecha_registro = registro.toString();
+                /*FileItemFactory es una interfaz para crear FileItem*/
+                FileItemFactory file_factory = new DiskFileItemFactory();
 
-                np.setP(p);
-                np.InsertarPersona();
-                    if(np.val==1)
-                {
-                    response.sendRedirect("Persona.jsp?mensaje=1");
-                }else{
-                    response.sendRedirect("Persona.jsp?mensaje=2");
+                /*ServletFileUpload esta clase convierte los input file a FileItem*/
+                ServletFileUpload servlet_up = new ServletFileUpload(file_factory);
+                /*sacando los FileItem del ServletFileUpload en una lista */
+
+                try {
+                    List items = servlet_up.parseRequest(request);
+                    /*declaramos un hashmap donde guardaremos los parametros*/
+                    HashMap<String, String> parametros = new HashMap<String, String>();
+                    for (int i = 0; i < items.size(); i++) {
+                        /*FileItem representa un archivo en memoria que puede ser pasado al disco duro*/
+                        FileItem item = (FileItem) items.get(i);
+                        /*item.isFormField() false=input file; true=text field*/
+                        String valor = "";
+                        if (item.isFormField()) {
+                            valor = item.getString();
+                        } else {
+                            /*creamos un nombre, para que no se sobbre-escriban archivos*/
+                            valor = parametros.get("nro_doc") + item.getName();
+                            /*cual sera la ruta al archivo en el servidor*/
+                            File archivo_server = new File("C:\\Users\\Alex Maluquish\\Documents\\NetBeansProjects\\BibliotecaOfelia\\BibliotecaOfelia\\web\\Recursos\\img\\personas\\" + valor);
+                            /*y lo escribimos en el servido*/
+                            item.write(archivo_server);
+                        }
+                        /*guardamos los parametros dentro del hashmap*/
+                        parametros.put(item.getFieldName().toLowerCase(), valor);
+                    }
+
+                    /*Capturamos todos datos de los inpus que guardamos en el hashmap*/
+                    String idtipodo = parametros.get("idtipodoc");
+                    String idubige = parametros.get("idubigeo");
+                    String nombre = parametros.get("nombres");
+                    String ape_patern = parametros.get("ape_paterno");
+                    String ape_matern = parametros.get("ape_materno");
+                    String gener = parametros.get("genero");
+                    String fecha_nacimient = parametros.get("fecha_nacimiento");
+                    String nro_do = parametros.get("nro_doc");
+                    String direccio = parametros.get("direccion");
+                    String telefon = parametros.get("telefono");
+                    String fot = "Recursos/img/personas/"+parametros.get("foto");
+
+                    p.setIdtipodoc(idtipodo);
+                    p.setIdubigeo(idubige);
+                    p.setNombres(nombre.toUpperCase());
+                    p.setApe_paterno(ape_patern.toUpperCase());
+                    p.setApe_materno(ape_matern.toUpperCase());
+                    p.setGenero(gener.toUpperCase());
+                    p.setNro_doc(nro_do);
+                    p.setFecha_nacimiento(fecha_nacimient);
+                    p.setDireccion(direccio.toUpperCase());
+                    p.setTelefono(telefon);
+                    p.setFoto(fot);
+
+                    np.setP(p);
+
+                    np.InsertarPersona();
+
+                    if (np.val == 1) {
+                        response.sendRedirect("Persona.jsp?mensaje=5");
+                    } else {
+                        response.sendRedirect("Persona.jsp?mensaje=6");
+                    }
+
+                } catch (Exception e) {
+
                 }
-                
+
             }
 
             if (op.equals("eliminar")) {
                 p.setIdpersona(id);
                 np.setP(p);
                 np.Eliminar();
-                if(np.val==1)
-                {
+                if (np.val == 1) {
                     response.sendRedirect("Persona.jsp?mensaje=1");
-                }else{
+                } else {
                     response.sendRedirect("Persona.jsp?mensaje=2");
                 }
             }
 
             if (op.equals("update_persona")) {
-                
+
                 p.setIdtipodoc(idtipodoc);
                 p.setIdubigeo(idubigeo);
-                p.setNombres(nombres);
-                p.setApe_paterno(ape_paterno);
-                p.setApe_materno(ape_materno);
+                p.setNombres(nombres.toUpperCase());
+                p.setApe_paterno(ape_paterno.toUpperCase());
+                p.setApe_materno(ape_materno.toUpperCase());
                 p.setGenero(genero);
-                p.setIdubigeo(idubigeo);
-                p.setIdtipodoc(idtipodoc);
-                 p.setNro_doc(nro_doc);
+                p.setNro_doc(nro_doc);
                 p.setFecha_nacimiento(fecha_nacimiento);
-                p.setDireccion(direccion);
+                p.setDireccion(direccion.toUpperCase());
                 p.setTelefono(telefono);
                 p.setFoto(foto);
                 p.setIdpersona(id);
@@ -111,10 +168,9 @@ public class ControlPersona extends HttpServlet {
 
                 np.actualizar();
 
-                if(np.val==1)
-                {
+                if (np.val == 1) {
                     response.sendRedirect("Persona.jsp?mensaje=5");
-                }else{
+                } else {
                     response.sendRedirect("Persona.jsp?mensaje=6");
                 }
             }

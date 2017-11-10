@@ -54,7 +54,7 @@ public class ControlUsuario extends HttpServlet {
             if (ops.equals("add_usuario")) {
 
                 us.setIdrol(idrol);
-                us.setIdpersona(idpersona);
+                us.setIdpersona(idpersona.toUpperCase());
                 us.setUsuario(usuario);
                 us.setClave(clave_encrypt);
 
@@ -85,7 +85,7 @@ public class ControlUsuario extends HttpServlet {
             if (ops.equals("update_usuario")) {
                 
                 us.setIdrol(idrol);
-                us.setIdpersona(idpersona);
+                us.setIdpersona(idpersona.toUpperCase());
                 us.setUsuario(usuario);
                 us.setClave(clave_encrypt);
                 us.setIdusuario(ids);
