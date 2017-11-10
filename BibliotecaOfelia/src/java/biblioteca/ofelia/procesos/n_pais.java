@@ -25,6 +25,7 @@ public class n_pais {
     public static int val;//definir si la transacción tuvo éxito
 
     pais pa=new pais();
+    
     public n_pais() {
         tran=new DBConn();
     }
@@ -143,14 +144,7 @@ public class n_pais {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="delete subcategoria where idcategoria=?";
-           
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+pa.getIdpais());
-           ps.executeQuery();
-           ps.close();
-           
-           qry2="delete categoria where idcategoria=?";
+           qry2="delete pais where idpais=?";
            
            PreparedStatement ps2= conn.prepareStatement(qry2);
            ps2.setString(++e,""+pa.getIdpais());
@@ -189,12 +183,11 @@ public class n_pais {
             conn=tran.getConnection();//empezar conección
             conn.setAutoCommit(false);
         
-            qry="update ubigeo set ubigeo=?, codigo=?, departamento=?, pais=? idubigeo=?";// el ? sirve para aumentar la veracidad de la conección de la BD
+            qry="update pais set idpais=?, nombre=?, cod=?";// el ? sirve para aumentar la veracidad de la conección de la BD
             PreparedStatement ps= conn.prepareStatement(qry);
             ps.setString(++i,""+pa.getIdpais());
             ps.setString(++i,""+pa.getNombre());
-            ps.setString(++i,""+pa.getCod());
-            ps.setString(++i,""+pa.getEstado());            
+            ps.setString(++i,""+pa.getCod());          
             ps.executeQuery();
             val=1;
             ps.close();
