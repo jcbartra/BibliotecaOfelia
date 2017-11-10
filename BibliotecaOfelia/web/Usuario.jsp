@@ -487,7 +487,7 @@
                 </div>
             </div>
         </div>
-
+<% }%>
 
         <script>
             $(function () {
@@ -520,27 +520,8 @@
 
             });
         </script>
-        <% }%>
-        <script>
-            function cambiar_color()
-            {
-                var color = document.getElementById("colores").value;
-                color = color.toLowerCase();
-                var cadena = "btn small-box bg-" + color + " btn-xs";
-                //alert(cadena);
-                document.getElementById("colorBox").className = cadena;
-            }
-            ;
-            function cambiar_icono()
-            {
-                var icono = document.getElementById("iconos").value;
-                icono = icono.toLowerCase();
-                var cadena = "ions " + icono;
-                //alert(cadena);
-                document.getElementById("iconoBox").className = cadena;
-            }
-            ;
-        </script>
+        
+        
 
         <%@include file="include/recursos.jsp" %>
     </body>
