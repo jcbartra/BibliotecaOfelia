@@ -111,7 +111,6 @@
                                                             <th><center>Ejemplar</center></th>
                                                             <th><center>Registrador</center></th>
                                                             <th><center>Fecha de Devolución</center></th>
-                                                            <th><center>detalle Préstamo</center></th>
                                                             <th><center>Acción</center></th>
                                                             </tr>
                                                             </thead>
@@ -135,8 +134,6 @@
                                                                     <td><%= pdt.getEjemplar()%></td>
                                                                     <td align="center"><%= pdt.getUsuario()%></td>
                                                                     <td align="center"><%= pdt.getFech_dev()%></td>        
-                                                                    <td align="center"><a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=pdt.getIdprestamo()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
-                                                                    </td>
                                                                     <td>
                                                             <center>
                                                                 <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=pdt.getIdprestamo()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
@@ -181,6 +178,53 @@
                                                                     </div>
                                                                 </div>
                                                                 <!--fin de Modal Eliminar-->
+                                                                
+                                                                <!--Modal Actualizar-->
+                                                                <div class="modal fade modal-banco-first" id="editar<%=pdt.getIdprestamo()%>">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Confirmar Devolución</h4>
+                                                                            </div>
+                                                                            <form  action="ControlPrestamo" method="get">
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+
+                                                                                    <img src="Recursos/img/Devolver.png" class="col-md-3">
+
+                                                                                    <div class="col-md-9">
+                                                                                        <div class="col-sm-12"><br /></div>
+                                                                                            <h5 style="font-weight: bold;">Editar Fecha de Prestamo</h5>
+                                                                                        <div class="col-sm-12"><br /></div>
+                                                                                        <label for="D-Devolucion" class="col-sm-6 control-label">*Fecha de Devolución: </label>
+                                                                                        <div class="col-sm-6">
+                                                                                            <input name="fecha_entrega" type="date" autocomplete="off" class="form-control">
+                                                                                        </div>
+                                                                                        <div class="col-sm-12"><br /></div>
+                                                                                        <label for="H-Entrega" class="col-sm-5 control-label">*Hora de Devolución: </label>
+                                                                                        <div class="col-sm-7">
+                                                                                            <input name="hora_entrega" maxlength="2" type="text" autocomplete="off" class="form-control" placeholder="HH" size="2">:
+                                                                                            <input name="minuto_entrega" maxlength="2" type="text" autocomplete="off" class="form-control" placeholder="MM" size="2">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                
+                                                                                    <input type="hidden" name="op" value="act_prestamo">
+                                                                                    <input type="hidden" name="idprest_detalle" value="<%=pdt.getIdprest_detalle()%>">
+                                                                                    <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Devolver</button>
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+                                                                                
+                                                                            </div>
+                                                                        </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--fin de Modal Actualizar-->
+                                                                
                                                                 
                                                             </center>
                                                             </td>

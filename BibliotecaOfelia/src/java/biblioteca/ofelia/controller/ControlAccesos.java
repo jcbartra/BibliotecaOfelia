@@ -38,9 +38,11 @@ public class ControlAccesos extends HttpServlet {
             String idsubmenu="";
             String idrol=(String) request.getParameter("idrol");
             String seleccion="";
-            int pru=0;
+            int pru=0, cont=0;
+            String[][] reg= new String[20][2];
             String men="";
             int tmenu=Integer.parseInt((String)request.getParameter("tmenu"));
+            int tmenus=Integer.parseInt((String)request.getParameter("tmenus"));
             
             accesos ac=new accesos();
             n_accesos nac=new n_accesos();
@@ -51,32 +53,48 @@ public class ControlAccesos extends HttpServlet {
             nac.BorrarAccesos();
             nac.BorrarSubAccesos();
             
+            for (int e = 1; e <= tmenus; e++) {
+                idmenu=(String) request.getParameter("idmenus"+idrol+e);
+                seleccion=(String) request.getParameter("seleccions"+idrol+e);if(seleccion==null){seleccion="N";}
+                if(seleccion.equals("S")){
+                ac.setIdmenu(idmenu);
+                ac.setIdrol(idrol);
+                nac.setAc(ac);
+                nac.ActualizarAccesos();
+                }
+            }
+            
             for (int i = 1; i <= tmenu; i++) {
-                if(!men.equals(idmenu)&&pru==1){pru=0;}
-                out.println(idmenu+"---"+pru);
+                //out.println(idmenu+"--<br/>");
                 idmenu=(String) request.getParameter("idmenu"+idrol+i);
                 idsubmenu=(String) request.getParameter("idsubmenu"+idrol+i);
                 seleccion=(String) request.getParameter("seleccion"+idrol+i);if(seleccion==null){seleccion="N";}
-                out.println("*menu -"+idmenu+" *submenu -"+idsubmenu+" *rol -"+idrol+" *selección -"+seleccion+"<br/>");
+                //out.println("*menu -"+idmenu+" *submenu -"+idsubmenu+" *rol -"+idrol+" *selección -"+seleccion+"<br/>");
+                
+                //si se va a ingresar los sub accesos
+                if(seleccion.equals("S"))
+                {
+                    cont++;
+                    reg[cont][1]="update submenu set roles=roles||'"+idrol+"' where idsubmenu="+idsubmenu+"";
+                }
                 //si se va a ingresar los menues
                 if(!men.equals(idmenu)&&seleccion.equals("S"))
                 {
-                    out.println("se registra el "+idmenu);
-                   ac.setIdmenu(idmenu);
+                    ac.setIdmenu(idmenu);
                     ac.setIdrol(idrol);
                     nac.setAc(ac);
                     nac.ActualizarAccesos();
                 }
-                //si se va a ingresar los sub accesos
-                if(seleccion.equals("S"))
-                {
-                    ac.setIdsubmenu(idsubmenu);
-                    ac.setIdrol(idrol);
-                    nac.setAc(ac);
-                    nac.ActualizarSubAccesos();
-                }
-                
             }
+            
+            String con="";
+            for(int c=1; c<=cont; c++){
+                
+                con=con+reg[c][1]+"; ";
+            }
+            
+            nac.ActualizarSubAccesos(con);
+            
             
             if(nac.val==1){
                 response.sendRedirect("Accesos.jsp?mensaje=5");

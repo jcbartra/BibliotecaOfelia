@@ -37,6 +37,7 @@ public class ControlPrestamo extends HttpServlet {
             String idlector=(String)request.getParameter("idpersona");
             String idusuario=(String)request.getParameter("idusuario");
             String idprestamo=(String)request.getParameter("idprestamo");
+            String idprest_detalle=(String)request.getParameter("idprest_detalle");
             String fecha_entrega=(String)request.getParameter("fecha_entrega");if(fecha_entrega==null){fecha_entrega="0000-00-00";}
             String hora_entrega=(String)request.getParameter("hora_entrega");
             String minuto_entrega=(String)request.getParameter("minuto_entrega");
@@ -47,7 +48,6 @@ public class ControlPrestamo extends HttpServlet {
             
             prest_detalle pd=new prest_detalle();
             n_prest_detalle npd=new n_prest_detalle();
-            out.println("--------------------------------------"+op);
             if(op.equals("add_prestamo")){
                 pd.setIdejemplar(idejemplar);
                 pd.setIdlector(idlector);
@@ -65,7 +65,6 @@ public class ControlPrestamo extends HttpServlet {
             }
             
             if(op.equals("entrega_prestamo")){
-                out.println("--------------------------------------");
                 pd.setIdejemplar(idejemplar);
                 pd.setIdprestamo(idprestamo);
                 pd.setDevuelta(detalle_devolucion);
@@ -76,6 +75,20 @@ public class ControlPrestamo extends HttpServlet {
                     response.sendRedirect("Prestamo.jsp?mensaje=3");
                 }else{
                     response.sendRedirect("Prestamo.jsp?mensaje=4");
+                }
+            }
+            
+            if(op.equals("act_prestamo")){
+                pd.setIdprest_detalle(idprest_detalle);
+                pd.setFech_dev(f_entrega);
+                pd.setHora_dev(hora_entrega+":"+minuto_entrega);
+                npd.setPd(pd);
+                npd.UpdateLibro();
+                if(npd.val==1)
+                {
+                    response.sendRedirect("Prestamo.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Prestamo.jsp?mensaje=6");
                 }
             }
             
