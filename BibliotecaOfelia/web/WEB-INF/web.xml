@@ -76,6 +76,10 @@
         <servlet-name>ControlTurno</servlet-name>
         <servlet-class>biblioteca.ofelia.controller.ControlTurno</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlEjemplar</servlet-name>
+        <servlet-class>biblioteca.ofelia.controller.ControlEjemplar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlAccesos</servlet-name>
         <url-pattern>/ControlAccesos</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>ControlTurno</servlet-name>
         <url-pattern>/ControlTurno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlEjemplar</servlet-name>
+        <url-pattern>/ControlEjemplar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

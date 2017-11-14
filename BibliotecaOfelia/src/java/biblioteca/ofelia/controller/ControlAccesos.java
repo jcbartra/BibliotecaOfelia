@@ -39,7 +39,7 @@ public class ControlAccesos extends HttpServlet {
             String idrol=(String) request.getParameter("idrol");
             String seleccion="";
             int pru=0, cont=0;
-            String[][] reg= new String[20][2];
+            String[][] reg= new String[100][2];
             String men="";
             int tmenu=Integer.parseInt((String)request.getParameter("tmenu"));
             int tmenus=Integer.parseInt((String)request.getParameter("tmenus"));
