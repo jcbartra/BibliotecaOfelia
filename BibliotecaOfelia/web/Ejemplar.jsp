@@ -313,47 +313,26 @@
                                         <td><%= ejs.getAutor()%></td>
                                         <td>
                                         <center>
-                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=ejs.getIdlibro()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editars<%=ejs.getIdlibro()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                             </center>
-                                <!--Modal Registrar-->
-                                    <div class="modal fade modal-banco-first" id="editar">
+                                <!--Modal Editar-->
+                                    <div class="modal fade modal-banco-first" id="editars<%=ejs.getIdlibro()%>">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
 
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <button type="button" class="close" id="close1<%=ejs.getIdlibro()%>" aria-hidden="true">&times;</button>
                                                     <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Registrar Ejemplares</h4>
                                                 </div>
                                                 <form  action="ControlEjemplar" method="get">
                                                 <div class="modal-body">
-                                                    <div class="row">
-
-                                                        <img src="Recursos/img/Devolver.png" class="col-md-3">
-
-                                                        <div class="col-md-9">
-                                                            <div class="col-sm-12" align="center"><br /></div>
-                                                            <div class="col-sm-12" align="center"> <h5 style="font-weight: bold;">Registro de Ejemplares</h5></div>
-                                                            <div class="col-sm-12"><br /></div>
-                                                            <label for="C_ejemplar" class="col-sm-6 control-label">*Cantidad de Ejemplares: </label>
-                                                            <div class="col-sm-6">
-                                                                <input name="cant_ejemplar" id="cant_ejemplar" type="text" autocomplete="off" class="form-control" placeholder="Cantidad de Ejemplares" onkeypress="return validaN(event);">
-                                                            </div>
-                                                            <br /><br />
-                                                            <label for="C_inifin" class="col-sm-6 control-label">*Rango de Numeración: </label>
-                                                            <div class="col-sm-6" align="center">
-                                                                <input type="hidden" id="ini" value="" >
-                                                                <b><label><%=maxid%></label> - <label id="fin"></label></b>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
+                                                    hjhbjhb
                                                 </div>
                                                 <div class="modal-footer">
 
                                                         <input type="hidden" name="op" value="add_ejemplar">
                                                         <input type="hidden" name="idlibro" value="">
-                                                        <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Añadir</button>
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+                                                        <button type="button" class="btn btn-default" id="closemodal1<%=ejs.getIdlibro()%>">Cancelar</button>  
 
                                                 </div>
                                             </form>
@@ -362,17 +341,15 @@
                                     </div>
                                     <!--fin de Modal Registrar-->
 
-                                    <script>
-
-                                    function Fin<%=lbr.getIdlibro()%>()
-                                    {
-                                        var ini = parseInt(document.getElementById("ini<%=lbr.getIdlibro()%>").value);
-                                        var num = parseInt(document.getElementById("cant_ejemplar<%=lbr.getIdlibro()%>").value);
-                                        var fin= ini+num-1;
-                                        document.getElementById("fin<%=lbr.getIdlibro()%>").innerHTML = fin;
-                                    };
-
-                                </script>
+      
+                                <script type="text/javascript">
+                                    $('#close1<%=ejs.getIdlibro()%>').click(function() {
+                                    $('#editar<%=ejs.getIdlibro()%>').modal('hide');
+                                });
+                                    $('#closemodal1<%=ejs.getIdlibro()%>').click(function() {
+                                    $('#editar<%=ejs.getIdlibro()%>').modal('hide');
+                                });
+                                </script> 
                                 
                                 </td>
                                 </tr>
