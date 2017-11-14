@@ -226,4 +226,46 @@ public class n_prest_detalle {
              }
     } 
     
+    public void UpdateLibro()
+    {
+       val=0;
+       try{
+           
+           int i=0;
+           int e=0;
+           int o=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           
+           qry="update prest_detalle set fecha_dev_programada=?, hora_dev_programada=? where idprest_detalle=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+pd.getFech_dev());
+           ps.setString(++i,""+pd.getHora_dev());
+           ps.setString(++i,""+pd.getIdprest_detalle());
+           ps.executeQuery();
+           val=1;
+           ps.close();
+           conn.close();
+  
+      }
+      catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    } 
+    
 }

@@ -38,7 +38,7 @@ public class ControlMenu extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String nombre=(String)request.getParameter("nombre");
-            String link=(String)request.getParameter("link");if(link==null){link="";}
+            String link=(String)request.getParameter("link");if(link==null){link="#";}
             String iconos=(String)request.getParameter("iconos");
             String idmenu=(String)request.getParameter("idmenu");
             String op=(String)request.getParameter("op");

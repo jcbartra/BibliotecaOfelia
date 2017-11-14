@@ -44,6 +44,7 @@ public class n_menu {
            conn.setAutoCommit(false);
            qry="select idmenu,nombre,link,icono,roles,estado from menu "
                    + "order by idmenu";
+            System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
@@ -65,10 +66,12 @@ public class n_menu {
                      try{
                     conn.rollback();
                     setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    System.out.println(e.getMessage()+"<br>Transaction is being rolled back");
                     }
                     catch(SQLException e2)
                     {
                         setMError(e.getMessage());
+                        System.out.println(e.getMessage()+"----");
                     }
               }
              catch(Exception e){
@@ -77,7 +80,10 @@ public class n_menu {
              }
              finally{
                     try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
+                    catch(SQLException e){setMError(e.getMessage());
+                    System.out.println(e.getMessage()+"*******");
+                    }
+                    
              }
         return consulta;
     }

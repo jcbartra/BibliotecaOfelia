@@ -70,7 +70,7 @@ public class n_accesos {
              }
     }
     
-    public void ActualizarSubAccesos(){
+    public void ActualizarSubAccesos(String con){
         try
         {
            val=0; 
@@ -78,10 +78,8 @@ public class n_accesos {
            int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="update submenu set roles=roles||? where idsubmenu=?";
+           qry="begin "+con+" end;";
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i, ""+ac.getIdrol()+"-");
-           ps.setString(++i, ""+ac.getIdsubmenu());
            ps.executeQuery();
            val=1; 
            
