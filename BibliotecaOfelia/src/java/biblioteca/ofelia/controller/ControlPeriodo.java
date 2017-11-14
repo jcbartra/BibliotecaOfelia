@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package biblioteca.ofelia.controller;
 
-import biblioteca.ofelia.entidad.departamento;
-import biblioteca.ofelia.procesos.n_departamento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,12 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import biblioteca.ofelia.entidad.periodo;
+import biblioteca.ofelia.procesos.n_periodo;
+import biblioteca.ofelia.util.*;
+
 /**
  *
- * @author SORALUZ
+ * @author Karol
  */
-@WebServlet(name = "ControlDepartamento", urlPatterns = {"/ControlDepartamento"})
-public class ControlDepartamento extends HttpServlet {
+@WebServlet(name = "ControlPeriodo", urlPatterns = {"/ControlPeriodo"})
+public class ControlPeriodo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,66 +39,59 @@ public class ControlDepartamento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String id=(String)request.getParameter("id");
-            String nombre=(String)request.getParameter("nombre");
-            String cod=(String)request.getParameter("cod");
-            String idpais=(String)request.getParameter("idpais");
+            
+            String periodo=(String)request.getParameter("periodo");
+            String idperiodo=(String)request.getParameter("idperiodo");
             String op=(String)request.getParameter("op");
             
-            departamento d= new departamento();
-            n_departamento nd =new n_departamento();
+            periodo p = new periodo();
+            n_periodo np = new n_periodo();
             
-            if(op.equals("add_Departamento")){
+            if(op.equals("add_Periodo")){
                 
-                d.setNombre(nombre);
-                d.setCod(cod);
-                d.setIdpais(idpais);                
-                nd.setDep(d);
-                nd.IngresarDepartamento();
+                p.setPeriodo(periodo.toUpperCase());
                 
-                if(nd.val==1)
+                np.setP(p);
+                np.IngresarPeriodo();
+                
+                if(np.val==1)
                 {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=1");
+                    response.sendRedirect("Periodo.jsp?mensaje=1");
                 }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=2");
+                    response.sendRedirect("Periodo.jsp?mensaje=2");
+                }
+             }
+            
+            if(op.equals("delete_Periodo")){
+                p.setIdperiodo(idperiodo);
+                np.setP(p);
+                np.EliminarPeriodo();
+                if(np.val==1)
+                {
+                    response.sendRedirect("Periodo.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Periodo.jsp?mensaje=4");
+                }
+            }
+            
+            
+            if(op.equals("update_Periodo")){
+
+                p.setPeriodo(periodo.toUpperCase());
+                p.setIdperiodo(idperiodo);
+                
+                np.setP(p);
+                np.ActualizarPeriodo();
+                
+                if(np.val==1)
+                {
+                    response.sendRedirect("Periodo.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Periodo.jsp?mensaje=6");
                 }
                 
                 
             }
-            
-            if(op.equals("delete_Departamento")){
-                d.setIddepartamento(id);
-                nd.setDep(d);
-                nd.Buscar_departamento();
-                if(nd.val==1)
-                {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=3");
-                }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=4");
-                }
-            }
-            
-            if(op.equals("update_Departamento")){
-                
-                d.setIddepartamento(id);
-                d.setNombre(nombre);
-                d.setCod(cod);
-                d.setIdpais(idpais);
-                
-                nd.setDep(d);
-                nd.ActualizarDepartamento();
-                
-                if(nd.val==1)
-                {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=5");
-                }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=6");
-                }
-                
-                
-            }
-            
-            
         }
     }
 

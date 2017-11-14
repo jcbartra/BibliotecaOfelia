@@ -43,19 +43,19 @@ public class ControlUbigeo extends HttpServlet {
             String iddepartamento=(String)request.getParameter("iddepartamento");
             String idpais=(String)request.getParameter("idpais");
             String estado=(String)request.getParameter("estado");
+            String id=(String)request.getParameter("id");
+            
             String op=(String)request.getParameter("op");
             
-            ubigeo u= new ubigeo();
+            ubigeo ub= new ubigeo();
             n_ubigeo nu =new n_ubigeo();
             
-            if(op.equals("add_Ubigeo")){
-                
-                u.setNombre(nombre);
-                u.setCod(cod);
-                u.setIddepartamento(iddepartamento);
-                u.setIdpais(idpais);
-                u.setEstado(estado);                
-                nu.setUb(u);
+            if(op.equals("insertUbigeo")){                
+                ub.setIddepartamento(iddepartamento); 
+                ub.setNombre(nombre);
+                ub.setCod(cod);
+                               
+                nu.setUb(ub);
                 nu.IngresarUbigeo();
                 
                 if(nu.val==1)
@@ -69,8 +69,8 @@ public class ControlUbigeo extends HttpServlet {
             }
             
             if(op.equals("delete_Ubigeo")){
-                u.setIdubigeo(idubigeo);
-                nu.setUb(u);
+                ub.setIdubigeo(idubigeo);
+                nu.setUb(ub);
                 nu.BorrarUbigeo();
                 if(nu.val==1)
                 {
@@ -82,13 +82,13 @@ public class ControlUbigeo extends HttpServlet {
             
             if(op.equals("update_Ubigeo")){
                 
-                u.setIdubigeo(idubigeo);
-                u.setNombre(nombre);
-                u.setCod(cod);
-                u.setIddepartamento(iddepartamento);
-                u.setIdpais(idpais);
-                u.setEstado(estado);                
-                nu.setUb(u);
+                
+                ub.setNombre(nombre);
+                ub.setCod(cod);
+                ub.setIddepartamento(iddepartamento);
+                ub.setIdubigeo(id);  
+                
+                nu.setUb(ub);
                 nu.actualizar();
                 
                 

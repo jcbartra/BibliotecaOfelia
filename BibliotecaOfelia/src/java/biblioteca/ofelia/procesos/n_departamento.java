@@ -44,8 +44,7 @@ public class n_departamento {
         this.dep = dep;
     }
     
-    public ArrayList Listar_departamento()
-    {
+    public ArrayList Listar_departamento()    {
         ArrayList consulta=new ArrayList();
         try
         {
@@ -93,6 +92,55 @@ public class n_departamento {
              }
         return consulta;
     }
+    public ArrayList Mostrar_departamento(String id)    {
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select pais,iddepartamento, departamento from v_departamento where idpais=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+id);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       
+                       departamento dep=new departamento();
+                       dep.setIdpais(rs.getString("pais"));
+                       dep.setIddepartamento(rs.getString("iddepartamento"));
+                       dep.setNombre(rs.getString("departamento"));
+                       consulta.add(dep);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
     public void IngresarDepartamento()
     {
        val=0;
@@ -102,7 +150,7 @@ public class n_departamento {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="insert into departamento (nombre,codigo,idpais,estado) "
+           qry="insert into departamento (nombre,cod,idpais,estado) "
                    + "values (?,?,?,?)";
            
            PreparedStatement ps= conn.prepareStatement(qry);
@@ -265,5 +313,53 @@ public class n_departamento {
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
-    }  
+    } 
+    public ArrayList Departamentos_Especifica(String id){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0;
+           int i=0;
+           int e=0;
+           String cat="";
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+            //System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
+           qry="select iddepartamento, departamento, codigodepartamento from v_ubigeo where idpais=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+id);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                        departamento dep=new departamento();
+                        dep.setIddepartamento(rs.getString("iddepartamento"));
+                        dep.setNombre(rs.getString("departamento"));
+                        dep.setCod(rs.getString("codigodepartamento"));
+                        consulta.add(dep);
+                       
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
 }

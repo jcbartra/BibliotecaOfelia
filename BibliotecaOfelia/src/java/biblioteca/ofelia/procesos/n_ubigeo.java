@@ -1,14 +1,11 @@
 
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.tipo_doc;
 import biblioteca.ofelia.entidad.ubigeo;
 import biblioteca.ofelia.util.DBConn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import biblioteca.ofelia.entidad.*;
-import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
 
@@ -146,14 +143,16 @@ public class n_ubigeo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="insert into ubigeo (nombre,cod,iddepartamento,idpais,estado) "
-                   + "values (?,?,?,?,?)";
+           qry="insert into ubigeo (iddepartamento,nombre,cod,estado) "
+                   + "values (?,?,?,?)";
+           System.out.println("insert into ubigeo (nombre,cod,iddepartamento,estado) "
+                   + "values ('"+ub.getNombre()+"','"+ub.getCod()+"','"+ub.getIddepartamento()+"','"+ub.getIdpais()+"','"+ub.getEstado()+"')");
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+ub.getNombre());
-           ps.setString(++i,""+ub.getCod());
+          
            ps.setString(++i,""+ub.getIddepartamento());
-           ps.setString(++i,""+ub.getIdpais());
+            ps.setString(++i,""+ub.getNombre());
+           ps.setString(++i,""+ub.getCod());
            ps.setString(++i,"1");
            ps.executeQuery();
            val=1;   
@@ -222,13 +221,13 @@ public class n_ubigeo {
             conn=tran.getConnection();//empezar conección
             conn.setAutoCommit(false);
         
-            qry="update ubigeo set ubigeo=?, codigo=?, departamento=?, pais=? idubigeo=?";// el ? sirve para aumentar la veracidad de la conección de la BD
+            qry="update ubigeo set nombre=? ,cod=?, iddepartamento=?  where idubigeo=? ";// el ? sirve para aumentar la veracidad de la conección de la BD
             PreparedStatement ps= conn.prepareStatement(qry);
-            ps.setString(++i,""+ub.getIdubigeo());
+            
             ps.setString(++i,""+ub.getNombre());
             ps.setString(++i,""+ub.getCod());
             ps.setString(++i,""+ub.getIddepartamento());
-            ps.setString(++i,""+ub.getIdpais());            
+            ps.setString(++i,""+ub.getIdubigeo());           
             ps.executeQuery();
             val=1;
             ps.close();
@@ -253,5 +252,53 @@ public class n_ubigeo {
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
+    }
+ public ArrayList Ubigeos_Especifica(String id){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0;
+           int i=0;
+           int e=0;
+           String cat="";
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+            //System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
+           qry="select departamento,idubigeo,ubigeo from v_ubigeo where iddepartamento=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+id);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                        ubigeo ubi=new ubigeo();
+                        ubi.setIddepartamento(rs.getString("departamento"));
+                        ubi.setIdubigeo(rs.getString("idubigeo"));
+                        ubi.setNombre(rs.getString("ubigeo"));
+                        consulta.add(ubi);
+                       
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
     }
 }

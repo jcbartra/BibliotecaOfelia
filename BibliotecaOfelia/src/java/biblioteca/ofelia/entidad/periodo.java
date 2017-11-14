@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package biblioteca.ofelia.entidad;
 
 /**
  *
- * @author Alberto
+ * @author Karol
  */
-public class periodo {
+public class periodo{
+    
     String idperiodo;
     String periodo;
-    String estado;
+    String stado;
 
     public periodo() {
     }
@@ -33,12 +35,14 @@ public class periodo {
         this.periodo = periodo;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getStado() {
+        return stado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setStado(String stado) {
+        this.stado = stado;
     }
+    
+    
     
 }

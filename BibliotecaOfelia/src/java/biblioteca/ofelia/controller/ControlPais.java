@@ -35,10 +35,11 @@ public class ControlPais extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String idpais=(String)request.getParameter("idpais");
+            
             String nombre=(String)request.getParameter("nombre");
             String cod=(String)request.getParameter("cod");
-            String estado=(String)request.getParameter("estado");
+            
+            String id=(String)request.getParameter("id");
             String op=(String)request.getParameter("op");
             
             pais p= new pais();
@@ -62,7 +63,7 @@ public class ControlPais extends HttpServlet {
             }
             
             if(op.equals("delete_Pais")){
-                p.setIdpais(idpais);
+                p.setIdpais(id);
                 pa.setPa(p);
                 pa.BorrarPais();
                 if(pa.val==1)
@@ -75,7 +76,7 @@ public class ControlPais extends HttpServlet {
             
             if(op.equals("update_Pais")){
                 
-                p.setIdpais(idpais);
+                p.setIdpais(id);
                 p.setNombre(nombre);
                 p.setCod(cod);               
                 pa.setPa(p);

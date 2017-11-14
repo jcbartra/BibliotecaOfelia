@@ -6,7 +6,7 @@
 
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.periodo;
+import biblioteca.ofelia.entidad.proveedor;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
@@ -15,16 +15,16 @@ import java.util.*;
  *
  * @author Karol
  */
-public class n_periodo {
+public class n_proveedor {
     
     DBConn tran=null;
     Connection conn=null;
     String qry;//almacena la transacción
     public static int val;//definir si la transacción tuvo éxito
     
-    periodo p = new periodo();
+    proveedor p = new proveedor();
     
-    public n_periodo() {
+    public n_proveedor() {
         tran=new DBConn();
     }
     
@@ -33,19 +33,19 @@ public class n_periodo {
     {MError=mensaje;}
     public String getMError()
     {
-   return MError;
-    }
-
-    public periodo getP() {
-        return p;
+    return MError;
     }
     
-    public void setP(periodo p) {
+    public proveedor getP() {
+        return p;
+    }
+
+    public void setP(proveedor p) {
         this.p = p;
     }
     
     
-    public ArrayList Periodos(){
+    public ArrayList Proveedores(){
         ArrayList consulta=new ArrayList();
         try
         {
@@ -54,16 +54,16 @@ public class n_periodo {
            int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select idperiodo as id, periodo from periodo where estado='1' order by idperiodo";
+           qry="select idproveedor as id, proveedor from proveedor where estado='1' order by idproveedor";
             System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
                    {
-                       periodo pr=new periodo();
-                       pr.setIdperiodo(rs.getString("id"));
-                       pr.setPeriodo(rs.getString("periodo"));
-                       consulta.add(pr);
+                       proveedor pv=new proveedor();
+                       pv.setIdproveedor(rs.getString("id"));
+                       pv.setProveedor(rs.getString("proveedor"));
+                       consulta.add(pv);
                    }
            rs.close();
            ps.close();
@@ -90,8 +90,7 @@ public class n_periodo {
         return consulta;
     }
     
-    
-    public void IngresarPeriodo()
+    public void IngresarProveedor()
     {
        val=0;
        try{
@@ -100,11 +99,11 @@ public class n_periodo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="insert into periodo (periodo, estado) "
+           qry="insert into proveedor (proveedor, estado) "
                    + "values (?,?)";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getPeriodo());
+           ps.setString(++i,""+p.getProveedor());
            ps.setString(++i,"1");
            ps.executeQuery();
            val=1;   
@@ -132,9 +131,8 @@ public class n_periodo {
              }
    }
     
-    
-    public void EliminarPeriodo()
-        {
+    public void EliminarProveedor()
+    {
        val=0;
        try{
            
@@ -142,10 +140,10 @@ public class n_periodo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="delete periodo where idperiodo=?";
+           qry="delete proveedor where idproveedor=?";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getIdperiodo());
+           ps.setString(++i,""+p.getIdproveedor());
            ps.executeQuery();
            ps.close();
            
@@ -172,10 +170,10 @@ public class n_periodo {
                     try{if(conn!=null) conn.close();}
                     catch(SQLException e){setMError(e.getMessage());}
              }
-    }
+    } 
     
     
-    public void ActualizarPeriodo()
+    public void ActualizarProveedor()
     {
        val=0;
        try{
@@ -184,11 +182,11 @@ public class n_periodo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="update periodo set periodo=? where idperiodo=?";
+           qry="update proveedor set proveedor=? where idproveedor=?";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getPeriodo());
-           ps.setString(++i,""+p.getIdperiodo());
+           ps.setString(++i,""+p.getProveedor());
+           ps.setString(++i,""+p.getIdproveedor());
            ps.executeQuery();
            val=1;   
            ps.close();

@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package biblioteca.ofelia.controller;
 
-import biblioteca.ofelia.entidad.departamento;
-import biblioteca.ofelia.procesos.n_departamento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,12 +14,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import biblioteca.ofelia.entidad.proveedor;
+import biblioteca.ofelia.procesos.n_proveedor;
+import biblioteca.ofelia.util.*;
+
 /**
  *
- * @author SORALUZ
+ * @author Karol
  */
-@WebServlet(name = "ControlDepartamento", urlPatterns = {"/ControlDepartamento"})
-public class ControlDepartamento extends HttpServlet {
+@WebServlet(name = "ControlProveedor", urlPatterns = {"/ControlProveedor"})
+public class ControlProveedor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,66 +39,60 @@ public class ControlDepartamento extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String id=(String)request.getParameter("id");
-            String nombre=(String)request.getParameter("nombre");
-            String cod=(String)request.getParameter("cod");
-            String idpais=(String)request.getParameter("idpais");
+            
+            String proveedor=(String)request.getParameter("proveedor");
+            String idproveedor=(String)request.getParameter("idproveedor");
             String op=(String)request.getParameter("op");
             
-            departamento d= new departamento();
-            n_departamento nd =new n_departamento();
+            proveedor p = new proveedor();
+            n_proveedor np = new n_proveedor();
             
-            if(op.equals("add_Departamento")){
+            
+            if(op.equals("add_Proveedor")){
                 
-                d.setNombre(nombre);
-                d.setCod(cod);
-                d.setIdpais(idpais);                
-                nd.setDep(d);
-                nd.IngresarDepartamento();
+                p.setProveedor(proveedor.toUpperCase());
                 
-                if(nd.val==1)
+                np.setP(p);
+                np.IngresarProveedor();
+                
+                if(np.val==1)
                 {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=1");
+                    response.sendRedirect("Proveedor.jsp?mensaje=1");
                 }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=2");
+                    response.sendRedirect("Proveedor.jsp?mensaje=2");
+                }
+             }
+            
+            if(op.equals("delete_Proveedor")){
+                p.setIdproveedor(idproveedor);
+                np.setP(p);
+                np.EliminarProveedor();
+                if(np.val==1)
+                {
+                    response.sendRedirect("Proveedor.jsp?mensaje=3");
+                }else{
+                    response.sendRedirect("Proveedor.jsp?mensaje=4");
+                }
+            }
+            
+            
+            if(op.equals("update_Proveedor")){
+
+                p.setProveedor(proveedor.toUpperCase());
+                p.setIdproveedor(idproveedor);
+                
+                np.setP(p);
+                np.ActualizarProveedor();
+                
+                if(np.val==1)
+                {
+                    response.sendRedirect("Proveedor.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Proveedor.jsp?mensaje=6");
                 }
                 
                 
             }
-            
-            if(op.equals("delete_Departamento")){
-                d.setIddepartamento(id);
-                nd.setDep(d);
-                nd.Buscar_departamento();
-                if(nd.val==1)
-                {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=3");
-                }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=4");
-                }
-            }
-            
-            if(op.equals("update_Departamento")){
-                
-                d.setIddepartamento(id);
-                d.setNombre(nombre);
-                d.setCod(cod);
-                d.setIdpais(idpais);
-                
-                nd.setDep(d);
-                nd.ActualizarDepartamento();
-                
-                if(nd.val==1)
-                {
-                    response.sendRedirect("Ubigeo.jsp?mensaje=5");
-                }else{
-                    response.sendRedirect("Ubigeo.jsp?mensaje=6");
-                }
-                
-                
-            }
-            
-            
         }
     }
 
