@@ -440,5 +440,55 @@ public class n_persona {
             }
         }
     }
+    
+    public ArrayList Buscar_Persona_Lector()
+    {
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idpersona,nombres,ape_paterno,ape_materno from vista_persona_lector";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       
+                       persona p=new persona();
+                       p.setIdpersona(rs.getString("idpersona"));
+                       p.setNombres(rs.getString("nombres"));
+                       p.setApe_paterno(rs.getString("ape_paterno"));
+                       p.setApe_materno(rs.getString("ape_materno"));
+                       consulta.add(p);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
 
 }

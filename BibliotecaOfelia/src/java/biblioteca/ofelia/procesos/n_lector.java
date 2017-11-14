@@ -48,8 +48,8 @@ public class n_lector {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idlector,persona,genero,tipo,ndoc, estado"
-                    + " from vista_lector";
+            qry = "select idlector, persona, genero, tipo, turno, periodo, estado_habil, nivel, grado, seccion, condicion, ndoc, estado_periodo, estado "
+                    + " from vista_lectores";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
@@ -59,7 +59,16 @@ public class n_lector {
                 l.setIdpersona(rs.getString("persona"));
                 l.setGenero(rs.getString("genero"));
                 l.setIdtipo(rs.getString("tipo"));
+                l.setIdturno(rs.getString("turno"));
+                l.setIdperiodo(rs.getString("periodo"));
+                l.setEstado_habil(rs.getString("estado_habil"));
+                l.setEstado(rs.getString("estado"));
+                l.setNivel(rs.getString("nivel"));
+                l.setGrado(rs.getString("grado"));
+                l.setSeccion(rs.getString("seccion"));
+                l.setCondicion(rs.getString("condicion"));
                 l.setNdoc(rs.getString("ndoc"));
+                l.setEstado_periodo(rs.getString("estado_periodo"));
                 l.setEstado(rs.getString("estado"));
                 consulta.add(l);
                
@@ -92,69 +101,8 @@ public class n_lector {
         }
         return consulta;
     }
-    
-    public ArrayList VerLectorId(String idlec) {
-        ArrayList consulta = new ArrayList();
-        try {
-            int i = 0;
-            conn = tran.getConnection();
-            conn.setAutoCommit(false);
-            qry = "select id,nombres||' '||paterno||' '||materno AS ncompleto,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,"
-                    + "telefono,foto,estado from datos_persona where id=?";
-            System.out.println("select id,nombres,paterno,materno,genero,ubigeo,tipo_doc,documento,nacimiento,direccion,"
-                    + "telefono,foto,estado from datos_persona where id='"+idlec+"'");
-            PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "" + idlec);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                lector l = new lector();
-                l.setIdlector(rs.getString("id"));
-                l.setIdpersona(rs.getString("persona"));
-                l.setIdtipo(rs.getString("tipo"));
-                l.setIdturno(rs.getString("turno"));
-                l.setIdperiodo(rs.getString("periodo"));
-                l.setEstado(rs.getString("estado"));
-                l.setNivel(rs.getString("nivel"));
-                l.setGrado(rs.getString("grado"));
-                l.setSeccion(rs.getString("seccion"));
-                l.setCondicion(rs.getString("condicion"));
-                l.setEstado_periodo(rs.getString("estado_periodo"));
-                l.setEstado(rs.getString("estado"));
-                consulta.add(l);
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-            /*
-             for(int n=0;n<consulta.size();n++){
-             auto aus= (auto) consulta.get(n);
-             }*/
-        } catch (SQLException e) {
-            try {
-                conn.rollback();
-                setMError(e.getMessage() + "<br>Transaction is being rolled back");
-            } catch (SQLException e2) {
-                setMError(e.getMessage());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            setMError(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                setMError(e.getMessage());
-            }
-        }
-        return consulta;
-    }
-    
-    
-    
-    
-    public void IngresarLector()
+  
+    public void add_Lector()
     {
         val=0;
        try{
@@ -166,18 +114,28 @@ public class n_lector {
            qry="insert into lector (idpersona,idtipo,idturno,idperiodo,estado_habil,nivel, grado,seccion, condicion, estado_periodo,estado) "
                    + "values (?,?,?,?,?,?,?,?,?,?,?)";
            
-           /*PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+c.getNroini());
-           ps.setString(++i,""+c.getNombre());
-           ps.setString(++i,""+c.getDescripcion());
-           ps.setString(++i,""+c.getColor());
-           ps.setString(++i,""+c.getIcono());
+          /*System.out.println("insert into lector (idpersona,idtipo,idturno,idperiodo,estado_habil,nivel, grado,seccion, condicion, estado_periodo,estado) "
+                   + "values ('"+l.getIdpersona()+"','"+l.getIdtipo()+"','"+l.getIdturno()+"',"
+                   + "'"+l.getIdperiodo()+"','"+l.getEstado_habil()+"','"+l.getNivel()+"','"+l.getGrado()+"'"
+                   + ",'"+l.getSeccion()+"','"+l.getCondicion()+"','"+l.getEstado_periodo()+"','"+l.getEstado()+"')");
+           */
+          
+          PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i,""+l.getIdpersona());
+           ps.setString(++i,""+l.getIdtipo());
+           ps.setString(++i,""+l.getIdturno());
+           ps.setString(++i,""+l.getIdperiodo());
+           ps.setString(++i,"1");
+           ps.setString(++i,""+l.getNivel());
+           ps.setString(++i,""+l.getGrado());
+           ps.setString(++i,""+l.getSeccion());
+           ps.setString(++i,""+l.getCondicion());
+           ps.setString(++i,"1");
            ps.setString(++i,"1");
            ps.executeQuery();
            val=1;   
            ps.close();
-           conn.close();
-*/  
+           conn.close(); 
       }
       catch(SQLException e){
                      try{
@@ -210,7 +168,7 @@ public class n_lector {
             qry = "delete lector where idlector=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
- //           ps.setString(++i, "" + l.getIdlector());
+            ps.setString(++i, "" + l.getIdlector());
             ps.executeQuery();
             val = 1;
             ps.close();
@@ -237,28 +195,79 @@ public class n_lector {
             }
         }
     }
-/*
-    public void actualizarlector() {
+    
+    public ArrayList Mostrar_LectorUpdate() {
+        ArrayList consulta = new ArrayList();
+        try {
+            int i = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select idlector,idpersona,idtipo,idturno,idperiodo,nivel, grado,seccion, condicion "
+                    + "from lector";
+            System.out.println(qry);
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lector le = new lector();
+                le.setIdlector(rs.getString("idlector"));
+                le.setIdpersona(rs.getString("idpersona"));
+                le.setIdtipo(rs.getString("idtipo"));
+                le.setIdturno(rs.getString("idturno"));
+                le.setIdperiodo(rs.getString("idperiodo"));
+                le.setNivel(rs.getString("nivel"));
+                le.setGrado(rs.getString("grado"));
+                le.setSeccion(rs.getString("seccion"));
+                le.setCondicion(rs.getString("condicion"));
+                consulta.add(le);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+            /*
+             for(int n=0;n<consulta.size();n++){
+             auto aus= (auto) consulta.get(n);
+             }*/
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+        return consulta;
+    }
+    
+    public void Actualizar_Lector() {
         val = 0;
         try {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "Update persona set nombres=?, ape_paterno=?, ape_materno=?, idtipodoc=?, idubigeo=?,genero=?,fecha_nacimiento=?,nro_doc=?,direccion=? ,telefono=?, estado=? where idanimales=?";
-
+            qry = "update lector set idpersona=?, idtipo=?, idturno=?, idperiodo=?, nivel=?,grado=?,seccion=?,condicion=?  where idlector=?";
+            
             PreparedStatement ls = conn.prepareStatement(qry);
-            ls.setString(++i, "" + l.getNombres());
-            ls.setString(++i, "" + l.getApe_paterno());
-            ls.setString(++i, "" + l.getIdtipodoc());
-            ls.setString(++i, "" + l.getIdubigeo());
-            ls.setString(++i, "" + l.getGenero());
-            ls.setString(++i, "" + l.getFecha_nacimiento());
-            ls.setString(++i, "" + l.getNro_doc());
-            ls.setString(++i, "" + l.getDireccion());
-            ls.setString(++i, "" + l.getTelefono());
-            ls.setString(++i, "" + l.getEstado());
             ls.setString(++i, "" + l.getIdpersona());
+            ls.setString(++i, "" + l.getIdtipo());
+            ls.setString(++i, "" + l.getIdturno());
+            ls.setString(++i, "" + l.getIdperiodo());
+            ls.setString(++i, "" + l.getNivel());
+            ls.setString(++i, "" + l.getGrado());
+            ls.setString(++i, "" + l.getSeccion());
+            ls.setString(++i, "" + l.getCondicion());
+            ls.setString(++i, "" + l.getIdlector());
             ls.executeQuery();
             val = 1;
             ls.close();
@@ -287,49 +296,3 @@ public class n_lector {
     }
 
 }  
-    
-    public void ActualizarLector()
-    {
-       val=0;
-       try{
-           
-           int i=0;
-           conn=tran.getConnection();
-           conn.setAutoCommit(false);
-           
-           qry="update categoria set nro=?,nombre=?,descripcion=?,color=?,icono=? where idcategoria=?";
-           
-           PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+c.getNroini());
-           ps.setString(++i,""+c.getNombre());
-           ps.setString(++i,""+c.getDescripcion());
-           ps.setString(++i,""+c.getColor());
-           ps.setString(++i,""+c.getIcono());
-           ps.setString(++i,""+c.getIdcategoria());
-           ps.executeQuery();
-           val=1;   
-           ps.close();
-           conn.close();
-  
-      }
-      catch(SQLException e){
-                     try{
-                    conn.rollback();
-                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
-                    }
-                    catch(SQLException e2)
-                    {
-                        setMError(e.getMessage());
-                    }
-              }
-             catch(Exception e){
-                    System.out.println(e.getMessage());
-                    setMError(e.getMessage());
-             }
-             finally{
-                    try{if(conn!=null) conn.close();}
-                    catch(SQLException e){setMError(e.getMessage());}
-             }
-    }  */
-    
-}

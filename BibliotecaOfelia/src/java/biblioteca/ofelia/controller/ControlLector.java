@@ -42,13 +42,13 @@ public class ControlLector extends HttpServlet {
             String condicion = (String) request.getParameter("condicion");
             String estado_periodo = (String) request.getParameter("estado_periodo");
             String estado = (String) request.getParameter("estado");
-            String id = (String) request.getParameter("id");
+            String idlector = (String) request.getParameter("idlector");
             String op = (String) request.getParameter("op");
 
             lector l = new lector();
             n_lector nl = new n_lector();
 
-            if (op.equals("ingresar_persona")) {
+            if (op.equals("add_Lector")) {
 
                 l.setIdpersona(idpersona);
                 l.setIdtipo(idtipo);
@@ -59,48 +59,51 @@ public class ControlLector extends HttpServlet {
                 l.setGrado(grado);
                 l.setSeccion(seccion);
                 l.setCondicion(condicion);
-                l.setEstado_periodo(estado_periodo);
-                l.setEstado(estado);
+                
+                
 
                 nl.setL(l);
-                nl.IngresarLector();
+                nl.add_Lector();
                 if (nl.val == 1) {
-                    response.sendRedirect("Persona.jsp?mensaje=1");
+                    response.sendRedirect("Lector.jsp?mensaje=1");
                 } else {
-                    response.sendRedirect("Persona.jsp?mensaje=2");
+                    response.sendRedirect("Lector.jsp?mensaje=2");
                 }
 
             }
 
             if (op.equals("eliminar")) {
-                l.setIdlector(id);
+                l.setIdlector(idlector);
                 nl.setL(l);
                 nl.Eliminar();
                 if (nl.val == 1) {
-                    response.sendRedirect("Persona.jsp?mensaje=1");
+                    response.sendRedirect("Lector.jsp?mensaje=1");
                 } else {
-                    response.sendRedirect("Persona.jsp?mensaje=2");
+                    response.sendRedirect("Lector.jsp?mensaje=2");
                 }
             }
 
-            if (op.equals("update")) {
+            if (op.equals("Actualizar_Lector")) {
 
                 l.setIdpersona(idpersona);
                 l.setIdtipo(idtipo);
                 l.setIdturno(idturno);
                 l.setIdperiodo(idperiodo);
-                l.setEstado_habil(estado_habil);
                 l.setNivel(nivel);
                 l.setGrado(grado);
                 l.setSeccion(seccion);
                 l.setCondicion(condicion);
-                l.setEstado_periodo(estado_periodo);
-            //    l.setEstado(estado);
-                l.setIdlector(id);
-
+                l.setIdlector(idlector);
+                
                 nl.setL(l);
-
-            //    nl.actualizar();
+                nl.Actualizar_Lector();
+                
+                if(nl.val==1)
+                {
+                    response.sendRedirect("Lector.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Lector.jsp?mensaje=6");
+                }
 
             }
         }

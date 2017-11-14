@@ -194,103 +194,104 @@
 
                                                                 <!-- Modal Actualizar-->
                                                                 <div class="modal fade" id="editar<%=lbr.getIdlibro()%>" tabindex="-1" role="dialog" >
-                                                                    <div class="modal-dialog modal-md" role="document">
+                                                                    <div class="modal-dialog modal-lg" role="document">
                                                                         <div class="modal-content">
-                                                                            
+
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Libro <%=lbr.getIdlibro()%></h4>
+                                                                                <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Libro </h4>
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <form action="ControlLibros"  method="post" class="form-horizontal">
                                                                                     <input type="hidden" name="op" value="update_Libro">
-                                                                                    <input type="text" name="idlibro" value="<%=lbr.getIdlibro()%> hola">
+                                                                                    <input type="hidden" name="idlibro" value="<%=lbr.getIdlibro()%>">
 
-                                                                                    <div class="form-group ">
-                                                                                        <div  class="col-smd-8">
-                                                                                                <label name="categoria" class="col-sm-2 control-label">*Categoría: </label>
-                                                                                                    <select onChange="recargar<%=lbr.getIdlibro()%>(this.value)" name="s1" id="s1<%=lbr.getIdlibro()%>" class="form-control">
-                                                                                                        <option value='0' hidden="hidden">Selecciona una opcion</option>
-                                                                                                        <%for (int t = 0; t < contct; t++) {%>
-                                                                                                        <option value='<%=categoria[t][1]%>'<%if (lbr.getIdcategoria().equals(categoria[t][1])) {%>selected="selected"<%}%>><%=categoria[t][2]%></option>
-                                                                                                        <% }%>
-                                                                                                    </select>
-                                                                                                    
-                                                                                           
+                                                                                    <div class="form-group col-lg-12">
+                                                                                        <div class="col-sm-5">
+                                                                                            <label name="categoria" class="col-sm-2 control-label">*Categoría: </label>
+                                                                                            <select onChange="recargar<%=lbr.getIdlibro()%>(this.value)" name="s1" id="s1<%=lbr.getIdlibro()%>" class="form-control">
+                                                                                                <option value='0' hidden="hidden">Selecciona una opcion</option>
+                                                                                                <%for (int t = 0; t < contct; t++) {%>
+                                                                                                <option value='<%=categoria[t][1]%>'<%if (lbr.getIdcategoria().equals(categoria[t][1])) {%>selected="selected"<%}%>><%=categoria[t][2]%></option>
+                                                                                                <% }%>
+                                                                                            </select>
+                                                                                            </div>
+                                                                                            <div class="col-sm-5">
                                                                                                 <input type="hidden" name="idsub" id="idsub<%=lbr.getIdlibro()%>" value="<%=lbr.getIdsubcategoria()%>">
                                                                                                 <select name="idsubcategoria" id="destino<%=lbr.getIdlibro()%>" id="subcategoria" title="subcategoria" class="form-control">
 
                                                                                                     <option value="0" hidden="hidden">Selecione subcategoria</option>
 
                                                                                                 </select>
+
                                                                                             </div>
-                                                                                        </div>
+                                                                                            </div>
 
-                                                                                    <div class="form-group">
-                                                                                        <div class="col-sm-12">
-                                                                                            <div class="col-sm-6">
-                                                                                                <label for="editorial" class="col-sm-2 control-label">*Editorial: </label>
-                                                                                                <div class="col-sm-4">
-                                                                                                    <select name="ideditorial" id="editorial" class="form-control" title="Editorial">
-                                                                                                        <option value="0" hidden="hidden" <%if (ed.getIdeditorial()
-                                                                                                                == null) {%>selected="selected"<%}%>>Seleccione editorial</option>
-                                                                                                        <% for (int j = 0; j < conted; j++) {
-                                                                                                        %>
-                                                                                                        <option value="<%=editorial[j][1]%>"<%if (lbr.getIdeditorial().equals(editorial[j][2])) {%>selected="selected"<% }%>><%=editorial[j][2]%>
-                                                                                                        </option>
-                                                                                                        <% }%>
+                                                                                            <div class="form-group">
+                                                                                                <div class="col-sm-12">
+                                                                                                    <div class="col-sm-6">
+                                                                                                        <label for="editorial" class="col-sm-2 control-label">*Editorial: </label>
+                                                                                                        <div class="col-sm-4">
+                                                                                                            <select name="ideditorial" id="editorial" class="form-control" title="Editorial">
+                                                                                                                <option value="0" hidden="hidden" <%if (ed.getIdeditorial()
+                                                                                                                        == null) {%>selected="selected"<%}%>>Seleccione editorial</option>
+                                                                                                                <% for (int j = 0; j < conted; j++) {
+                                                                                                                %>
+                                                                                                                <option value="<%=editorial[j][1]%>"<%if (lbr.getIdeditorial().equals(editorial[j][2])) {%>selected="selected"<% }%>><%=editorial[j][2]%>
+                                                                                                                </option>
+                                                                                                                <% }%>
 
-                                                                                                    </select>
+                                                                                                            </select>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-sm-6">
+                                                                                                        <label for="autor" class="col-sm-2 control-label">*Autor: </label>
+                                                                                                        <select name="idautor" id="autor" class="form-control" title="Autor">
+                                                                                                            <option value="0" hidden="hidden">Seleccione Autor</option>
+                                                                                                            <% for (int j = 0;
+                                                                                                                        j < contau;
+                                                                                                                        j++) {
+                                                                                                            %>
+                                                                                                            <option value="<%=autor[j][1]%>"<%if (lbr.getIdautor().equals(autor[j][2])) {%>selected="selected"<% }%>><%=autor[j][2]%></option>
+                                                                                                            <% }%>
+                                                                                                        </select>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="col-sm-6">
-                                                                                                <label for="autor" class="col-sm-2 control-label">*Autor: </label>
-                                                                                                <select name="idautor" id="autor" class="form-control" title="Autor">
-                                                                                                    <option value="0" hidden="hidden">Seleccione Autor</option>
-                                                                                                    <% for (int j = 0;
-                                                                                                                j < contau;
-                                                                                                                j++) {
-                                                                                                    %>
-                                                                                                    <option value="<%=autor[j][1]%>"<%if (lbr.getIdautor().equals(autor[j][2])) {%>selected="selected"<% }%>><%=autor[j][2]%></option>
-                                                                                                    <% }%>
-                                                                                                </select>
+                                                                                            <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="tituloLibro" class="col-sm-2 control-label">*Titulo: </label>
+                                                                                                <div class="col-sm-10">
+                                                                                                    <input name="titulo" type="text" autocomplete="off" class="form-control" placeholder="Titulo del Libro" title="Titulo del Libro" value="<%= lbr.getTitulo()%>" onkeypress="return validaL(event);">
+                                                                                                </div>
                                                                                             </div>
+                                                                                            <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+                                                                                            <div class="form-group">
+                                                                                                <label for="anio_publicacionLibro" class="col-sm-2 control-label">*Año publicación: </label>
+                                                                                                <div class="col-sm-4">
+                                                                                                    <input name="anio_publicacion" type="text" autocomplete="off" class="form-control" placeholder="Año" title="Año" value="<%=lbr.getAnio_publicacion()%>" onkeypress="return validaN(event);">
+                                                                                                </div>
+
+                                                                                                <label for="paginasLibro" class="col-sm-2 control-label">*Páginas: </label>
+                                                                                                <div class="col-sm-4">
+                                                                                                    <input name="paginas" type="text" autocomplete="off" class="form-control" placeholder="Páginas" title="Páginas" value="<%= lbr.getPaginas()%>" onkeypress="return validaN(event);">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="submit" class="btn btn-primary"><i class="ion-android-sync" aria-hidden="true"></i> Actualizar</button>
+                                                                                                <a class="btn btn-default" data-dismiss="modal" id="closemodal<%=lbr.getIdlibro()%>"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                                                                            </div>
+                                                                                            </form>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
-                                                                                    <div class="form-group">
-                                                                                        <label for="tituloLibro" class="col-sm-2 control-label">*Titulo: </label>
-                                                                                        <div class="col-sm-10">
-                                                                                            <input name="titulo" type="text" autocomplete="off" class="form-control" placeholder="Titulo del Libro" title="Titulo del Libro" value="<%= lbr.getTitulo()%>" onkeypress="return validaL(event);">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
-                                                                                    <div class="form-group">
-                                                                                        <label for="anio_publicacionLibro" class="col-sm-2 control-label">*Año publicación: </label>
-                                                                                        <div class="col-sm-4">
-                                                                                            <input name="anio_publicacion" type="text" autocomplete="off" class="form-control" placeholder="Año" title="Año" value="<%=lbr.getAnio_publicacion()%>" onkeypress="return validaN(event);">
-                                                                                        </div>
-
-                                                                                        <label for="paginasLibro" class="col-sm-2 control-label">*Páginas: </label>
-                                                                                        <div class="col-sm-4">
-                                                                                            <input name="paginas" type="text" autocomplete="off" class="form-control" placeholder="Páginas" title="Páginas" value="<%= lbr.getPaginas()%>" onkeypress="return validaN(event);">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="submit" class="btn btn-primary"><i class="ion-android-sync" aria-hidden="true"></i> Actualizar</button>
-                                                                                        <a class="btn btn-default" data-dismiss="modal" id="closemodal<%=lbr.getIdlibro()%>"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                                                                                    </div>
-                                                                                </form>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
 
-                                                                <script type="text/javascript">
+                                                                        <script type="text/javascript">
                                                                     function recargar<%=lbr.getIdlibro()%>(id) {
                                                                         var xhttp;
                                                                         if (id == "") {
@@ -326,186 +327,186 @@
                                                                         xhttp.open("GET", "procesar.jsp?id=" + id + "&idsub=" + idsub, true);
                                                                         xhttp.send();
                                                                     }
+                                                                        </script>
+                                                                        </center>
+                                                                        </td>
+                                                                        </tr>
+                                                                        <% }%>
+                                                                        </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                <br>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                                </section>
+                                                                </section>
+                                                                </div>
+
+                                                                <%@include file="include/footer.jsp" %>
+                                                                </div>
+
+                                                                <!-- Registro Libro-->
+                                                                <div class="modal fade" id="addLibro" tabindex="-1" role="dialog">
+                                                                    <div class="modal-dialog modal-md" role="document">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                                <h4 class="modal-title"><i class="ion-person-add"></i> Agregar Libro</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form action="ControlLibros" method="post" class="form-horizontal">
+                                                                                    <input type="hidden" name="op" value="add_Libro">
+
+                                                                                    <div class="form-group">
+                                                                                        <label name="categoria" class="col-sm-2 control-label">*Categoría: </label>
+                                                                                        <div class="col-sm-5">
+                                                                                            <select onChange="recargar(this.value)" name="s1" id="s1" class="form-control">
+                                                                                                <option value='0'>Selecciona una opcion</option>
+                                                                                                <%for (int x = 0; x < contct; x++) {%>
+                                                                                                <option value='<%=categoria[x][1]%>'><%=categoria[x][2]%></option>
+                                                                                                <%}%>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="col-sm-5">
+                                                                                            <select name="idsubcategoria" id="destino" id="subcategoria" class="form-control" title="subcategoria">
+                                                                                                <option value="0" >Selecione subcategoria</option>
+
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label for="editorial" class="col-sm-2 control-label">*Editorial: </label>
+                                                                                        <div class="col-sm-4">
+                                                                                            <select name="ideditorial" id="editorial" class="form-control" title="Editorial">
+                                                                                                <option value="0" hidden="hidden">Seleccione editorial</option>
+                                                                                                <% for (int i = 0; i < conted; i++) {
+                                                                                                %>
+                                                                                                <option value="<%=editorial[i][1]%>"><%=editorial[i][2]%>
+                                                                                                </option>
+                                                                                                <% }%>
+
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <label for="autor" class="col-sm-2 control-label">*Autor: </label>
+                                                                                        <div class="col-sm-4">
+                                                                                            <select name="idautor" id="autor" class="form-control" title="Autor">
+                                                                                                <option value="0" hidden="hidden">Seleccione Autor</option>
+                                                                                                <% for (int j = 0;
+                                                                                                            j < contau;
+                                                                                                            j++) {
+                                                                                                %>
+                                                                                                <option value="<%=autor[j][1]%>"><%=autor[j][2]%></option>
+                                                                                                <% }%>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label for="tituloLibro" class="col-sm-2 control-label">*Titulo: </label>
+                                                                                        <div class="col-sm-10">
+                                                                                            <input name="titulo" type="text" autocomplete="off" class="form-control" placeholder="Titulo del Libro" title="Titulo del Libro" onkeypress="return validaL(event);">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group">
+                                                                                        <label for="anio_publicacionLibro" class="col-sm-2 control-label">*Año publicación: </label>
+                                                                                        <div class="col-sm-4">
+                                                                                            <input name="anio_publicacion" type="text" autocomplete="off" class="form-control" placeholder="Año" title="Año" onkeypress="return validaN(event);">
+                                                                                        </div>
+
+                                                                                        <label for="paginasLibro" class="col-sm-2 control-label">*Páginas: </label>
+                                                                                        <div class="col-sm-4">
+                                                                                            <input name="paginas" type="text" autocomplete="off" class="form-control" placeholder="Páginas" title="Páginas" onkeypress="return validaN(event);">
+                                                                                        </div>
+                                                                                    </div>
+
+
+
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                                                                        <a class="btn btn-default"  data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <script>
+                                                                    $(function () {
+                                                                        $("#tablaLibro").DataTable({
+                                                                            "language": {
+                                                                                "sProcessing": "Procesando...",
+                                                                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                                                                "sZeroRecords": "No se encontraron resultados",
+                                                                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                                                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                                                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                                                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                                                                "sInfoPostFix": "",
+                                                                                "sSearch": "Buscar:",
+                                                                                "sUrl": "",
+                                                                                "sInfoThousands": ",",
+                                                                                "sLoadingRecords": "Cargando...",
+                                                                                "oPaginate": {
+                                                                                    "sFirst": "Primero",
+                                                                                    "sLast": "Último",
+                                                                                    "sNext": "Siguiente",
+                                                                                    "sPrevious": "Anterior"
+                                                                                },
+                                                                                "oAria": {
+                                                                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                                                                }
+                                                                            }
+                                                                        });
+
+                                                                    });
                                                                 </script>
-                                                            </center>
-                                                            </td>
-                                                            </tr>
-                                                            <% }%>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </section>
-            </div>
-
-            <%@include file="include/footer.jsp" %>
-        </div>
-
-        <!-- Registro Libro-->
-        <div class="modal fade" id="addLibro" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title"><i class="ion-person-add"></i> Agregar Libro</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="ControlLibros" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Libro">
-
-                            <div class="form-group">
-                                <label name="categoria" class="col-sm-2 control-label">*Categoría: </label>
-                                <div class="col-sm-5">
-                                    <select onChange="recargar(this.value)" name="s1" id="s1" class="form-control">
-                                        <option value='0'>Selecciona una opcion</option>
-                                        <%for (int x = 0; x < contct; x++) {%>
-                                        <option value='<%=categoria[x][1]%>'><%=categoria[x][2]%></option>
-                                        <%}%>
-                                    </select>
-                                </div>
-                                <div class="col-sm-5">
-                                    <select name="idsubcategoria" id="destino" id="subcategoria" class="form-control" title="subcategoria">
-                                        <option value="0" >Selecione subcategoria</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="editorial" class="col-sm-2 control-label">*Editorial: </label>
-                                <div class="col-sm-4">
-                                    <select name="ideditorial" id="editorial" class="form-control" title="Editorial">
-                                        <option value="0" hidden="hidden">Seleccione editorial</option>
-                                        <% for (int i = 0; i < conted; i++) {
-                                        %>
-                                        <option value="<%=editorial[i][1]%>"><%=editorial[i][2]%>
-                                        </option>
-                                        <% }%>
-
-                                    </select>
-                                </div>
-                                <label for="autor" class="col-sm-2 control-label">*Autor: </label>
-                                <div class="col-sm-4">
-                                    <select name="idautor" id="autor" class="form-control" title="Autor">
-                                        <option value="0" hidden="hidden">Seleccione Autor</option>
-                                        <% for (int j = 0;
-                                                    j < contau;
-                                                    j++) {
-                                        %>
-                                        <option value="<%=autor[j][1]%>"><%=autor[j][2]%></option>
-                                        <% }%>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="tituloLibro" class="col-sm-2 control-label">*Titulo: </label>
-                                <div class="col-sm-10">
-                                    <input name="titulo" type="text" autocomplete="off" class="form-control" placeholder="Titulo del Libro" title="Titulo del Libro" onkeypress="return validaL(event);">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="anio_publicacionLibro" class="col-sm-2 control-label">*Año publicación: </label>
-                                <div class="col-sm-4">
-                                    <input name="anio_publicacion" type="text" autocomplete="off" class="form-control" placeholder="Año" title="Año" onkeypress="return validaN(event);">
-                                </div>
-
-                                <label for="paginasLibro" class="col-sm-2 control-label">*Páginas: </label>
-                                <div class="col-sm-4">
-                                    <input name="paginas" type="text" autocomplete="off" class="form-control" placeholder="Páginas" title="Páginas" onkeypress="return validaN(event);">
-                                </div>
-                            </div>
 
 
+                                                                <script language="javascript">
+                                                                    function recargarPrimero() {
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                <a class="btn btn-default"  data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                                                        var id = document.getElementById("s1").value;
+                                                                        var xhttp;
+                                                                        if (id == "") {
+                                                                            document.getElementById("destino").innerHTML = "";
+                                                                            return;
+                                                                        }
+                                                                        xhttp = new XMLHttpRequest();
+                                                                        xhttp.onreadystatechange = function () {
+                                                                            if (this.readyState == 4 && this.status == 200) {
+                                                                                document.getElementById("destino").innerHTML = this.responseText;
+                                                                            }
+                                                                        };
+                                                                        xhttp.open("GET", "procesar.jsp?id=" + id, true);
+                                                                        xhttp.send();
+                                                                    }
+                                                                    function recargar(id) {
 
-        <script>
-            $(function () {
-                $("#tablaLibro").DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    }
-                });
-
-            });
-        </script>
-
-
-        <script language="javascript">
-            function recargarPrimero() {
-
-                var id = document.getElementById("s1").value;
-                var xhttp;
-                if (id == "") {
-                    document.getElementById("destino").innerHTML = "";
-                    return;
-                }
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("destino").innerHTML = this.responseText;
-                    }
-                };
-                xhttp.open("GET", "procesar.jsp?id=" + id, true);
-                xhttp.send();
-            }
-            function recargar(id) {
-
-                var xhttp;
-                if (id == "") {
-                    document.getElementById("destino").innerHTML = "";
-                    return;
-                }
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("destino").innerHTML = this.responseText;
-                    }
-                };
-                xhttp.open("GET", "procesar.jsp?id=" + id, true);
-                xhttp.send();
-            }
-        </script>
-        <%@include file="include/recursos.jsp" %>
-    </body>
-</html>
+                                                                        var xhttp;
+                                                                        if (id == "") {
+                                                                            document.getElementById("destino").innerHTML = "";
+                                                                            return;
+                                                                        }
+                                                                        xhttp = new XMLHttpRequest();
+                                                                        xhttp.onreadystatechange = function () {
+                                                                            if (this.readyState == 4 && this.status == 200) {
+                                                                                document.getElementById("destino").innerHTML = this.responseText;
+                                                                            }
+                                                                        };
+                                                                        xhttp.open("GET", "procesar.jsp?id=" + id, true);
+                                                                        xhttp.send();
+                                                                    }
+                                                                </script>
+                                                                <%@include file="include/recursos.jsp" %>
+                                                                </body>
+                                                                </html>
 
