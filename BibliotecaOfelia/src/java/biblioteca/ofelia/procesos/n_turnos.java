@@ -5,7 +5,7 @@
  */
 package biblioteca.ofelia.procesos;
 
-import biblioteca.ofelia.entidad.editorial;
+import biblioteca.ofelia.entidad.turno;
 import biblioteca.ofelia.util.DBConn;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,16 +17,17 @@ import java.util.ArrayList;
  *
  * @author GADEA-JADE
  */
-public class n_editorial {
+public class n_turnos {
+    
     
     DBConn tran = null;
     Connection conn = null;
     String qry, qry2;
     public static int val;
 
-    editorial e = new editorial();
+    turno t = new turno();
 
-    public n_editorial() {
+    public n_turnos() {
         tran = new DBConn();
     }
 
@@ -40,31 +41,30 @@ public class n_editorial {
         return MError;
     }
 
-    public editorial getE() {
-        return e;
+    public turno getT() {
+        return t;
     }
 
-    public void setE(editorial e) {
-        this.e = e;
+    public void setT(turno t) {
+        this.t = t;
     }
 
-    public ArrayList editoriales() {
+    public ArrayList turnos() {
         ArrayList consulta = new ArrayList();
         try {
             val = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select id,ubigeo,editorial from vista_editorial";
+            qry = "select idturno,turno from turno";
             //System.out.println(qry+" hola");
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                editorial ed = new editorial();
-                ed.setIdeditorial(rs.getString("id"));
-                ed.setIdubigeo(rs.getString("ubigeo"));
-                ed.setNombre(rs.getString("editorial"));
+                turno tu = new turno();
+                tu.setIdturno(rs.getString("idturno"));
+                tu.setTurno(rs.getString("turno"));
                 
-                consulta.add(ed);
+                consulta.add(tu);
             }
             rs.close();
             ps.close();
@@ -91,50 +91,9 @@ public class n_editorial {
         return consulta;
     }
     
-    public ArrayList editoriales_update() {
-        ArrayList consulta = new ArrayList();
-        try {
-            val = 0;
-            conn = tran.getConnection();
-            conn.setAutoCommit(false);
-            qry = "select id,idubigeo,editorial from vista_editorial";
-            //System.out.println(qry+" hola");
-            PreparedStatement ps = conn.prepareStatement(qry);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                editorial ed = new editorial();
-                ed.setIdeditorial(rs.getString("id"));
-                ed.setIdubigeo(rs.getString("idubigeo"));
-                ed.setNombre(rs.getString("editorial"));
-                
-                consulta.add(ed);
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-        } catch (SQLException e) {
-            try {
-                conn.rollback();
-                setMError(e.getMessage() + "<br>Transaction is being rolled back");
-            } catch (SQLException e2) {
-                setMError(e.getMessage());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            setMError(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                setMError(e.getMessage());
-            }
-        }
-        return consulta;
-    }
+    
 
-    public void IngresarEditorial() {
+    public void IngresarTurno() {
         val = 0;
         try {
 
@@ -142,11 +101,11 @@ public class n_editorial {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "insert into editorial (idubigeo,nombre,estado) "
+            qry = "insert into turno (idturno,turno,estado) "
                     + "values (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "" + e.getIdubigeo());
-            ps.setString(++i, "" + e.getNombre());
+            ps.setString(++i, "" + t.getIdturno());
+            ps.setString(++i, "" + t.getTurno());
             ps.setString(++i, "1");
             ps.executeQuery();
             val = 1;
@@ -174,7 +133,7 @@ public class n_editorial {
         }
     }
 
-    public void BorrarEditorial() {
+    public void BorrarTurno() {
         val = 0;
         try {
 
@@ -182,10 +141,10 @@ public class n_editorial {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "delete editorial where ideditorial=?";
+            qry = "delete turno where idturno=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "" + e.getIdeditorial());
+            ps.setString(++i, "" + t.getIdturno());
             ps.executeQuery();
 
             val = 1;
@@ -213,7 +172,7 @@ public class n_editorial {
         }
     }
 
-    public void ActualizarEditorial() {
+    public void ActualizarTurno() {
         val = 0;
         try {
 
@@ -221,12 +180,11 @@ public class n_editorial {
             conn = tran.getConnection();
             conn.setAutoCommit(false);
 
-            qry = "update editorial set idubigeo=?,nombre=? where ideditorial=?";
+            qry = "update turno set turno=? where idturno=?";
 
             PreparedStatement ps = conn.prepareStatement(qry);
-            ps.setString(++i, "" + e.getIdubigeo());
-            ps.setString(++i, "" + e.getNombre());
-            ps.setString(++i, "" + e.getIdeditorial());
+            ps.setString(++i, "" + t.getTurno());
+            ps.setString(++i, "" + t.getIdturno());
             ps.executeQuery();
             val = 1;
             ps.close();

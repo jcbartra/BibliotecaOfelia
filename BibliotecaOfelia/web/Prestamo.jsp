@@ -24,6 +24,8 @@
     </script>
     <%@include file="include/mensaje.jsp" %>
     <%
+        String estado =(String)request.getParameter("estado");if(estado==null){estado="1";}
+        String datos =(String)request.getParameter("datos");if(datos==null){datos="%";}
         String idprestamo = "";
         int cont = 0;
         int cont1 = 0;
@@ -103,6 +105,31 @@
                                             <div class="col-lg-12">
                                                 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                                     <div class="table-responsive">
+                                                        <div class="form-group col-lg-6" align="right">
+                                                            <form name="form2" action="Prestamo.jsp" method="get">
+                                                                <select name="estado" onchange="document.form2.submit();" class="form-control">
+                                                                    <option value="1" <%if(estado.equals("1")){%>selected<%}%>>Activos</option>
+                                                                    <option value="2"<%if(estado.equals("2")){%>selected<%}%>>Entregados</option>
+                                                                </select>
+                                                            </form>
+                                                                
+                                                        </div>
+                                                        <div class="form-group col-lg-6" align="left">
+                                                            <form name="form1" action="Prestamo.jsp" method="post">
+                                                                <select <%if(estado.equals("2")){%>disabled<%}%> name="datos" onchange="document.form1.submit();" class="form-control">
+                                                                    <option value="%" <%if(datos.equals("%")){%>selected<%}%>>Todos</option>
+                                                                    <option value="3"<%if(datos.equals("3")){%>selected<%}%>>En Tiempo</option>
+                                                                    <option value="2"<%if(datos.equals("2")){%>selected<%}%>>A Entregar</option>
+                                                                    <option value="1"<%if(datos.equals("1")){%>selected<%}%>>Fuera de Tiempo</option>
+                                                                </select>
+                                                            </form>
+                                                        </div>
+                                                        <br /> 
+                                                        <br />
+                                                        <div class="form-group col-lg-4" align="right"><a class="btn btn-xs" style="background: green;">&nbsp;&nbsp;</a> <b>En Tiempo</b></div>
+                                                        <div class="form-group col-lg-4" align="center"><a class="btn btn-xs" style="background: yellow;">&nbsp;&nbsp;</a> <b>A Entregar</b></div>
+                                                        <div class="form-group col-lg-4" align="left"><a class="btn btn-xs" style="background: red;">&nbsp;&nbsp;</a> <b>Fuera de Tiempo</b></div>
+                                                        <br />
                                                         <table id="tablaPrestamo" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                                             <thead>
                                                                 <tr role="row">
@@ -118,7 +145,8 @@
                                                             <tbody>
                                                                 <%
                                                                     String color="";
-                                                                    
+                                                                    pd.setDato(datos);
+                                                                    pd.setEstado(estado);
                                                                     ArrayList rdp = npd.detalle_prestamo_general();
                                                                     for (int i = 0; i < rdp.size(); i++) {
                                                                         prest_detalle pdt = (prest_detalle) rdp.get(i);
@@ -129,15 +157,16 @@
 
                                                                 %>
                                                                 <tr role="row" class="odd">
-                                                                    <td class="sorting_1"><a class="btn btn-xs" style="background: <%= color%>;">&nbsp;</a></td>
+                                                                    <td class="sorting_1"><a class="btn btn-xs" <%if(estado.equals("1")){%>style="background: <%= color%>;"<%}%>>&nbsp;&nbsp;</a></td>
                                                                     <td><%= pdt.getLector()%></td>
                                                                     <td><%= pdt.getEjemplar()%></td>
                                                                     <td align="center"><%= pdt.getUsuario()%></td>
                                                                     <td align="center"><%= pdt.getFech_dev()%></td>        
                                                                     <td>
-                                                            <center>
+                                                            <center><%if(estado.equals("1")){%>
                                                                 <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=pdt.getIdprestamo()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                                 <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-check" aria-hidden="true"></i> </a>
+                                                                <%}%>
                                                                 <!--Modal Eliminar-->
                                                                 <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
                                                                     <div class="modal-dialog">

@@ -46,9 +46,69 @@ public class n_prest_detalle {
            conn.setAutoCommit(false);
            qry="select dato,idprestamo, idprest_detalle, lector, ejemplar, idejemplar, usuario, fecha_prestamo, "
                    + "estado,substr(fech_dev,0,10) as fech_dev "
-                   + "from detalle_prestamo where estado='1' order by idprestamo";
+                   + "from detalle_prestamo where dato like ? and estado=? order by fech_dev";
             //System.out.println(qry);
            PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, "%"+pd.getDato());
+           ps.setString(++i, ""+pd.getEstado());
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       prest_detalle pdt=new prest_detalle();
+                       pdt.setDato(rs.getString("dato"));
+                       pdt.setIdprestamo(rs.getString("idprestamo"));
+                       pdt.setIdprest_detalle(rs.getString("idprest_detalle"));
+                       pdt.setLector(rs.getString("lector"));
+                       pdt.setEjemplar(rs.getString("ejemplar"));
+                       pdt.setIdejemplar(rs.getString("idejemplar"));
+                       pdt.setUsuario(rs.getString("usuario"));
+                       pdt.setFecha_prestamo(rs.getString("fecha_prestamo"));
+                       pdt.setEstado(rs.getString("estado"));
+                       pdt.setFech_dev(rs.getString("fech_dev"));
+                       consulta.add(pdt);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
+    
+    public ArrayList detalle_prestamo_especifico(){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select dato,idprestamo, idprest_detalle, lector, ejemplar, idejemplar, usuario, fecha_prestamo, "
+                   + "estado,substr(fech_dev,0,10) as fech_dev "
+                   + "from detalle_prestamo where dato like ? and estado=? and idlector=?  order by fech_dev";
+            //System.out.println(qry);
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, "%"+pd.getDato());
+           ps.setString(++i, ""+pd.getEstado());
+           ps.setString(++i, ""+pd.getIdlector());
            ResultSet rs=ps.executeQuery();
            while(rs.next())
                    {

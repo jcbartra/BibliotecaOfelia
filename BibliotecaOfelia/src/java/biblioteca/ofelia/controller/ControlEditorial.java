@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package biblioteca.ofelia.controller;
 
 import java.io.IOException;
@@ -8,82 +13,78 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import biblioteca.ofelia.entidad.editorial;
+import biblioteca.ofelia.procesos.n_editorial;
+
 /**
  *
  * @author GADEA-JADE
  */
-import biblioteca.ofelia.entidad.autor;
-import biblioteca.ofelia.procesos.n_autores;
-import biblioteca.ofelia.util.*;
+@WebServlet(name = "ControlEditorial", urlPatterns = {"/ControlEditorial"})
+public class ControlEditorial extends HttpServlet {
 
-@WebServlet(name = "ControlAutor", urlPatterns = {"/ControlAutor"})
-public class ControlAutor extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
+            String idubigeo = (String)request.getParameter("idubigeo");
             String nombre = (String) request.getParameter("nombre");
-            String idautor = (String) request.getParameter("idautor");
+            String ideditorial = (String)request.getParameter("ideditorial");
             String op = (String) request.getParameter("op");
 
-            autor a = new autor();
-            n_autores na = new n_autores();
+            editorial edi = new editorial();
+            n_editorial ed = new n_editorial();
 
-            if (op.equals("add_Autor")) {
-                a.setNombre(nombre.toUpperCase());
-                na.setA(a);
-                na.IngresarAutor();
+            if (op.equals("add_Editorial")) {
 
-                if (na.val == 1) {
-                    response.sendRedirect("Autor.jsp?mensaje=1");
+                edi.setIdubigeo(idubigeo);
+                edi.setNombre(nombre.toUpperCase());
+
+                ed.setE(edi);
+                ed.IngresarEditorial();
+
+                if (ed.val == 1) {
+                    response.sendRedirect("Editorial.jsp?mensaje=1");
                 } else {
-                    response.sendRedirect("Autor.jsp?mensaje=2");
+                    response.sendRedirect("Editorial.jsp?mensaje=2");
                 }
-            }
-            
-            if(op.equals("delete_Autor")){
-                a.setIdAutor(idautor);
-                na.setA(a);
-                na.BorrarAutor();
-                if(na.val==1)
-                {
-                    response.sendRedirect("Autor.jsp?mensaje=3");
-                }else{
-                    response.sendRedirect("Autor.jsp?mensaje=4");
-                }
-            }
-            
-            if(op.equals("update_Autor")){
-                
-                a.setNombre(nombre.toUpperCase());
 
-                a.setIdAutor(idautor);
-                na.setA(a);
-                na.ActualizarAutor();
-                
-                if(na.val==1)
+            }
+            if(op.equals("delete_Editorial")){
+                edi.setIdeditorial(ideditorial);
+                ed.setE(edi);
+                ed.BorrarEditorial();
+                if(ed.val==1)
                 {
-                    response.sendRedirect("Autor.jsp?mensaje=5");
+                    response.sendRedirect("Editorial.jsp?mensaje=3");
                 }else{
-                    response.sendRedirect("Autor.jsp?mensaje=6");
-                } 
+                    response.sendRedirect("Editorial.jsp?mensaje=4");
+                }
+            }
+            
+            if(op.equals("update_Editorial")){
+                
+                edi.setIdubigeo(idubigeo);
+                edi.setNombre(nombre.toUpperCase());
+                edi.setIdeditorial(ideditorial);
+                
+                ed.setE(edi);
+                ed.ActualizarEditorial();
+                
+                if(ed.val==1)
+                {
+                    response.sendRedirect("Editorial.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Editorial.jsp?mensaje=6");
+                }
                 
                 
             }
         }
     }
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -121,5 +122,6 @@ public class ControlAutor extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }
-    
+ 
