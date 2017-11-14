@@ -29,7 +29,7 @@
         nsmnu.setSm(smnu);
 
         //menu
-        String[][] menu=new String[100][4];
+        String[][] menu=new String[100][5];
         int contm;
         ArrayList lmnu=nmnu.Menu_General();
         for(contm=0;contm<lmnu.size();contm++){
@@ -37,6 +37,7 @@
         menu[contm][1]=men.getIdmenu();
         menu[contm][2]=men.getNombre();
         menu[contm][3]=men.getRoles();
+        menu[contm][4]=men.getLink();
         }
         
         //menu
@@ -130,7 +131,9 @@
                                                                         <a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=rp.getIdrol()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
                                                                     </td>
                                                                     <td align="center">
+                                                                        <%if(!rp.getIdrol().equals("0001")){%>
                                                                         <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=rp.getIdrol()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                        <%}%>
                                                                     </td>
                                                                 </tr>
                                                             <% }%>
@@ -284,7 +287,7 @@
                                                                     <td><%= menu[k][2]%>
                                                                     </td>
                                                                     <td><%
-                                                                    
+                                                                    if(menu[k][4].equals("#")){
                                                                     for(int f=0;f<contsm;f++){
                                                                      if(submenus[f][3].equals(menu[k][1])){   
                                                                          cont4++;
@@ -294,11 +297,18 @@
                                                                            <div class="col-md-6 text-left"><%=submenus[f][2]%></div>
                                                                            <div class="col-md-6 text-left"><input type="checkbox" name="seleccion<%=idrolp+cont4%>" value="S" <%if(submenus[f][4].indexOf(idrolp)!=-1){%>checked<%}%>></div>
                                                                            <br />
-                                                                        <%}}%></td>
+                                                                        <%}}}
+                                                                        else{%>
+                                                                    <input type="hidden" name="idmenus<%=idrolp+cont3%>" value="<%=menu[k][1]%>">
+                                                                           <div class="col-md-6 text-left"><%= menu[k][2]%></div>
+                                                                           <div class="col-md-6 text-left"><input type="checkbox" name="seleccions<%=idrolp+cont3%>" value="S" <%if(menu[k][3].indexOf(idrolp)!=-1){%>checked<%}%>></div>
+                                                                           <br />
+                                                                    <% }%>
+                                                                    </td>
                                                                 </tr>
                                                             <% }%>
                                                                 <tr role="row" class="odd" align="center">
-                                                                    <td><input type="hidden" name="tmenu" value="<%=cont4%>"></td>
+                                                                    <td><input type="hidden" name="tmenu" value="<%=cont4%>"><input type="hidden" name="tmenus" value="<%=cont3%>"></td>
                                                                     <td><input type="hidden" name="idrol" value="<%=idrolp%>"></td>
                                                                     <td><button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
                                                                     <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
