@@ -438,7 +438,6 @@
             </div>
         </div>
 
-
         <script>
             $(function () {
                 $("#tablaLibro").DataTable({
