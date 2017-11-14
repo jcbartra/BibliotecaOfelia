@@ -255,4 +255,45 @@ public class n_subcategoria {
                     catch(SQLException e){setMError(e.getMessage());}
              }
     } 
+    
+    public void Min_Subcategoria(){
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select min(idsubcategoria) as id from subcategoria where idcategoria=?";
+            //System.out.println(qry);
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, ""+sc.getIdcategoria());
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       sc.setIdsubcategoria(rs.getString("id"));
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }
 }

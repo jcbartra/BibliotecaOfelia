@@ -150,7 +150,6 @@
                                                                     <td><%= lbr.getIdautor()%></td>
                                                                     <td><%= lbr.getAnio_publicacion()%></td>
                                                                     <td><%= lbr.getPaginas()%></td>
-                                                                    </td>
                                                                     <td>
 
 

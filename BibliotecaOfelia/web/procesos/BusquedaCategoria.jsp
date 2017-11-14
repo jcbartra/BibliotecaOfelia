@@ -3,6 +3,7 @@
 <option value='0'>Selecciona una opcion</option>
 <%
     String id=(String) request.getParameter("id");
+    String subid=(String) request.getParameter("subid");
     
     subcategoria sc=new subcategoria();
         n_subcategoria nsc=new n_subcategoria();
@@ -14,6 +15,6 @@
    System.out.println(scat.getNombre());
 %>
     
-        <option value='<%=scat.getIdsubcategoria()%>'><%=scat.getNombre()%></option>
+        <option value='<%=scat.getIdsubcategoria()%>' <%if(scat.getIdsubcategoria().equals(subid)){%>selected<%}%>><%=scat.getNombre()%></option>
     
 <%}%>

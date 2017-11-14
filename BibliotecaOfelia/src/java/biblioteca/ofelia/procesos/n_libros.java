@@ -314,5 +314,59 @@ public class n_libros {
             }
         }
     }
+    
+    public ArrayList Libros_Generales_id() {
+        ArrayList consulta = new ArrayList();
+        try {
+            val = 0;
+            int i = 0;
+            int e = 0;
+            conn = tran.getConnection();
+            conn.setAutoCommit(false);
+            qry = "select idli,idcategoria,idsubcategoria,subcategoria,editorial,"
+                    + "titulo,autor,anio_publicacion,paginas "
+                    + "from vista_libro where idcategoria=? and idsubcategoria=?";
+            PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, ""+l.getIdcategoria());
+            ps.setString(++i, ""+l.getIdsubcategoria());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                libro lb = new libro();
+                lb.setIdlibro(rs.getString("idli"));
+                lb.setIdcategoria(rs.getString("idcategoria"));
+                lb.setIdsubcategoria(rs.getString("idsubcategoria"));
+                lb.setSubcategoria(rs.getString("subcategoria"));
+                lb.setIdeditorial(rs.getString("editorial"));
+                lb.setTitulo(rs.getString("titulo"));
+                lb.setIdautor(rs.getString("autor"));
+                lb.setAnio_publicacion(rs.getString("anio_publicacion"));
+                lb.setPaginas(rs.getString("paginas"));
+
+                consulta.add(lb);
+            }
+            rs.close();
+            ps.close();
+            conn.close();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+                setMError(e.getMessage() + "<br>Transaction is being rolled back");
+            } catch (SQLException e2) {
+                setMError(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setMError(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                setMError(e.getMessage());
+            }
+        }
+        return consulta;
+    }
 
 }
