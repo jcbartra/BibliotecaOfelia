@@ -78,7 +78,7 @@
                                                 <div class="col-sm-3">
                                                     <div >
                                                         <form action="Persona.jsp" method="post" name="form1">
-                                                            <select   class="btn btn-primary"onchange="document.form1.submit();" name="act">
+                                                            <select   class="btn btn-primary" onchange="document.form1.submit();" name="act">
                                                                 
                                                                 <option value="1" <%if(act.equals("1")){%>selected<%}%>>Personas Activas</option>
                                                                 <option value="%" <%if(act.equals("%")){%>selected<%}%>>Todas las Personas</option>
