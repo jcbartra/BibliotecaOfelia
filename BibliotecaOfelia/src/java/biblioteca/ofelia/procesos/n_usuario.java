@@ -53,7 +53,7 @@ public class n_usuario {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idu,persona,ubigeo,documento,numero,sexo,direccion,telefono,foto,rol,usuario from personass";
+            qry = "select idu,persona,ubigeo,documento,numero,sexo,direccion,telefono,foto,rol,usuario from personass where  estado='1';";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
