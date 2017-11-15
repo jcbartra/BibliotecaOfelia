@@ -23,4 +23,10 @@
     <script type="text/javascript" language="javascript" src="Recursos/DataTables/media/js/jquery.js"></script>
     <!-- Datatable -->
     <script type="text/javascript" language="javascript" src="Recursos/DataTables/media/js/jquery.dataTables.min.js"></script>
+    
+    <!-- Selected -->
+    <script src="Recursos/js/jquery.min.js" type="text/javascript"></script>
+    <script src="Recursos/js/bootstrap-select.min.js" type="text/javascript"></script>
+    <link href="Recursos/css/bootstrap-select.min.css" rel="stylesheet">
+    
 </head>

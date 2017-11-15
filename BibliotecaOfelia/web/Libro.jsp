@@ -12,7 +12,8 @@
 <html>
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
-
+    
+    
     <%        int cont = 0;
         libro lb = new libro();
         n_libros lib = new n_libros();
@@ -246,7 +247,7 @@
                                                                                                     </div>
                                                                                                     <div class="col-sm-6">
                                                                                                         <label for="autor" class="col-sm-2 control-label">*Autor: </label>
-                                                                                                        <select name="idautor" id="autor" class="form-control" title="Autor">
+                                                                                                        <select name="idautor" id="autor<%=lbr.getIdlibro()%>" class="form-control" title="Autor">
                                                                                                             <option value="0" hidden="hidden">Seleccione Autor</option>
                                                                                                             <% for (int j = 0;
                                                                                                                         j < contau;
@@ -394,8 +395,8 @@
                                                                                             </select>
                                                                                         </div>
                                                                                         <label for="autor" class="col-sm-2 control-label">*Autor: </label>
-                                                                                        <div class="col-sm-4">
-                                                                                            <select name="idautor" id="autor" class="form-control" title="Autor">
+                                                                                        <div class="btn-group bootstrap-select col-sm-4">
+                                                                                            <select name="idautor" id="autor" class="selectpicker form-control" data-live-search="true" tabindex="-98" title="Autor">
                                                                                                 <option value="0" hidden="hidden">Seleccione Autor</option>
                                                                                                 <% for (int j = 0;
                                                                                                             j < contau;

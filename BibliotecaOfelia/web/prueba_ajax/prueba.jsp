@@ -26,6 +26,14 @@
         <script src="http://www.google.com/jsapi"></script>
         <script src="../Recursos/js/jquery-2.2.3.min.js" type="text/javascript"></script>
         
+        <script src="../Recursos/js/jquery.min.js" type="text/javascript"></script>
+        <script src="../Recursos/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../Recursos/js/bootstrap-select.min.js" type="text/javascript"></script>
+        
+        <link href="../Recursos/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../Recursos/css/bootstrap-select.min.css" rel="stylesheet">
+                       
+        
         <script language="javascript">
            function recargarPrimero() {
                
@@ -75,5 +83,16 @@
             
         </select>
         </form>
+        
+        <div class="btn-group bootstrap-select">
+            <select class="selectpicker" data-live-search="true" tabindex="-98">
+                <option>Hot Dog, Fries and a Soda</option>
+                <option>Burger, Shake and a Smile</option>
+                <option>Sugar, Spice and all things nice</option>
+            </select>
+        </div>
+
+
+        
     </body>
 </html>
