@@ -141,8 +141,8 @@
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <form  action="ControlUsuario" method="post">
-                                                                                    <input type="hidden" name="ops" value="eliminar">
-                                                                                    <input type="hidden" name="ids" value="<%=cu.getIdusuario()%>">
+                                                                                    <input type="hidden" name="op" value="eliminar">
+                                                                                    <input type="hidden" name="id" value="<%=cu.getIdusuario()%>">
                                                                                     <button type="submit" class="btn btn-danger danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
                                                                                 </form>
@@ -189,7 +189,7 @@
                     <div class="modal-body">
 
                         <form action="ControlUsuario" method="post" class="form-horizontal">
-                            <input type="hidden" name="ops" value="add_usuario">
+                            <input type="hidden" name="op" value="add_usuario">
 
 
                             <div class="form-group">
@@ -410,8 +410,8 @@
                     <div class="modal-body">
 
                         <form action="ControlUsuario" method="post" class="form-horizontal">
-                            <input type="hidden" name="ops" value="update_usuario">
-                            <input type="hidden" name="ids" value="<%=idus2%>">
+                            <input type="hidden" name="op" value="update_usuario">
+                            <input type="hidden" name="id" value="<%=idus2%>">
 
                             <div class="form-group">
                                 <label for="Rol" class="col-sm-2 control-label">*Rol </label>

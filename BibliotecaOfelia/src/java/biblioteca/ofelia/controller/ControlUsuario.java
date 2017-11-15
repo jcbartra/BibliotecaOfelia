@@ -43,15 +43,15 @@ public class ControlUsuario extends HttpServlet {
             String idpersona = (String) request.getParameter("persona");
             String usuario = (String) request.getParameter("usuario");
             String clave = (String) request.getParameter("clave");if(clave==null){clave="n";}
-            String ops = (String) request.getParameter("ops");
-            String ids = (String) request.getParameter("ids");
+            String op = (String) request.getParameter("op");
+            String id = (String) request.getParameter("id");
             
             String clave_encrypt=desEncrypter.encrypt(clave);
             
             usuario us=new usuario();
             n_usuario nus =new n_usuario();
             
-            if (ops.equals("add_usuario")) {
+            if (op.equals("add_usuario")) {
 
                 us.setIdrol(idrol);
                 us.setIdpersona(idpersona.toUpperCase());
@@ -69,8 +69,8 @@ public class ControlUsuario extends HttpServlet {
                 
             }
             
-            if (ops.equals("eliminar")) {
-                us.setIdusuario(ids);
+            if (op.equals("eliminar")) {
+                us.setIdusuario(id);
                 nus.setUs(us);
                 nus.EliminarUsuario();
                 if(nus.val==1)
@@ -82,13 +82,13 @@ public class ControlUsuario extends HttpServlet {
             }
             
             
-            if (ops.equals("update_usuario")) {
+            if (op.equals("update_usuario")) {
                 
                 us.setIdrol(idrol);
                 us.setIdpersona(idpersona.toUpperCase());
                 us.setUsuario(usuario);
                 us.setClave(clave_encrypt);
-                us.setIdusuario(ids);
+                us.setIdusuario(id);
                
 
                 nus.setUs(us);
