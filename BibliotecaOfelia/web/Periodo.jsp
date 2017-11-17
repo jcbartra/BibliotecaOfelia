@@ -12,7 +12,7 @@
     
         periodo p = new periodo();
         n_periodo np=new n_periodo();
-        np.setP(p);
+        np.setPe(p);
     %>
   
     <style>
@@ -91,7 +91,7 @@
                                                                        periodo pl=(periodo) pe.get(i); 
                                                                        cont++;
                                                             %>
-                                                            <tr role="row" class="odd">
+                                                            <tr role="row" class="odd" align="center">
                                                                     <td class="sorting_1"><%= cont%></td>
                                                                     <td><%= pl.getPeriodo()%></td>
                                                                                                                                    

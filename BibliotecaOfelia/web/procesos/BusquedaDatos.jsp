@@ -6,9 +6,15 @@
     String pat=(String) request.getParameter("pat");if(pat==null){pat="";}
     String mat=(String) request.getParameter("mat");if(mat==null){mat="";}
     String ejemplar=(String) request.getParameter("ejemplar");
-    //libro l=new libro();
+    String cons=""+ejemplar.length() ;
+    int contex=Integer.parseInt(cons);
     
+    if(contex==1){ejemplar="000"+ejemplar;}
+    if(contex==2){ejemplar="00"+ejemplar;}
+    if(contex==3){ejemplar="0"+ejemplar;}
+    if(contex==4){ejemplar=ejemplar;}
     
+    int idejemplar=Integer.parseInt(ejemplar);
     
     persona p=new persona();
     n_persona np=new n_persona();

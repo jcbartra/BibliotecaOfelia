@@ -3,27 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.periodo;
+import biblioteca.ofelia.util.DBConn;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import biblioteca.ofelia.entidad.*;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
-
 /**
- *
- * @author Karol
+ * 
+ * @author Alex Maluquish
  */
 public class n_periodo {
     
     DBConn tran=null;
     Connection conn=null;
-    String qry;//almacena la transacción
+    String qry,qry2;//almacena la transacción
     public static int val;//definir si la transacción tuvo éxito
-    
-    periodo p = new periodo();
-    
+ 
+    periodo pe=new periodo();
     public n_periodo() {
         tran=new DBConn();
     }
@@ -35,39 +37,42 @@ public class n_periodo {
     {
    return MError;
     }
+    
 
-    public periodo getP() {
-        return p;
+    public periodo getPe() {
+        return pe;
+    }
+
+    public void setPe(periodo pe) {
+        this.pe = pe;
     }
     
-    public void setP(periodo p) {
-        this.p = p;
-    }
-    
-    
-    public ArrayList Periodos(){
+    public ArrayList Buscar_periodo()
+    {
         ArrayList consulta=new ArrayList();
         try
         {
-           val=0; 
            int i=0;
-           int e=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select idperiodo as id, periodo from periodo where estado='1' order by idperiodo";
-            System.out.println(qry);
+           qry="select idperiodo,periodo from periodo order by idperiodo";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
                    {
-                       periodo pr=new periodo();
-                       pr.setIdperiodo(rs.getString("id"));
-                       pr.setPeriodo(rs.getString("periodo"));
-                       consulta.add(pr);
+                       
+                       periodo pe=new periodo();
+                       pe.setIdperiodo(rs.getString("idperiodo"));
+                       pe.setPeriodo(rs.getString("periodo"));
+                       consulta.add(pe);
                    }
            rs.close();
            ps.close();
            conn.close(); 
+           /*
+           for(int n=0;n<consulta.size();n++){
+                   auto aus= (auto) consulta.get(n);
+           }*/
         }
          catch(SQLException e){
                      try{
@@ -90,6 +95,52 @@ public class n_periodo {
         return consulta;
     }
     
+    public ArrayList Periodos(){
+        ArrayList consulta=new ArrayList();
+        try
+        {
+           val=0; 
+           int i=0;
+           int e=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="select idperiodo,periodo from periodo order by idperiodo";
+            System.out.println(qry);
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ResultSet rs=ps.executeQuery();
+           while(rs.next())
+                   {
+                       
+                       periodo per=new periodo();
+                       per.setIdperiodo(rs.getString("idperiodo"));
+                       per.setPeriodo(rs.getString("periodo"));
+                       consulta.add(per);
+                   }
+           rs.close();
+           ps.close();
+           conn.close(); 
+
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+        return consulta;
+    }
     
     public void IngresarPeriodo()
     {
@@ -104,7 +155,7 @@ public class n_periodo {
                    + "values (?,?)";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getPeriodo());
+           ps.setString(++i,""+pe.getPeriodo());
            ps.setString(++i,"1");
            ps.executeQuery();
            val=1;   
@@ -145,7 +196,7 @@ public class n_periodo {
            qry="delete periodo where idperiodo=?";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getIdperiodo());
+           ps.setString(++i,""+pe.getIdperiodo());
            ps.executeQuery();
            ps.close();
            
@@ -187,8 +238,8 @@ public class n_periodo {
            qry="update periodo set periodo=? where idperiodo=?";
            
            PreparedStatement ps= conn.prepareStatement(qry);
-           ps.setString(++i,""+p.getPeriodo());
-           ps.setString(++i,""+p.getIdperiodo());
+           ps.setString(++i,""+pe.getPeriodo());
+           ps.setString(++i,""+pe.getIdperiodo());
            ps.executeQuery();
            val=1;   
            ps.close();
@@ -214,5 +265,6 @@ public class n_periodo {
                     catch(SQLException e){setMError(e.getMessage());}
              }
     } 
+   
     
 }

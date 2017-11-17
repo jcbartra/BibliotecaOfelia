@@ -51,7 +51,7 @@ public class ControlPeriodo extends HttpServlet {
                 
                 p.setPeriodo(periodo.toUpperCase());
                 
-                np.setP(p);
+                np.setPe(p);
                 np.IngresarPeriodo();
                 
                 if(np.val==1)
@@ -64,7 +64,7 @@ public class ControlPeriodo extends HttpServlet {
             
             if(op.equals("delete_Periodo")){
                 p.setIdperiodo(idperiodo);
-                np.setP(p);
+                np.setPe(p);
                 np.EliminarPeriodo();
                 if(np.val==1)
                 {
@@ -80,7 +80,7 @@ public class ControlPeriodo extends HttpServlet {
                 p.setPeriodo(periodo.toUpperCase());
                 p.setIdperiodo(idperiodo);
                 
-                np.setP(p);
+                np.setPe(p);
                 np.ActualizarPeriodo();
                 
                 if(np.val==1)
