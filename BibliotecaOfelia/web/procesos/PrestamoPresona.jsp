@@ -31,7 +31,7 @@
             <form action="ControlPrestamo" method="post">
                 <input type="hidden" name="op" value="add_prestamo">
                 <input type="hidden" name="idejemplar" id="ejemplar<%=idejemplar%>" value="<%=idejemplar%>">
-                <input type="hidden" name="idpersona" id="idpersona<%=ejemplar%>" value="">
+                <input type="text" name="idpersona" id="idpersona<%=ejemplar%>" value="">
                 <input type="hidden" name="idusuario" value="<%=idusuario%>">
                 <div class="form-inline form-group col-sm-12" align="center">
                     <div class="col-sm-12" align="center"> 
@@ -87,7 +87,7 @@
         
 
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" disabled id="btnReg<%=idejemplar%>"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+            <button type="submit" class="btn btn-primary" disabled id="btnReg<%=ejemplar%>"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</button>  
         </div>
         </form></div>

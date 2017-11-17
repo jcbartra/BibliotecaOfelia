@@ -375,20 +375,6 @@
                                             $('#closemodal1<%=pej.getIdejemplar()%>').click(function () {
                                                 $('#addPrestamoPersona').modal('hide');
                                             });
-
-                                            function Ocultarl<%=pej.getIdejemplar()%>() {
-                                                //alert("aaaaaaaaaaaaaa");
-                                                document.getElementById("dni<%=pej.getIdejemplar()%>").value = "";
-                                                document.getElementById("muestra<%=pej.getIdejemplar()%>").innerHTML = "aqui se mostrara el resultado";
-                                            }
-                                            function Ocultarl2<%=pej.getIdejemplar()%>() {
-                                                //alert("aaaaaaaaaaaaaa");
-                                                document.getElementById("nom<%=pej.getIdejemplar()%>").value = "";
-                                                document.getElementById("pat<%=pej.getIdejemplar()%>").value = "";
-                                                document.getElementById("mat<%=pej.getIdejemplar()%>").value = "";
-                                                document.getElementById("muestra<%=pej.getIdejemplar()%>").innerHTML = "aqui se mostrara el resultado";
-                                            }
-
                                         </script>
                                         <% }%>
                                         
@@ -450,11 +436,19 @@
                 boton.disabled = false;
 
             }
-            /*function Ocultarl(idpersona,ejemplar) {
+            function Ocultarl(ejemplar) {
                 //alert("aaaaaaaaaaaaaa");
-                document.getElementById("dni"+ejemplar).value = "";
-                document.getElementById("muestra"+ejemplar).innerHTML = "aqui se mostrara el resultado";
-            }*/
+                document.getElementById("dni").value = "";
+                document.getElementById("mostrarOpcion"+ejemplar).innerHTML = "aqui se mostrara el resultado";
+            }
+            
+            function Ocultarl2(ejemplar) {
+                //alert("aaaaaaaaaaaaaa");
+                document.getElementById("nom").value = "";
+                document.getElementById("pat").value = "";
+                document.getElementById("mat").value = "";
+                document.getElementById("mostrarOpcion"+ejemplar).innerHTML = "aqui se mostrara el resultado";
+            }
             
             $(function () {
                 $("#tablaPrestamo").DataTable({

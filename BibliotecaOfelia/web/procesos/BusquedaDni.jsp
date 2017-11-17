@@ -39,7 +39,7 @@
             </div>
             <div class="col-sm-8" id="botones<%=idejemplar%>">
             <a class="btn btn-primary btn-xs" onclick="Mostrarl(persona.value,<%=ejemplar%>);"><i class="fa fa-check" aria-hidden="true"></i></a>
-            <a class="btn btn-warning btn-xs" onclick="Ocultarl(persona.value,<%=ejemplar%>);"><i class="fa fa-close" aria-hidden="true"></i></a>                    
+            <a class="btn btn-warning btn-xs" onclick="Ocultarl(<%=ejemplar%>);"><i class="fa fa-close" aria-hidden="true"></i></a>                    
             </div>
         </div>
             <br />
