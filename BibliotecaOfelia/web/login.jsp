@@ -33,7 +33,7 @@
                                 <img src="Recursos/img/insigniaOV.png"  height="150">
                             </div>
                         </center><br>
-                        <form action="logeo" method="post" name="login" id="login" >
+                        <form action="login" method="post" name="login" id="login" >
 
                             <div class="col-md-10 col-md-offset-1" >
                                 <div class="form-group" id="campo-user">

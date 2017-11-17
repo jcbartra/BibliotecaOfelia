@@ -21,11 +21,14 @@ mn.setRoles(idrol);
 mn.setLink(url);
 nmn.setM(mn);
 nmn.VefificarLink();
-if(nmn.val==1){
-    System.out.println("Acceso Correcto");
-}else{
-    response.sendRedirect("login.jsp");
+if(!url.equals("Listar_libros.jsp")){
+  if(nmn.val==1){
+      System.out.println("Acceso Correcto");
+  }else{
+      response.sendRedirect("login.jsp");
+  }  
 }
+
 
 %>
 

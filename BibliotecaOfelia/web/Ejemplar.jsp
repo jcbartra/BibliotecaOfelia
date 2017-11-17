@@ -7,10 +7,15 @@
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
 
-    <%
-        String cate =(String)request.getParameter("s1");if(cate==null){cate="0001";}
-        String subcate =(String)request.getParameter("destino");if(subcate==null){subcate="x";}
-        int cont = 0, cont2=0, cont3=0;
+    <%        String cate = (String) request.getParameter("s1");
+        if (cate == null) {
+            cate = "0001";
+        }
+        String subcate = (String) request.getParameter("destino");
+        if (subcate == null) {
+            subcate = "x";
+        }
+        int cont = 0, cont2 = 0, cont3 = 0;
         libro lb = new libro();
         n_libros lib = new n_libros();
         lib.setL(lb);
@@ -29,30 +34,33 @@
             categoria[contct][2] = cat.getNombre();
             //out.println(cat.getNombre()+"<br />");
         }
-        if(subcate.equals("x")){
-        //subcategoria
-        subcategoria sc=new subcategoria();
-        n_subcategoria nsc=new n_subcategoria();
-        sc.setIdcategoria(cate);
-        nsc.setSc(sc);
-        nsc.Min_Subcategoria();
-        String minsubcat=sc.getIdsubcategoria();
-        
-        subcate=minsubcat;
-        
+        if (subcate.equals("x")) {
+            //subcategoria
+            subcategoria sc = new subcategoria();
+            n_subcategoria nsc = new n_subcategoria();
+            sc.setIdcategoria(cate);
+            nsc.setSc(sc);
+            nsc.Min_Subcategoria();
+            String minsubcat = sc.getIdsubcategoria();
+
+            subcate = minsubcat;
+
         }
         //editorial
         editorial ed = new editorial();
         n_editorial ned = new n_editorial();
         ned.setE(ed);
-        
+
         //ejemplar
         ejemplar ej = new ejemplar();
         n_ejemplar nej = new n_ejemplar();
         nej.setE(ej);
         nej.ejemplar_maximo();
-        String mxid=ej.getIdejemplar();if(mxid==null){mxid="0";}
-        int maxid=Integer.parseInt(mxid)+1;
+        String mxid = ej.getIdejemplar();
+        if (mxid == null) {
+            mxid = "0";
+        }
+        int maxid = Integer.parseInt(mxid) + 1;
 
         //autor
         autor au = new autor();
@@ -133,32 +141,32 @@
 
                                             <div class="col-lg-12">
                                                 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                                                    
+
                                                     <div class="table-responsive">
-                                                        
+
                                                         <div class="col-lg-12" align="center">
                                                             <form action="Ejemplar.jsp" name="form1" method="post">
-                                                            <div class="col-lg-6" align="right">
-                                                            Categoría <input type="hidden" id="s2" value="<%=subcate%>">
-                                                            <select onchange="document.form1.submit();" name="s1" id="s1">
-                                                            <option value='0'>Selecciona una opcion</option>
-                                                            <%for(int x=0; x<contct; x++){%>
-                                                            <option value='<%=categoria[x][1]%>' <%if(categoria[x][1].equals(cate)){%>selected<%}%>><%=categoria[x][2]%></option>
-                                                            <%}%>
-                                                            </select>
-                                                            </div>
+                                                                <div class="col-lg-6" align="right">
+                                                                    Categoría <input type="hidden" id="s2" value="<%=subcate%>">
+                                                                    <select onchange="document.form1.submit();" name="s1" id="s1">
+                                                                        <option value='0'>Selecciona una opcion</option>
+                                                                        <%for (int x = 0; x < contct; x++) {%>
+                                                                        <option value='<%=categoria[x][1]%>' <%if (categoria[x][1].equals(cate)) {%>selected<%}%>><%=categoria[x][2]%></option>
+                                                                        <%}%>
+                                                                    </select>
+                                                                </div>
                                                             </form>
                                                             <form action="Ejemplar.jsp" name="form2" method="post">
-                                                            <div class="col-lg-6" align="left">
-                                                                <input type="hidden" name="s1" value="<%=cate%>">
-                                                            SubCategoría: <select id="destino" name="destino" onchange="document.form2.submit();">
+                                                                <div class="col-lg-6" align="left">
+                                                                    <input type="hidden" name="s1" value="<%=cate%>">
+                                                                    SubCategoría: <select id="destino" name="destino" onchange="document.form2.submit();">
 
-                                                            </select>
-                                                            </div>
+                                                                    </select>
+                                                                </div>
                                                             </form>
                                                             <br /><br />
                                                         </div>
-                                                        
+
                                                         <table id="tablaLibro" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                                             <thead>
                                                                 <tr role="row">
@@ -197,15 +205,15 @@
                                                                 <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=lbr.getIdlibro()%>" onclick="recargarPrimero<%=lbr.getIdlibro()%>();"><i class="fa fa-plus" aria-hidden="true"></i> </a>
                                                             </center>
                                                             <!--Modal Registrar-->
-                                                                <div class="modal fade modal-banco-first" id="editar<%=lbr.getIdlibro()%>">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
+                                                            <div class="modal fade modal-banco-first" id="editar<%=lbr.getIdlibro()%>">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
 
-                                                                            <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Registrar Ejemplares</h4>
-                                                                            </div>
-                                                                            <form  action="ControlEjemplar" method="get">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                            <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Registrar Ejemplares</h4>
+                                                                        </div>
+                                                                        <form  action="ControlEjemplar" method="get">
                                                                             <div class="modal-body">
                                                                                 <div class="row">
 
@@ -225,33 +233,34 @@
                                                                                             <input type="hidden" id="ini<%=lbr.getIdlibro()%>" value="<%=maxid%>" >
                                                                                             <b><label><%=maxid%></label> - <label id="fin<%=lbr.getIdlibro()%>"></label></b>
                                                                                         </div>
-                                                                                        
+
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                
-                                                                                    <input type="hidden" name="op" value="add_ejemplar">
-                                                                                    <input type="hidden" name="idlibro" value="<%=lbr.getIdlibro()%>">
-                                                                                    <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Añadir</button>
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
-                                                                                
+
+                                                                                <input type="hidden" name="op" value="add_ejemplar">
+                                                                                <input type="hidden" name="idlibro" value="<%=lbr.getIdlibro()%>">
+                                                                                <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Añadir</button>
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
+
                                                                             </div>
                                                                         </form>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <!--fin de Modal Registrar-->
-                                                                
-                                                                <script>
-            
-                                                                function Fin<%=lbr.getIdlibro()%>()
+                                                            </div>
+                                                            <!--fin de Modal Registrar-->
+
+                                                            <script>
+
+                                                                    function Fin<%=lbr.getIdlibro()%>()
                                                                 {
-                                                                    var ini = parseInt(document.getElementById("ini<%=lbr.getIdlibro()%>").value);
-                                                                    var num = parseInt(document.getElementById("cant_ejemplar<%=lbr.getIdlibro()%>").value);
-                                                                    var fin= ini+num-1;
-                                                                    document.getElementById("fin<%=lbr.getIdlibro()%>").innerHTML = fin;
-                                                                };
+                                                                        var ini = parseInt(document.getElementById("ini<%=lbr.getIdlibro()%>").value);
+                                                                        var num = parseInt(document.getElementById("cant_ejemplar<%=lbr.getIdlibro()%>").value);
+                                                                    var fin = ini + num - 1;
+                                                                        document.getElementById("fin<%=lbr.getIdlibro()%>").innerHTML = fin;
+                                                                }
+                                                                ;
 
                                                             </script>
                                                             </td>
@@ -277,91 +286,113 @@
 
         <!-- Ver Ejemplares-->
         <%for (int i = 0; i < rc.size(); i++) {
-        libro lbr = (libro) rc.get(i);
-        cont2++;%>
+                libro lbr = (libro) rc.get(i);
+                cont2++;%>
         <div class="modal fade" id="ver<%=lbr.getIdlibro()%>" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title"><i class="ion-bookmark"></i> Editar Ejemplares</h4>
+                        <h4 class="modal-title"><i class="ion-bookmark"></i> Ejemplares</h4>
                     </div>
                     <div class="modal-body">
-                    <table id="tablaEjemplar<%=lbr.getIdlibro()%>" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th><center>N°</center></th>
-                                <th><center>Titulo</center></th>
-                                <th><center>Autor</center></th>
-                                <th><center>Acción</center></th>
-                                </tr>
-                                </thead>
+                        <table id="tablaEjemplar<%=lbr.getIdlibro()%>" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                            <thead>
+                                <tr role="row">
+                                    <th><center>N°</center></th>
+                            <th><center>Titulo</center></th>
+                            <th><center>Autor</center></th>
+                            <th><center>Acción</center></th>
+                            </tr>
+                            </thead>
 
-                                <tbody>
-                                    <%
-                                        ej.setIdlibro(lbr.getIdlibro());
-                                        ArrayList rej = nej.ejemplares_Especificos();
-                                        for (int is = 0; is < rej.size(); is++) {
-                                            ejemplar ejs = (ejemplar) rej.get(is);
-                                            cont3++;
+                            <tbody>
+                                <%
+                                    ej.setIdlibro(lbr.getIdlibro());
+                                    ArrayList rej = nej.ejemplares_Especificos();
+                                    for (int is = 0; is < rej.size(); is++) {
+                                        ejemplar ejs = (ejemplar) rej.get(is);
+                                        cont3++;
 
-                                    %>
-                                    <tr role="row" class="odd">
-                                        <td><%= ejs.getIdejemplar()%></td>
-                                        <td><%= ejs.getTitulo()%></td>
-                                        <td><%= ejs.getAutor()%></td>
-                                        <td>
-                                        <center>
-                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editars<%=ejs.getIdlibro()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                            </center>
-                                <!--Modal Editar-->
-                                    <div class="modal fade modal-banco-first" id="editars<%=ejs.getIdlibro()%>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
+                                %>
+                                <tr role="row" class="odd">
+                                    <td><%= ejs.getIdejemplar()%></td>
+                                    <td><%= ejs.getTitulo()%></td>
+                                    <td><%= ejs.getAutor()%></td>
+                                    <td>
+                            <center>
+                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editars<%=ejs.getIdlibro()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                            </center>
+                            <!--Modal Editar-->
+                            <div class="modal fade modal-banco-first" id="editars<%=ejs.getIdlibro()%>">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
 
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" id="close1<%=ejs.getIdlibro()%>" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Registrar Ejemplares</h4>
-                                                </div>
-                                                <form  action="ControlEjemplar" method="get">
-                                                <div class="modal-body">
-                                                    hjhbjhb
-                                                </div>
-                                                <div class="modal-footer">
-
-                                                        <input type="hidden" name="op" value="add_ejemplar">
-                                                        <input type="hidden" name="idlibro" value="">
-                                                        <button type="button" class="btn btn-default" id="closemodal1<%=ejs.getIdlibro()%>">Cancelar</button>  
-
-                                                </div>
-                                            </form>
-                                            </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="close" id="close1<%=ejs.getIdlibro()%>" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Editar Ejemplares</h4>
                                         </div>
+                                            <form  action="ControlEjemplar" method="get">
+                                            <div class="modal-body">
+                                                <input type="hidden" name="op" value="update_Ejemplar">
+                                                <input type="hidden" name="idejemplar" value="<%= ejs.getIdejemplar()%>">
+                                                <div class="form-group col-md-12">
+                                                    <label for="EstadoEjemplar" class="col-sm-4 control-label">*Estado Libro: </label>
+                                                    <div class="col-sm-8">
+                                                        <div class="col-sm-4"><input type="radio" name="est_libro" value="B" <%if(ejs.getEstado_libro().equals("B")){%>checked<%}%>> Bueno</div>
+                                                        <div class="col-sm-4"><input type="radio" name="est_libro" value="R" <%if(ejs.getEstado_libro().equals("R")){%>checked<%}%>> Regular</div>
+                                                        <div class="col-sm-4"><input type="radio" name="est_libro" value="M" <%if(ejs.getEstado_libro().equals("M")){%>checked<%}%>> Malo</div>
+                                                            
+                                                    </div>
+                                                </div>
+                                                <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                <div class="form-group col-md-12">
+                                                    <label for="PrecioEjemplar" class="col-sm-4 control-label">*Precio: </label>
+                                                    <div class="col-sm-8">
+                                                        <input name="precio" type="text" autocomplete="off" class="form-control" placeholder="Precio" title="Precio" value="<%if(ejs.getPrecio()==null){out.println("");}else{out.println(ejs.getPrecio());}%>" onkeypress="return validaN(event);">
+                                                    </div>
+                                                </div>
+                                                <p style="color: #ffffff; font-size: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                <div class="form-group col-md-12">
+                                                    <label for="Not_interna_Ejemplar" class="col-sm-4 control-label">*Notación Interna: </label>
+                                                    <div class="col-sm-8">
+                                                    <input name="not_interna" type="text" autocomplete="off" class="form-control" placeholder="Notacion Interna" title="Notacion Interna" value="<%if(ejs.getNotacion_interna()==null){out.println("");}else{out.println( ejs.getNotacion_interna());}%>" onkeypress="return validaL(event);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
+                                                <button type="button" class="btn btn-default" id="closemodal1<%=ejs.getIdlibro()%>">Cancelar</button>  
+
+                                            </div>
+                                        </form>
                                     </div>
-                                    <!--fin de Modal Registrar-->
-
-      
-                                <script type="text/javascript">
-                                    $('#close1<%=ejs.getIdlibro()%>').click(function() {
-                                    $('#editar<%=ejs.getIdlibro()%>').modal('hide');
-                                });
-                                    $('#closemodal1<%=ejs.getIdlibro()%>').click(function() {
-                                    $('#editar<%=ejs.getIdlibro()%>').modal('hide');
-                                });
-                                </script> 
-                                
-                                </td>
-                                </tr>
-                                <% }%>
-                                </tbody>
-                            </table>
-
-
-                            <div class="modal-footer">
-                                <a class="btn btn-default"  data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                </div>
                             </div>
-                        
+                            <!--fin de Modal Editar-->
+
+
+                            <script type="text/javascript">
+                                    $('#close1<%=ejs.getIdlibro()%>').click(function () {
+                                        $('#editars<%=ejs.getIdlibro()%>').modal('hide');
+                                    });
+                                    $('#closemodal1<%=ejs.getIdlibro()%>').click(function () {
+                                        $('#editars<%=ejs.getIdlibro()%>').modal('hide');
+                                    });
+                            </script> 
+
+                            </td>
+                            </tr>
+                            <% }%>
+                            </tbody>
+                        </table>
+
+
+                        <div class="modal-footer">
+                            <a class="btn btn-default"  data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -403,7 +434,7 @@
 
 
         <script language="javascript">
-            function recargarPrimero() {
+            function recargarPrimero() {                
                 var id = document.getElementById("s1").value;
                 var subid = document.getElementById("s2").value;
                 var xhttp;
@@ -417,7 +448,7 @@
                         document.getElementById("destino").innerHTML = this.responseText;
                     }
                 };
-                xhttp.open("GET", "procesos/BusquedaCategoria.jsp?id=" + id+"&subid="+subid, true);
+                xhttp.open("GET", "procesos/BusquedaCategoria.jsp?id=" + id + "&subid=" + subid, true);
                 xhttp.send();
             }
             function recargar(id) {
@@ -437,10 +468,10 @@
                 xhttp.send();
             }
         </script>
-        
-        
-        
-        
+
+
+
+
         <%@include file="include/recursos.jsp" %>
     </body>
 </html>

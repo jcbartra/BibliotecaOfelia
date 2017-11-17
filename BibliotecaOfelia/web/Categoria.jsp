@@ -438,7 +438,7 @@
 
                                                                             <div class="modal-header left">
                                                                                 <button type="button" class="close" id="close2<%=sct.getIdsubcategoria()%>" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Sub Categoria <%=sct.getIdsubcategoria()%></h4>
+                                                                                <h4 class="modal-title"><i class="ion-android-sync"></i> Actualizar Sub Categoria</h4>
                                                                             </div>
 
                                                                             <div class="modal-body">

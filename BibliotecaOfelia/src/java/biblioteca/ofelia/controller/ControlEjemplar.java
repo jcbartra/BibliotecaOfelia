@@ -32,7 +32,12 @@ public class ControlEjemplar extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             String idlibro = (String)request.getParameter("idlibro");
-            int cant_ejemplar = Integer.parseInt((String)request.getParameter("cant_ejemplar"));
+            String idejemplar = (String)request.getParameter("idejemplar");
+            String precio = (String)request.getParameter("precio");
+            String est_libro = (String)request.getParameter("est_libro");
+            String not_interna = (String)request.getParameter("not_interna");
+            String c_ejemplar=(String)request.getParameter("cant_ejemplar"); if(c_ejemplar==null){c_ejemplar="0";}
+            int cant_ejemplar = Integer.parseInt(c_ejemplar);
             String op = (String) request.getParameter("op");
             
             String con="";
@@ -57,6 +62,26 @@ public class ControlEjemplar extends HttpServlet {
                 }
                 
             }
+            
+            
+            
+            if (op.equals("update_Ejemplar")) {
+                ej.setIdejemplar(idejemplar);
+                ej.setPrecio(precio);
+                ej.setEstado_libro(est_libro);
+                ej.setNotacion_interna(not_interna);
+                nej.setE(ej);
+                nej.Actualizar_Ejemplar();
+                
+                if(nej.val==1)
+                {
+                    response.sendRedirect("Ejemplar.jsp?mensaje=5");
+                }else{
+                    response.sendRedirect("Ejemplar.jsp?mensaje=6");
+                }
+                
+            }
+            
             
             
         }

@@ -216,4 +216,43 @@ public class n_ejemplar {
         return consulta;
     }
     
+    public void Actualizar_Ejemplar(){
+        try
+        {
+           val=0; 
+           int i=0;
+           conn=tran.getConnection();
+           conn.setAutoCommit(false);
+           qry="update ejemplar set estado_libro=?, precio=?, notacion_interna=? where idejemplar=?";
+           PreparedStatement ps= conn.prepareStatement(qry);
+           ps.setString(++i, ""+e.getEstado_libro());
+           ps.setString(++i, ""+e.getPrecio());
+           ps.setString(++i, ""+e.getNotacion_interna());
+           ps.setString(++i, ""+e.getIdejemplar());
+           ps.executeQuery();
+           val=1; 
+           
+           ps.close();
+           conn.close(); 
+        }
+         catch(SQLException e){
+                     try{
+                    conn.rollback();
+                    setMError(e.getMessage()+"<br>Transaction is being rolled back");
+                    }
+                    catch(SQLException e2)
+                    {
+                        setMError(e.getMessage());
+                    }
+              }
+             catch(Exception e){
+                    System.out.println(e.getMessage());
+                    setMError(e.getMessage());
+             }
+             finally{
+                    try{if(conn!=null) conn.close();}
+                    catch(SQLException e){setMError(e.getMessage());}
+             }
+    }
+    
 }

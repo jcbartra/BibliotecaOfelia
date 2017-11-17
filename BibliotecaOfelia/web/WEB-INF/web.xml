@@ -80,10 +80,6 @@
         <servlet-name>ControlEjemplar</servlet-name>
         <servlet-class>biblioteca.ofelia.controller.ControlEjemplar</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>logeo</servlet-name>
-        <servlet-class>biblioteca.ofelia.controller.logeo</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ControlAccesos</servlet-name>
         <url-pattern>/ControlAccesos</url-pattern>
@@ -164,10 +160,6 @@
         <servlet-name>ControlEjemplar</servlet-name>
         <url-pattern>/ControlEjemplar</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>logeo</servlet-name>
-        <url-pattern>/logeo</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -176,4 +168,4 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-</web-app>
+    </web-app>

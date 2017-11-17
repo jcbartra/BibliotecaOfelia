@@ -59,7 +59,12 @@
                                 <div class="icon">
                                     <i class="<%=ct.getIcono()%>"></i>
                                 </div>
-                                <a href="#" class="small-box-footer">Ver Libros <i class="fa fa-arrow-circle-right"></i></a>
+                                <form action="Listar_libros.jsp" method="post">
+                                    <div>
+                                        <input type="hidden" name="s1" value="<%=ct.getIdcategoria()%>">
+                                        <button class="small-box-footer" style="background: transparent; border-color: transparent;">Ver Libros <i class="fa fa-arrow-circle-right"></i></button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <!-- fin de caja que necesito-->
