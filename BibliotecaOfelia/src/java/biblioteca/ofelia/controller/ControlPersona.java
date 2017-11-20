@@ -89,7 +89,7 @@ public class ControlPersona extends HttpServlet {
                             /*creamos un nombre, para que no se sobbre-escriban archivos*/
                             valor = parametros.get("nro_doc") + item.getName();
                             /*cual sera la ruta al archivo en el servidor*/
-                            File archivo_server = new File("C:\\Users\\Alex Maluquish\\Documents\\NetBeansProjects\\BibliotecaOfelia\\BibliotecaOfelia\\web\\Recursos\\img\\personas\\" + valor);
+                            File archivo_server = new File("D:\\CICLO IV\\Documents\\Pretamos de Libros\\BibliotecaOfelia\\web\\Recursos\\img\\personas\\" + valor);
                             /*y lo escribimos en el servido*/
                             item.write(archivo_server);
                         }
@@ -127,9 +127,9 @@ public class ControlPersona extends HttpServlet {
                     np.InsertarPersona();
 
                     if (np.val == 1) {
-                        response.sendRedirect("Persona.jsp?mensaje=5");
+                        response.sendRedirect("Persona.jsp?mensaje=1");
                     } else {
-                        response.sendRedirect("Persona.jsp?mensaje=6");
+                        response.sendRedirect("Persona.jsp?mensaje=2");
                     }
 
                 } catch (Exception e) {

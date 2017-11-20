@@ -23,7 +23,7 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><i class="ion-ios-book"></i> Agregar Prestamo <%=idejemplar%></h4>
+            <h4 class="modal-title"><i class="ion-ios-book"></i> Agregar Prestamo</h4>
         </div>
 
         <div class="modal-body" align="center">
@@ -31,7 +31,7 @@
             <form action="ControlPrestamo" method="post">
                 <input type="hidden" name="op" value="add_prestamo">
                 <input type="hidden" name="idejemplar" id="ejemplar<%=idejemplar%>" value="<%=idejemplar%>">
-                <input type="text" name="idpersona" id="idpersona<%=ejemplar%>" value="">
+                <input type="hidden" name="idpersona" id="idpersona<%=ejemplar%>" value="">
                 <input type="hidden" name="idusuario" value="<%=idusuario%>">
                 <div class="form-inline form-group col-sm-12" align="center">
                     <div class="col-sm-12" align="center"> 

@@ -6,8 +6,6 @@
 package biblioteca.ofelia.procesos;
 
 import biblioteca.ofelia.entidad.*;
-import static biblioteca.ofelia.procesos.n_categoria.val;
-import static biblioteca.ofelia.procesos.n_usuario.val;
 import biblioteca.ofelia.util.*;
 import java.sql.*;
 import java.util.*;
@@ -313,7 +311,7 @@ public class n_persona {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idpersona,nombres,ape_paterno,ape_materno from persona order by nombres";
+            qry = "select idpersona,nombres,ape_paterno,ape_materno from persona where estado='1' order by nombres";
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

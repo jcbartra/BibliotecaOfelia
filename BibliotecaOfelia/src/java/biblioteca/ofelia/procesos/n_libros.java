@@ -51,8 +51,9 @@ public class n_libros {
             int e = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idli,idcategoria,idsubcategoria,subcategoria,editorial,titulo,autor,anio_publicacion,paginas from vista_libro order by idli";
+            qry = "select idli,idcategoria,idsubcategoria,subcategoria,editorial,titulo,autor,anio_publicacion,paginas from vista_libro where idsubcategoria=? order by idli";
             PreparedStatement ps = conn.prepareStatement(qry);
+            ps.setString(++i, ""+l.getIdsubcategoria());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 libro lb = new libro();

@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#addCategoria"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona </button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addPersona"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Persona </button>
 
                                 <a href="Persona.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
                                 <label class="<%=style%>"><%=mensaje%></label>
@@ -205,7 +205,7 @@
             <%@include file="include/footer.jsp" %>
         </div>
         <!-- Registro Persona-->
-        <div class="modal fade" id="addCategoria" tabindex="-1" role="dialog">
+        <div class="modal fade" id="addPersona" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
 

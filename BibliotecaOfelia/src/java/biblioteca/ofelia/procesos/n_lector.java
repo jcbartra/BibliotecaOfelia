@@ -48,7 +48,7 @@ public class n_lector {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idlector, persona, genero, tipo, turno, periodo, estado_habil, nivel, grado, seccion, condicion, ndoc, estado_periodo, estado "
+            qry = "select idlector, persona, genero, tipo, turno, periodo, estado_habil, nivel, grado, seccion, condicion, nro_doc, estado_periodo, estado "
                     + " from vista_lectores";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
@@ -67,7 +67,7 @@ public class n_lector {
                 l.setGrado(rs.getString("grado"));
                 l.setSeccion(rs.getString("seccion"));
                 l.setCondicion(rs.getString("condicion"));
-                l.setNdoc(rs.getString("ndoc"));
+                l.setNdoc(rs.getString("nro_doc"));
                 l.setEstado_periodo(rs.getString("estado_periodo"));
                 l.setEstado(rs.getString("estado"));
                 consulta.add(l);
