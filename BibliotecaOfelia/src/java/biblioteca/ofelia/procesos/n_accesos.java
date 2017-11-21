@@ -115,7 +115,7 @@ public class n_accesos {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            qry="update menu set roles=replace(roles,?,'')";
-           System.out.println("update menu set roles=replace(roles,'"+ac.getIdrol()+"-',''");
+           //System.out.println("update menu set roles=replace(roles,'"+ac.getIdrol()+"-',''");
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i, ""+ac.getIdrol()+"-");
            ps.executeQuery();

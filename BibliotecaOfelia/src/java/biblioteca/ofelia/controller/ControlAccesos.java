@@ -66,6 +66,7 @@ public class ControlAccesos extends HttpServlet {
             
             for (int i = 1; i <= tmenu; i++) {
                 //out.println(idmenu+"--<br/>");
+                
                 idmenu=(String) request.getParameter("idmenu"+idrol+i);
                 idsubmenu=(String) request.getParameter("idsubmenu"+idrol+i);
                 seleccion=(String) request.getParameter("seleccion"+idrol+i);if(seleccion==null){seleccion="N";}
@@ -75,7 +76,7 @@ public class ControlAccesos extends HttpServlet {
                 if(seleccion.equals("S"))
                 {
                     cont++;
-                    reg[cont][1]="update submenu set roles=roles||'"+idrol+"' where idsubmenu="+idsubmenu+"";
+                    reg[cont][1]="update submenu set roles=roles||'"+idrol+"-' where idsubmenu="+idsubmenu+"";
                 }
                 //si se va a ingresar los menues
                 if(!men.equals(idmenu)&&seleccion.equals("S"))
@@ -84,6 +85,7 @@ public class ControlAccesos extends HttpServlet {
                     ac.setIdrol(idrol);
                     nac.setAc(ac);
                     nac.ActualizarAccesos();
+                    men=idmenu;
                 }
             }
             
