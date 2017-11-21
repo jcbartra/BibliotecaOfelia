@@ -50,7 +50,7 @@
                     <ol class="breadcrumb">
                         <li><a href="Libro.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
                         <li class="active">Registro</li>
-                        <li class="active">Registrar Lesctor</li>
+                        <li class="active">Registrar Lector</li>
                     </ol>
                 </section>
                 <section class="content">
