@@ -202,8 +202,10 @@ public class n_lector {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idlector,idpersona,idtipo,idturno,idperiodo,nivel, grado,seccion, condicion "
-                    + "from lector";
+            qry = "select idlector,idpersona,idtipo,idturno,idperiodo,"
+                    + "nvl(nivel,'x') as nivel, nvl(grado,'x') as grado,"
+                    + "nvl(seccion,'x') as seccion, "
+                    + "nvl(condicion,'x') as condicion from lector";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();

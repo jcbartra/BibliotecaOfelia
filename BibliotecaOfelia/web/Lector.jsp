@@ -1,11 +1,12 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <%@include file="include/head.jsp" %>
     <%@include file="include/mensaje.jsp" %>
-    <%
-        lector l = new lector();
+
+
+    <%        lector l = new lector();
         n_lector nl = new n_lector();
         nl.setL(l);
 
@@ -24,20 +25,21 @@
         periodo pe = new periodo();
         n_periodo npe = new n_periodo();
         npe.setPe(pe);
-
     %>
+
 
     <style>
         .ions {
             font-size: 30px;
         }
     </style>
-    <body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
 
             <%@include file="include/header.jsp" %>
 
             <%@include file="include/aside.jsp" %>
+
 
             <div class="content-wrapper">
                 <section class="content-header">
@@ -46,35 +48,36 @@
                         <small>Registrar Lector</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                        <li><a href="Libro.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
                         <li class="active">Registro</li>
-                        <li class="active">Registrar Lector</li>
+                        <li class="active">Registrar Lesctor</li>
                     </ol>
                 </section>
                 <section class="content">
                     <div class="row">
+                      <div class="col-md-12">
                         <div class="col-md-12">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addLector">
-                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Lector
-                            </button>
-                            <a href="Lector.jsp" class="btn btn-primary">
-                                <i class="glyphicon glyphicon-refresh"></i> Actualizar</a>
-                             <label class="<%=style%>"><%=mensaje%></label>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addLector"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Libro </button>
+                                <a href="Lector.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
+                                <label class="<%=style%>"><%=mensaje%></label>
                           <br>
                           <br>
-                          <br><br>
                         </div>
+                      </div>
                     </div>
                     <section class="content">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="box collapsed-box">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title"> Registro de Lector</h3>
+                                        <h3 class="box-title"> Registro de Lectores</h3>
                                         <div class="box-tools pull-right"></div>
                                     </div>
+
                                     <div class="">
+
                                         <div class="container-fluid">
+
                                             <div class="col-lg-12">
                                                 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                                                     <div class="table-responsive">
@@ -87,6 +90,7 @@
                                                             <th><center>Tipo</center></th>
                                                             <th><center>N° Documento</center></th>
                                                             <th><center>Estado</center></th>
+                                                            <th><center>ver</center></th>
                                                             <th><center>Acción</center></th>
                                                             </tr>
                                                             </thead>
@@ -106,11 +110,13 @@
                                                                     <td><%= cl.getEstado()%></td>
                                                                     <td align="center">
                                                                         <a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cl.getIdlector()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
+                                                                        </td>
+                                                                    <td>
+                                                                    <center>
                                                                         <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cl.getIdlector()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                                         <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
-                                                                    </td>
-                                                                    <td>
-                                                            <center>
+                                                                    
+                                                            
                                                                 <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -155,17 +161,19 @@
                                         </div>
                                     </div>
                                     <br>
+
                                 </div>
                             </div>
+
                         </div>
                     </section>
                 </section>
             </div>
-                                                            
+
             <%@include file="include/footer.jsp" %>
         </div>
-
-        <!-- Registro Lector-->
+        
+<!-- Registro Lector-->
 
         <div class="modal fade" id="addLector" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -188,7 +196,7 @@
                                             for (int x = 0; x < bp.size(); x++) {
                                                 persona ap = (persona) bp.get(x);
                                         %>
-                                        <option value="<%=ap.getIdpersona()%>"<%if (ap.getIdpersona().equals(l.getIdpersona())) {%>selected="selected"<%}%>><%=ap.getNombres()%> <%=ap.getApe_paterno()%> <%=ap.getApe_materno()%></option>
+                                        <option value="<%=ap.getIdpersona()%>"><%=ap.getNombres()%> <%=ap.getApe_paterno()%> <%=ap.getApe_materno()%></option>
                                         <%
                                             }
                                         %>
@@ -215,7 +223,7 @@
                                             for (int x = 0; x < bt.size(); x++) {
                                                 tipo at = (tipo) bt.get(x);
                                         %>
-                                        <option value="<%=at.getIdtipo()%>"<%if (at.getIdtipo().equals(l.getIdtipo())) {%>selected="selected"<%}%>><%=at.getNombre()%></option>
+                                        <option value="<%=at.getIdtipo()%>"><%=at.getNombre()%></option>
                                         <%
                                             }
                                         %>
@@ -234,7 +242,7 @@
                                             for (int x = 0; x < btu.size(); x++) {
                                                 turno atu = (turno) btu.get(x);
                                         %>
-                                        <option value="<%=atu.getIdturno()%>"<%if (atu.getIdturno().equals(l.getIdturno())) {%>selected="selected"<%}%>><%=atu.getTurno()%></option>
+                                        <option value="<%=atu.getIdturno()%>"><%=atu.getTurno()%></option>
                                         <%
                                             }
                                         %>   
@@ -254,7 +262,7 @@
                                             for (int x = 0; x < bpe.size(); x++) {
                                                 periodo ape = (periodo) bpe.get(x);
                                         %>
-                                        <option value="<%=ape.getIdperiodo()%>"<%if (ape.getIdperiodo().equals(l.getIdperiodo())) {%>selected="selected"<%}%>><%=ape.getPeriodo()%></option>
+                                        <option value="<%=ape.getIdperiodo()%>"><%=ape.getPeriodo()%></option>
                                         <%
                                             }
                                         %>
@@ -306,6 +314,8 @@
                                 </div>
                             </div>
                     
+                    
+                    </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
@@ -316,8 +326,9 @@
                 </div>
               </div>
             </div>
-        </div>
-        <!--  VER  LECTOR-->
+        
+                                    
+            <!--  VER  LECTOR-->
         <%
             int cont1 = 0;
             String idlec;
@@ -354,7 +365,7 @@
                                                                         <td colspan="3" align="center" bgcolor="#00FF99"><em><strong>DATOS LECTOR</strong></em></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td width="143"><img src="../NetBeansProjects/BibliotecaOfelia/BibliotecaOfelia/web/Recursos/img/avatar5.png" width="142" height="114" /></td>
+                                                                        <td width="143"><img src="Recursos/img/personas/SF-V.jpg" width="142" height="114" /></td>
                                                                         <td><%=cl.getIdpersona()%></td>
                                                                     </tr>
                                                                     <tr>
@@ -418,7 +429,7 @@
 
                                                                     </tr>
 
-
+ 
                                                                 </table>
                                                             </body>
                                                         </div>
@@ -437,9 +448,8 @@
                 </div>
             </div>
         </div>
-        <%}%>                                                             
-        
-        <!-- Actualizar Lector-->
+        <%}%>
+                <!-- Actualizar Lector-->
         <%        int cont2 = 0;
             String idlec2;
             ArrayList rcs = nl.Mostrar_LectorUpdate();
@@ -587,25 +597,21 @@
                                     </select>
                                 </div>
                             </div>
-
+                        
+                       </div>
+                    
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
                             </div>
-
-                        </form>                                     
-                    </div>
+                        </form>            
+                    
                 </div>
             </div>
         </div>
-     <%}%>  
-
-
-
-
-
-
-        <script>
+     <%}%> 
+     
+            <script>
             $(function () {
                 $("#tablaLector").DataTable({
                     "language": {
@@ -636,7 +642,10 @@
 
             });
         </script>
-
+                  
+     
+        
         <%@include file="include/recursos.jsp" %>
     </body>
 </html>
+
