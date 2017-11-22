@@ -20,56 +20,6 @@ public class usuario {
     String telefono;
     String foto;
 
-    public String getN_ubigeo() {
-        return n_ubigeo;
-    }
-
-    public void setN_ubigeo(String n_ubigeo) {
-        this.n_ubigeo = n_ubigeo;
-    }
-
-    public String getN_tipodoc() {
-        return n_tipodoc;
-    }
-
-    public void setN_tipodoc(String n_tipodoc) {
-        this.n_tipodoc = n_tipodoc;
-    }
-
-    public String getN_nro() {
-        return n_nro;
-    }
-
-    public void setN_nro(String n_nro) {
-        this.n_nro = n_nro;
-    }
-
-    public String getN_sexo() {
-        return n_sexo;
-    }
-
-    public void setN_sexo(String n_sexo) {
-        this.n_sexo = n_sexo;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-    
-    
-
     public usuario() {
     }
 
@@ -129,6 +79,54 @@ public class usuario {
         this.rol = rol;
     }
 
+    public String getN_ubigeo() {
+        return n_ubigeo;
+    }
+
+    public void setN_ubigeo(String n_ubigeo) {
+        this.n_ubigeo = n_ubigeo;
+    }
+
+    public String getN_tipodoc() {
+        return n_tipodoc;
+    }
+
+    public void setN_tipodoc(String n_tipodoc) {
+        this.n_tipodoc = n_tipodoc;
+    }
+
+    public String getN_nro() {
+        return n_nro;
+    }
+
+    public void setN_nro(String n_nro) {
+        this.n_nro = n_nro;
+    }
+
+    public String getN_sexo() {
+        return n_sexo;
+    }
+
+    public void setN_sexo(String n_sexo) {
+        this.n_sexo = n_sexo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public String getFoto() {
         return foto;
     }
@@ -137,8 +135,5 @@ public class usuario {
         this.foto = foto;
     }
 
-    
-    
-    
-    
+   
 }
