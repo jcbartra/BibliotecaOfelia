@@ -54,7 +54,7 @@ public class n_pais {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select idpais,nombre, cod from pais order by idpais";
+           qry="select idpais,nombre, cod from pais order by nombre";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
@@ -221,7 +221,7 @@ public class n_pais {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select idpais, nombre from pais";
+           qry="select idpais, nombre from pais order by nombre";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())

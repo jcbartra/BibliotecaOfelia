@@ -143,15 +143,12 @@ public class n_ubigeo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            
-           qry="insert into ubigeo (iddepartamento,nombre,cod,estado) "
-                   + "values (?,?,?,?)";
-           System.out.println("insert into ubigeo (nombre,cod,iddepartamento,estado) "
-                   + "values ('"+ub.getNombre()+"','"+ub.getCod()+"','"+ub.getIddepartamento()+"','"+ub.getIdpais()+"','"+ub.getEstado()+"')");
-           
+           qry=" insert into ubigeo (iddepartamento,nombre,cod,estado) "
+                   + " values (?,?,?,?)";
+ 
            PreparedStatement ps= conn.prepareStatement(qry);
-          
            ps.setString(++i,""+ub.getIddepartamento());
-            ps.setString(++i,""+ub.getNombre());
+           ps.setString(++i,""+ub.getNombre());
            ps.setString(++i,""+ub.getCod());
            ps.setString(++i,"1");
            ps.executeQuery();

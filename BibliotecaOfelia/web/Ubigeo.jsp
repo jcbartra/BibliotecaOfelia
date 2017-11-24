@@ -297,29 +297,20 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
-                                                                                    <label for="" class="col-sm-5 control-label ">* Pais</label>
-                                                                                    <div class="col-sm-5">
-                                                                                        <select name="idpais" id="iconos" class="form-control" title="Pais">
-                                                                                            <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
-                                                                                            <%
-                                                                                                npa.setPa(pa);
-                                                                                                ArrayList bp = npa.Buscar_pais();
-                                                                                                for (int x = 0;
-                                                                                                        x < bp.size();
-                                                                                                        x++) {
-                                                                                                    pais atp = (pais) bp.get(x);
-                                                                                            %>
-                                                                                            <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(pa.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
-                                                                                            <%
-                                                                                                }
-                                                                                            %>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="ubigeo" class="col-sm-5 control-label">* Departamento:</label>
+                                                                                    <label for="" class="col-sm-5 control-label">*Pais:</label>
                                                                                     <div class="col-sm-4">
-                                                                                        <input name="iddepartamento" type="text" autocomplete="off" class="form-control" value="<%=ubi.getIddepartamento()%>">
+                                                                                        <select onChange="recargar(this.value)" name="s1" id="s1">
+                                                                                            <option value='0'>Selecciona una opcion</option>
+                                                                                            <%for (int x = 0; x < contpa; x++) {%>
+                                                                                            <option value='<%=pais[x][1]%>'><%=pais[x][2]%></option>
+                                                                                            <%}%>
+                                                                                        </select>
+                                                                                    </div> 
+                                                                                        <br></br>
+                                                                                    <label for="" class="col-sm-5 control-label">*Departamento:</label>
+                                                                                    <div class="col-sm-4">
+                                                                                        <select name="lala" id="lala">
+                                                                                        </select>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
@@ -370,27 +361,27 @@
                             <form action="ControlUbigeo" method="post" class="form-horizontal">
                                 <input type="hidden" name="op" value="insertUbigeo">
                                 <div class="form-group">
-                                    <label for="" class="col-sm-3 control-label ">*Paiiiiiiis :<%=pa.getIdpais()%></label>
-                                    <div class="col-sm-5">
+                                    <label for="" class="col-sm-2 control-label" style="padding: 0px;">*Pais:</label>
+                                    <div class="col-sm-4">
                                         <select onChange="recargar(this.value)" name="s1" id="s1">
-                                            <option value='0'>Selecciona una opcioooooooon</option>
+                                            <option value='0'>Selecciona una opcion</option>
                                             <%for (int x = 0; x < contpa; x++) {%>
                                             <option value='<%=pais[x][1]%>'><%=pais[x][2]%></option>
                                             <%}%>
                                         </select>
                                     </div>    
-
-                                    <select id="destino">
-
-                                    </select>
-
+                                    <label for="" class="col-sm-2 control-label" style="padding: 0px;">*Departamento:</label>
+                                    <div class="col-sm-3">
+                                        <select name="iddepartamento" id="destino">
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
+                                    <label for="nombre" class="col-sm-2 control-label">*Distrito:</label>
                                     <div class="col-sm-4">
                                         <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
                                     </div>
-                                    <label for="codigo" class="col-sm-2 control-label">*Codigo:</label>
+                                    <label for="codigo" class="col-sm-2 control-label">*Ubigeo:</label>
                                     <div class="col-sm-4">
                                         <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
                                     </div>
@@ -403,172 +394,172 @@
                                 <div class="modal-footer">-->
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
                                 <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-                                        
-        <!--Registro de Pais-->
-        <div class="modal fade" id="addPais" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Pais</h4>
-                    </div>
-
-
-                    <div class="modal-body">
-                        <form action="ControlPais" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Pais">
-                            <div class="form-group">
-                                <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
-                                <div class="col-sm-4">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
-                                </div>
-                                <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
-                                <div class="col-sm-4">
-                                    <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--Registro de Departamento-->
-        <div class="modal fade" id="addDepartamento" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Departamento</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <form action="ControlDepartamento" method="post" class="form-horizontal">
-                            <input type="hidden" name="op" value="add_Departamento">
-                            <div class="form-group">
-                                <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
-                                <div class="col-sm-4">
-                                    <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del depa">
-                                </div>
-                                <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
-                                <div class="col-sm-4">
-                                    <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
-                                </div>
-                            </div>
-                            <div class="form-group">                                    
-                                <label for="" class="col-sm-5 control-label ">* Pais<%=pa.getIdpais()%></label>
-                                <div class="col-sm-5">
-                                    <select name="idpais" id="iconos" class="form-control" title="Pais">
-                                        <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
-                                        <%
-                                            for (int x = 0;x < lpa.size();x++) {
-                                                pais atp = (pais) lpa.get(x);
-                                        %>
-                                        <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(ub.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
-                                <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!--Registro de Pais-->
+            <div class="modal fade" id="addPais" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Pais</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <form action="ControlPais" method="post" class="form-horizontal">
+                                <input type="hidden" name="op" value="add_Pais">
+                                <div class="form-group">
+                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
+                                    <div class="col-sm-4">
+                                        <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Nombre del Ubigeo">
+                                    </div>
+                                    <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
+                                    <div class="col-sm-4">
+                                        <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                    <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Registro de Departamento-->
+            <div class="modal fade" id="addDepartamento" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Departamento</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <form action="ControlDepartamento" method="post" class="form-horizontal">
+                                <input type="hidden" name="op" value="add_Departamento">
+                                <div class="form-group">                                    
+                                    <label for="" class="col-sm-2 control-label ">* Pais:</label>
+                                    <div class="col-sm-4">
+                                        <select name="idpais" id="iconos" class="form-control" title="Pais">
+                                            <option value="" hidden="hidden"<%if (pa.getIdpais() == null) {%>selected="selected"<%}%>>Selecionar</option>
+                                            <%
+                                                for (int x = 0; x < lpa.size(); x++) {
+                                                    pais atp = (pais) lpa.get(x);
+                                            %>
+                                            <option value="<%=atp.getIdpais()%>"<%if (atp.getIdpais().equals(ub.getIdpais())) {%>selected="selected"<%}%>><%=atp.getNombre()%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+                                    </div>
+                                    <label for="nombre" class="col-sm-2 control-label">*Nombre:</label>
+                                    <div class="col-sm-4">
+                                        <input name="nombre" type="text" autocomplete="off" class="form-control" placeholder="Ingrese nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cod" class="col-sm-2 control-label">*Codigo:</label>
+                                    <div class="col-sm-4">
+                                        <input name="cod" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Codigo">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Registrar</button>
+                                    <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--Fin de Departamento-->                            
+
+            <%@include file="include/footer.jsp" %>                                 
         </div>
-        <!--Fin de Departamento-->                            
-                                   
-        <%@include file="include/footer.jsp" %>                                 
-    </div>
 
 
 
-    <script>
-        $(function () {
-            $("#tablaUbigeo").DataTable({
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Buscar:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        <script>
+            $(function () {
+                $("#tablaUbigeo").DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
                     }
-                }
+                });
             });
-        });
 
-    </script>
+        </script>
 
-    <script language="javascript">
-        function recargarPrimero() {
+        <script language="javascript">
+            function recargarPrimero() {
 
-            var id = document.getElementById("s1").value;
-            var xhttp;
-            if (id == "") {
-                document.getElementById("destino").innerHTML = "";
-                return;
-            }
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("destino").innerHTML = this.responseText;
+                var id = document.getElementById("s1").value;
+                var xhttp;
+                if (id == "") {
+                    document.getElementById("destino").innerHTML = "";
+                    return;
                 }
-            };
-            xhttp.open("GET", "procesardepartamento.jsp?id=" + id, true);
-            xhttp.send();
-        }
-        function recargar(id) {
-
-            var xhttp;
-            if (id == "") {
-                document.getElementById("destino").innerHTML = "";
-                return;
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("destino").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", "procesardepartamento.jsp?id=" + id, true);
+                xhttp.send();
             }
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("destino").innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", "procesardepartamento.jsp?id=" + id, true);
-            xhttp.send();
-        }
-    </script>
-    <%@include file="include/recursos.jsp" %>
+            function recargar(id) {
 
-</body>
+                var xhttp;
+                if (id == "") {
+                    document.getElementById("destino").innerHTML = "";
+                    return;
+                }
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("destino").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", "procesardepartamento.jsp?id=" + id, true);
+                xhttp.send();
+            }
+        </script>
+        <%@include file="include/recursos.jsp" %>
+
+    </body>
 
 </html>
 

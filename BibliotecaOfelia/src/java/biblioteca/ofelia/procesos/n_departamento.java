@@ -51,7 +51,7 @@ public class n_departamento {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select iddepartamento, nombre, cod, idpais from departamento";
+           qry="select iddepartamento, nombre, cod, idpais from departamento order by nombre";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
@@ -99,7 +99,7 @@ public class n_departamento {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select pais,iddepartamento, departamento from v_departamento where idpais=?";
+           qry="select pais,iddepartamento, departamento from v_departamento where idpais=? order by departamento";
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+id);
            ResultSet rs=ps.executeQuery();
@@ -233,7 +233,7 @@ public class n_departamento {
            int i=0;
            conn=tran.getConnection();
            conn.setAutoCommit(false);
-           qry="select iddepartamento, nombre, idpais  from departamento";
+           qry="select iddepartamento, nombre, idpais  from departamento order by nombre";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
@@ -325,7 +325,7 @@ public class n_departamento {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
             //System.out.println("select id,categoria, nro, nombre from vista_subcategoria where subid='"+id+"'");
-           qry="select iddepartamento, departamento, codigodepartamento from v_ubigeo where idpais=?";
+           qry="select iddepartamento, departamento, codigodepartamento from v_ubigeo where idpais=? order by departamento";
            PreparedStatement ps= conn.prepareStatement(qry);
            ps.setString(++i,""+id);
            ResultSet rs=ps.executeQuery();
