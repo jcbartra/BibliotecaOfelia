@@ -240,7 +240,7 @@
 
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                                <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Confirmar Devolución</h4>
+                                                                                <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Modificar Fecha Devolución</h4>
                                                                             </div>
                                                                             <form  action="ControlPrestamo" method="get">
                                                                                 <div class="modal-body">
@@ -269,7 +269,7 @@
 
                                                                                     <input type="hidden" name="op" value="act_prestamo">
                                                                                     <input type="hidden" name="idprest_detalle" value="<%=pdt.getIdprest_detalle()%>">
-                                                                                    <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Devolver</button>
+                                                                                    <button type="submit" class="btn btn-primary danger"><i class="fa fa-book" aria-hidden="true"></i> Modificar</button>
                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>  
 
                                                                                 </div>

@@ -24,6 +24,7 @@ public class lector {
     String estado_periodo;
     String estado;
     String ndoc;
+    String nombre;
 
     public lector() {
     }
@@ -138,6 +139,14 @@ public class lector {
 
     public void setNdoc(String ndoc) {
         this.ndoc = ndoc;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     

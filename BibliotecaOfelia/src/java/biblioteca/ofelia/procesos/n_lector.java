@@ -202,10 +202,9 @@ public class n_lector {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idlector,idpersona,idtipo,idturno,idperiodo,"
-                    + "nvl(nivel,'x') as nivel, nvl(grado,'x') as grado,"
-                    + "nvl(seccion,'x') as seccion, "
-                    + "nvl(condicion,'x') as condicion from lector";
+            qry = "select l.idlector,l.idpersona,p.nombres||' '|| p.ape_paterno||' '|| p.ape_materno as nombre,l.idtipo,l.idturno,"
+                    + "l.idperiodo,nvl(l.nivel,'x') as nivel, nvl(l.grado,'x') as grado,nvl(l.seccion,'x') as seccion,nvl(l.condicion,'x') as condicion "
+                    + "from lector l, persona p where l.idpersona=p.idpersona";
             System.out.println(qry);
             PreparedStatement ps = conn.prepareStatement(qry);
             ResultSet rs = ps.executeQuery();
@@ -213,6 +212,7 @@ public class n_lector {
                 lector le = new lector();
                 le.setIdlector(rs.getString("idlector"));
                 le.setIdpersona(rs.getString("idpersona"));
+                le.setNombre(rs.getString("nombre"));
                 le.setIdtipo(rs.getString("idtipo"));
                 le.setIdturno(rs.getString("idturno"));
                 le.setIdperiodo(rs.getString("idperiodo"));
@@ -259,7 +259,7 @@ public class n_lector {
             conn.setAutoCommit(false);
 
             qry = "update lector set idpersona=?, idtipo=?, idturno=?, idperiodo=?, nivel=?,grado=?,seccion=?,condicion=?  where idlector=?";
-            
+//            System.out.println("update lector set idpersona='"+l.getIdpersona()+"', idtipo='"+l.getIdtipo()+"', idturno='"+l.getIdturno()+"', idperiodo='"+l.getIdperiodo()+"', nivel='"+l.getNivel()+"',grado='"+l.getGrado()+"',seccion='"+l.getSeccion()+"',condicion='"+l.getCondicion()+"'  where idlector='"+l.getIdlector()+"'");
             PreparedStatement ls = conn.prepareStatement(qry);
             ls.setString(++i, "" + l.getIdpersona());
             ls.setString(++i, "" + l.getIdtipo());

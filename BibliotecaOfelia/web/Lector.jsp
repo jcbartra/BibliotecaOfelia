@@ -33,7 +33,7 @@
             font-size: 30px;
         }
     </style>
-<body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
 
             <%@include file="include/header.jsp" %>
@@ -48,22 +48,22 @@
                         <small>Registrar Lector</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="Libro.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
+                        <li><a href="Inicio.jsp"><i class="glyphicon glyphicon-home"></i> Inicio</a></li>
                         <li class="active">Registro</li>
                         <li class="active">Registrar Lector</li>
                     </ol>
                 </section>
                 <section class="content">
                     <div class="row">
-                      <div class="col-md-12">
                         <div class="col-md-12">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#addLector"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Libro </button>
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addLector"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Registrar Lector </button>
                                 <a href="Lector.jsp" class="btn btn-primary"> <i class="glyphicon glyphicon-refresh"></i> Actualizar</a> &nbsp;&nbsp;&nbsp;
                                 <label class="<%=style%>"><%=mensaje%></label>
-                          <br>
-                          <br>
+                                <br>
+                                <br>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <section class="content">
                         <div class="row">
@@ -83,8 +83,8 @@
                                                     <div class="table-responsive">
                                                         <table id="tablaLector" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                                                             <thead>
-                                                           <tr role="row">
-                                                            <th><center>N°</center></th>
+                                                                <tr role="row">
+                                                                    <th><center>N°</center></th>
                                                             <th><center>Persona</center></th>
                                                             <th><center>Genero</center></th>
                                                             <th><center>Tipo</center></th>
@@ -110,13 +110,13 @@
                                                                     <td><%= cl.getEstado()%></td>
                                                                     <td align="center">
                                                                         <a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cl.getIdlector()%>"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> </a>
-                                                                        </td>
+                                                                    </td>
                                                                     <td>
-                                                                    <center>
-                                                                        <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cl.getIdlector()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                                        <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
-                                                                    
-                                                            
+                                                            <center>
+                                                                <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=cl.getIdlector()%>"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+
+
                                                                 <div class="modal fade modal-banco-first" id="eliminar<%=cont%>">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -172,8 +172,8 @@
 
             <%@include file="include/footer.jsp" %>
         </div>
-        
-<!-- Registro Lector-->
+
+        <!-- Registro Lector-->
 
         <div class="modal fade" id="addLector" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -187,9 +187,9 @@
                             <input type="hidden" name="op" value="add_Lector">
                             <div class="form-group">
                                 <label for="persona" class="col-sm-2 control-label">*Persona: </label>
-                                <div class="col-sm-5">
-                                    <select name="idpersona" id="persona" class="form-control" title="Persona">
-                                        <option value="" hidden="hidden"selected="selected" >Seleccionar</option>
+                                <div class="btn-group bootstrap-select col-sm-4">
+                                    <select name="idpersona" id="persona" class="selectpicker form-control" data-live-search="true" tabindex="-98" title="Autor">
+                                        <option value="0" hidden="hidden">Seleccione</option>
                                         <%
                                             np.setP(p);
                                             ArrayList bp = np.Buscar_Persona_Lector();
@@ -203,13 +203,13 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="nota" class="col-sm-2"></label>
-                                    <div class="col-sm-5" color="red">
-                                        <h6>-Nota: En este campo solo se muestran las personas que aun no han sido registradas como lectores. </h6>
-                                    
-                                    </div>
+                                <div class="col-sm-5" color="red">
+                                    <h6>-Nota: En este campo solo se muestran las personas que aun no han sido registradas como lectores. </h6>
+
+                                </div>
                             </div>                                                                
 
                             <div class="form-group">
@@ -313,8 +313,8 @@
                                     </select>
                                 </div>
                             </div>
-                    
-                    
+
+
                     </div>
 
                     <div class="modal-footer">
@@ -324,11 +324,11 @@
 
                     </form>
                 </div>
-              </div>
             </div>
-        
-                                    
-            <!--  VER  LECTOR-->
+        </div>
+
+
+        <!--  VER  LECTOR-->
         <%
             int cont1 = 0;
             String idlec;
@@ -429,7 +429,7 @@
 
                                                                     </tr>
 
- 
+
                                                                 </table>
                                                             </body>
                                                         </div>
@@ -449,7 +449,7 @@
             </div>
         </div>
         <%}%>
-                <!-- Actualizar Lector-->
+        <!-- Actualizar Lector-->
         <%        int cont2 = 0;
             String idlec2;
             ArrayList rcs = nl.Mostrar_LectorUpdate();
@@ -474,27 +474,18 @@
                             <input type="hidden" name="idlector" value="<%=idlec2%>"> 
                             <div class="form-group">
                                 <label for="persona" class="col-sm-2 control-label">*Persona: </label>
-                                <div class="col-sm-5">                                    
-                                    <select name="idpersona" id="persona" class="form-control" title="Persona">
-                                        <option value="" hidden="hidden"<%if (p.getIdpersona() == null) {%>selected="selected"<% } %> >Seleccionar</option>
-                                        <%
-                                            np.setP(p);
-                                            for (int x = 0;
-                                                    x < bp.size();
-                                                    x++) {
-                                                persona ap = (persona) bp.get(x);
-                                        %>
-                                        <option value="<%=ap.getIdpersona()%>"<%if (ap.getIdpersona().equals(cl2.getIdpersona())) {%>selected="selected"<%}%>><%=ap.getNombres()%> <%=ap.getApe_paterno()%> <%=ap.getApe_materno()%> </option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
+                                <div class="col-sm-5">
+                                    <input type="hidden" name="idpersona" id="persona" value="<%=cl2.getIdpersona()%>">
+                                    <input type="text" name="persona" id="persona" value="<%=cl2.getNombre()%>">
+                                    
                                 </div>
                             </div>                                    
                             <div class="form-group">
                                 <label for="tipo" class="col-sm-2 control-label">*Tipo: </label>
                                 <div class="col-sm-5">
+
                                     <select name="idtipo" id="tipo" class="form-control" title="tipo">
+
                                         <option value="" hidden="hidden" <%if (t.getIdtipo() == null) {%>selected="selected"<% } %> >Seleccionar</option>
                                         <%
                                             nt.setT(t);
@@ -510,7 +501,7 @@
                                     </select>
                                 </div>
                             </div>                         
-                                   
+
                             <div class="form-group">
                                 <label for="turno" class="col-sm-2 control-label">*Turno </label>
                                 <div class="col-sm-5">
@@ -530,7 +521,7 @@
                                     </select>
                                 </div>
                             </div> 
-                                  
+
                             <div class="form-group">
                                 <label for="periodo" class="col-sm-2 control-label">*Periodo </label>
                                 <div class="col-sm-5">
@@ -550,7 +541,7 @@
                                     </select>
                                 </div>
                             </div>        
-       
+
                             <div class="form-group">
 
                                 <label for="nivel" class="col-sm-2 control-label">*Nivel </label>
@@ -597,21 +588,21 @@
                                     </select>
                                 </div>
                             </div>
-                        
-                       </div>
-                    
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
-                                <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
-                            </div>
-                        </form>            
-                    
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i> Actualizar</button>
+                        <a class="btn btn-default" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> Cerrar</a>
+                    </div>
+                    </form>            
+
                 </div>
             </div>
         </div>
-     <%}%> 
-     
-            <script>
+        <%}%> 
+
+        <script>
             $(function () {
                 $("#tablaLector").DataTable({
                     "language": {
@@ -642,9 +633,9 @@
 
             });
         </script>
-                  
-     
-        
+
+
+
         <%@include file="include/recursos.jsp" %>
     </body>
 </html>
