@@ -171,7 +171,7 @@
                                                                 <td><center><a class="btn btn-default btn-xs" data-toggle="modal" data-target="#ver<%=cont%>" ><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i></a></center></td>                                                 
                                                         <td>
                                                         <center>
-                                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=ubi.getIdubigeo()%>" ><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#editar<%=ubi.getIdubigeo()%>" ><i class="fa fa-pencil" aria-hidden="true" onclick="recargarini<%=ubi.getIdubigeo()%>()"></i> </a>
                                                             <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#eliminar<%=cont%>" role="button"><i class="fa fa-trash" aria-hidden="true"></i> </a>
                                                             <!---------------------------------------------------------VER PAIS----------------------->
 
@@ -288,28 +288,29 @@
                                                                                 <div class="form-group">
                                                                                     <label for="ubigeo" class="col-sm-5 control-label">* Nombre:</label>
                                                                                     <div class="col-sm-4">
-                                                                                        <input name="nombre" type="text" autocomplete="off" class="form-control" value="<%=ubi.getNombre()%>">
+                                                                                        <input name="nombre" type="text" autocomplete="off" class="form-control" value="<%=ubig.getNombre()%>">
                                                                                     </div></div>
                                                                                 <div class="form-group">
                                                                                     <label for="ubigeo" class="col-sm-5 control-label">* Codigo:</label>
                                                                                     <div class="col-sm-4">
-                                                                                        <input name="codigo" type="text" autocomplete="off" class="form-control" value="<%=ubi.getCod()%>">
+                                                                                        <input name="codigo" type="text" autocomplete="off" class="form-control" value="<%=ubig.getCod()%>">
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <label for="" class="col-sm-5 control-label">*Pais:</label>
                                                                                     <div class="col-sm-4">
-                                                                                        <select onChange="recargar(this.value)" name="s1" id="s1">
+                                                                                        <select onChange="recargar<%=idubigeo%>()" name="s1" id="s1<%=idubigeo%>">
                                                                                             <option value='0'>Selecciona una opcion</option>
-                                                                                            <%for (int x = 0; x < contpa; x++) {%>
-                                                                                            <option value='<%=pais[x][1]%>'><%=pais[x][2]%></option>
+                                                                                            <%for (int r = 0; r < contpa; r++) {%>
+                                                                                            <option value='<%=pais[r][1]%>'<%if(ubig.getPais().equals(pais[r][1])){%> selected <%}%>><%=pais[r][2]%></option>
                                                                                             <%}%>
                                                                                         </select>
                                                                                     </div> 
                                                                                         <br></br>
                                                                                     <label for="" class="col-sm-5 control-label">*Departamento:</label>
                                                                                     <div class="col-sm-4">
-                                                                                        <select name="lala" id="lala">
+                                                                                        <input type="hidden" id="sub<%=idubigeo%>" value="<%=ubig.getDepartamento()%>">
+                                                                                        <select name="destino" id="destino<%=idubigeo%>">
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -322,6 +323,42 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                                                        
+                                                           <script language="javascript">
+                                                                function recargar<%=idubigeo%>() {
+                                                                    var id=document.getElementById("s1<%=idubigeo%>").value;
+                                                                    var xhttp;
+                                                                    if (id == "") {
+                                                                        document.getElementById("destino<%=idubigeo%>").innerHTML = "";
+                                                                        return;
+                                                                    }
+                                                                    xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function () {
+                                                                        document.getElementById("destino<%=idubigeo%>").innerHTML = this.responseText;
+                                                                    };
+                                                                    xhttp.open("GET", "procesardepartamento.jsp?id=" + id, true);
+                                                                    xhttp.send();
+                                                                }
+                                                                
+                                                                function recargarini<%=idubigeo%>() {
+
+                                                                    var id = document.getElementById("s1<%=idubigeo%>").value;
+                                                                    var sub = document.getElementById("sub<%=idubigeo%>").value;
+                                                                    var xhttp;
+                                                                    if (id == "") {
+                                                                        document.getElementById("destino<%=idubigeo%>").innerHTML = "";
+                                                                        return;
+                                                                    }
+                                                                    xhttp = new XMLHttpRequest();
+                                                                    xhttp.onreadystatechange = function () {
+                                                                        document.getElementById("destino<%=idubigeo%>").innerHTML = this.responseText;
+                                                                    };
+                                                                    xhttp.open("GET", "procesardepartamento.jsp?id=" + id+"&sub="+sub, true);
+                                                                    xhttp.send();
+                                                                }
+                                                                
+                                                            </script>                             
+                                                                                        
                                                             <%}%>
                                                         </center>
                                                         </td>

@@ -9,6 +9,7 @@
 
 <%
     String id=(String) request.getParameter("id");
+    String sub=(String) request.getParameter("sub");if(sub==null){sub="x";}
     
     departamento de=new departamento();
         n_departamento nde=new n_departamento();
@@ -20,6 +21,6 @@
    System.out.println(depa.getNombre());
 %>
     
-        <option value='<%=depa.getIddepartamento()%>'><%=depa.getNombre()%></option>
+<option value='<%=depa.getIddepartamento()%>' <%if(depa.getIddepartamento().equals(sub)){%>selected<%}%>><%=depa.getNombre()%></option>
     
 <%}%>

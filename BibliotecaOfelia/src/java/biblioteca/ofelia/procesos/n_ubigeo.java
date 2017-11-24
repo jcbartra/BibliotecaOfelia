@@ -92,7 +92,8 @@ public class n_ubigeo {
            conn=tran.getConnection();
            conn.setAutoCommit(false);
            //qry="select idubigeo, ubigeo, codigo, departamento, pais from v_ubigeo";
-           qry="select ub.idubigeo, ub.nombre as ubigeo, ub.cod as codigo, de.nombre as departamento, pa.nombre as pais from departamento de, ubigeo ub, pais pa where ub.iddepartamento=de.iddepartamento and de.idpais=pa.idpais";
+           qry="select ub.idubigeo, ub.nombre as ubigeo, ub.cod as codigo, de.nombre as departamento,de.iddepartamento,"
+                   + " pa.nombre as pais, pa.idpais as idpais from departamento de, ubigeo ub, pais pa where ub.iddepartamento=de.iddepartamento and de.idpais=pa.idpais";
            PreparedStatement ps= conn.prepareStatement(qry);
            ResultSet rs=ps.executeQuery();
            while(rs.next())
@@ -102,7 +103,9 @@ public class n_ubigeo {
                        ub.setNombre(rs.getString("ubigeo"));
                        ub.setCod(rs.getString("codigo"));
                        ub.setIddepartamento(rs.getString("departamento"));
+                       ub.setDepartamento(rs.getString("iddepartamento"));
                        ub.setIdpais(rs.getString("pais"));
+                       ub.setPais(rs.getString("idpais"));
                        consulta.add(ub);
 
                    }
