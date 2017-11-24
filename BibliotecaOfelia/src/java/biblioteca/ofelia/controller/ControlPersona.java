@@ -87,9 +87,9 @@ public class ControlPersona extends HttpServlet {
                             valor = item.getString();
                         } else {
                             /*creamos un nombre, para que no se sobbre-escriban archivos*/
-                            valor = parametros.get("nro_doc") + item.getName();
+                            valor = parametros.get("nro_doc") + ".jpg";
                             /*cual sera la ruta al archivo en el servidor*/
-                            File archivo_server = new File("D:\\CICLO IV\\Documents\\Pretamos de Libros\\BibliotecaOfelia\\web\\Recursos\\img\\personas\\" + valor);
+                            File archivo_server = new File("C:\\Program Files (x86)\\Apache Software Foundation\\Tomcat 8.5\\webapps\\BibliotecaOfelia\\Recursos\\img\\personas\\" + valor);
                             /*y lo escribimos en el servido*/
                             item.write(archivo_server);
                         }
@@ -108,7 +108,7 @@ public class ControlPersona extends HttpServlet {
                     String nro_do = parametros.get("nro_doc");
                     String direccio = parametros.get("direccion");
                     String telefon = parametros.get("telefono");
-                    String fot = "Recursos/img/personas/"+parametros.get("foto");
+                    String fot = "Recursos/img/personas/"+parametros.get("nro_doc")+".jpg";
 
                     p.setIdtipodoc(idtipodo);
                     p.setIdubigeo(idubige);
