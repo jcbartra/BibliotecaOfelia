@@ -223,8 +223,8 @@
 
                             <div class="form-group">
                                 <label for="Persona" class="col-sm-2 control-label">*Persona: </label>
-                                <div class="col-sm-5">
-                                    <select name="persona" id="persona" class="form-control" title="persona">
+                                <div class="btn-group bootstrap-select col-sm-4">
+                                    <select name="persona" id="persona" class="selectpicker form-control" data-live-search="true" tabindex="-98" title="Autor">
                                         <option value="" hidden="" <%if (p.getIdpersona() == null) {%>selected="selected"<%}%>>Selecionar...</option>
                                         <%
                                             np.setP(p);
@@ -240,6 +240,7 @@
                                         %>
                                     </select>
                                 </div>
+                                
                                 <div class="col-sm-2">
                                     <span class="" id="iconoBox" with="20px"></span>
                                 </div>
@@ -519,6 +520,23 @@
                 });
 
             });
+            
+            function recargarPersona(id) {
+
+                var xhttp;
+                if (id == "") {
+                    document.getElementById("destino").innerHTML = "";
+                    return;
+                }
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("destino").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", "procesos/BusquedaP.jsp?id=" + id, true);
+                xhttp.send();
+            }
         </script>
         
         
