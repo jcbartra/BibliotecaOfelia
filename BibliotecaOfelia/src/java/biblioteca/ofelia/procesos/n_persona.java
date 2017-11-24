@@ -357,13 +357,14 @@ public class n_persona {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idpersona, nombre, nro_doc, foto, tipo from vista_lector where nro_doc=? and estado='1'";
+            qry = "select idpersona,idlector, nombre, nro_doc, foto, tipo from vista_lector where nro_doc=? and estado='1'";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, ""+p.getNro_doc());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
 
                 p.setIdpersona(rs.getString("idpersona"));
+                p.setIdlector(rs.getString("idlector"));
                 p.setNombres(rs.getString("nombre"));
                 p.setNro_doc(rs.getString("nro_doc"));
                 p.setFoto(rs.getString("foto"));
@@ -399,7 +400,7 @@ public class n_persona {
             int i = 0;
             conn = tran.getConnection();
             conn.setAutoCommit(false);
-            qry = "select idpersona, nombre, nro_doc, foto, tipo from vista_lector "
+            qry = "select idpersona,idlector, nombre, nro_doc, foto, tipo from vista_lector "
                     + "where nombres like ? and ape_paterno like ? and ape_materno like ? and estado='1'";
             PreparedStatement ps = conn.prepareStatement(qry);
             ps.setString(++i, ""+p.getNombres()+"%");
@@ -409,6 +410,7 @@ public class n_persona {
             if (rs.next()) {
 
                 p.setIdpersona(rs.getString("idpersona"));
+                p.setIdlector(rs.getString("idlector"));
                 p.setNombres(rs.getString("nombre"));
                 p.setNro_doc(rs.getString("nro_doc"));
                 p.setFoto(rs.getString("foto"));

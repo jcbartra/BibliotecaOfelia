@@ -31,7 +31,7 @@
         <div class="col-sm-12" align="center"> 
             <div class="col-sm-4">
                 <img class="img-bordered" src="<%=p.getFoto()%>" width="63" height="63" />
-                <input type="hidden" name="persona" id="persona" value="<%=p.getIdpersona()%>">
+                <input type="hidden" name="persona" id="persona" value="<%=p.getIdlector()%>">
             </div>
             
             <div class="col-sm-8">

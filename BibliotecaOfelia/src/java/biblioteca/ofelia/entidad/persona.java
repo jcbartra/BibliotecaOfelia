@@ -11,6 +11,7 @@ package biblioteca.ofelia.entidad;
  */
 public class persona {
     String idpersona;
+    String idlector;
     String idtipodoc;
     String idubigeo;
     String nombres;
@@ -138,6 +139,14 @@ public class persona {
 
     public void setTipo_lector(String tipo_lector) {
         this.tipo_lector = tipo_lector;
+    }
+
+    public String getIdlector() {
+        return idlector;
+    }
+
+    public void setIdlector(String idlector) {
+        this.idlector = idlector;
     }
     
 
